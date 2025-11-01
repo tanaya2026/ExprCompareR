@@ -1,0 +1,14 @@
+citHeader("To cite ExprCompareR in publications use:")
+
+citEntry(
+  entry = "Unpublished",
+  title = "ExprCompareR: Explore and quantify the relationship between RNA-seq and protein expression across tissues and conditions.",
+  author = "Tanaya Datar",
+  note = "Unpublished",
+  year = "2025",
+
+  textVersion = paste(
+    "Datar, T. (2025) ExprCompareR:Explore and quantify the relationship between RNA-seq and protein expression across tissues and conditions.
+     Unpublished. URL https://github.com/tanaya2026/ExprCompareR."
+  )
+)
