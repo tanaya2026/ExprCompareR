@@ -1,11 +1,17 @@
 Package: ExprCompareR
-Type: Package
-Title: What the Package Does (Title Case)
+Title: Explore and quantify the relationship between RNA-seq and protein expression across tissues and conditions
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: 
+    person("Tanaya", "Datar", , "tanaya.datar@mail.utoronto.ca", role = c("aut", "cre"))
+Description: ExprCompareR is a R package that integrates RNA-seq and protein-expression data across human tissues to enable statistical comparison and visualization of transcript-protein relationships. Currently, if a researcher is interested in investigating post-transcriptional effects, they must manually extract RNA-seq expression data and protein-expression data from available databases for the genes and tissues of interest. After data retrieval, they also need to perform additional steps, like data filtering, normalization, computing statistical correlations between RNA-seq and protein-expression data and writing custom plotting functions to visualize these results, before any meaningful comparisons can be made. This process is often time consuming and cumbersome, and hence there is a need for improvement. \nExprCompareR aims to streamline and automate this process, so that researchers can quickly retrieve transcriptomic and proteomic expression data from public repositories, compute correlations, and generate visualizations to interpret transcript and protein relationships in various tissues.\n Additionally, our package has additoonal functionalities, like detecting outlier genes i.e. genes which show large deltas between their RNA and protein expression and comparing protein expression changes for specific genes between diseased and healthy samples.
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: 
+    dplyr,
+    ggplot2,
+    gtexr,
+    HPAanalyze,
+    purrr,
+    tidyr
