@@ -10,7 +10,8 @@ detect_outliers(input_tissue)
 \arguments{
 \item{input_tissue}{Character String specifying the tissue of interest to analyze.
 The name must be present in the given list of tissues:
-\code{c("kidney", "lung", "spleen", "ovary", "testis", "breast", "adrenal gland", "cerebellum")}}
+Valid tissue names are listed in \code{names(tissue_map)}.
+Any name not in this list will issue a warning.}
 }
 \value{
 Returns an object of class list with two components:
