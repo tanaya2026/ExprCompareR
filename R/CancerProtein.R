@@ -50,7 +50,8 @@ utils::globalVariables(c(
 
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 #'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” BMC
+#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'https://doi.org/10.1186/s12859-019-3059-z
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
