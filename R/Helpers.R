@@ -41,24 +41,24 @@
 #'}
 #'
 #' @references
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
-#'Journal of Open Source So ware, 10(109), 8249. ISSN
-#'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
+#'
+#'Lonsdale, J., Thomas, J., Salvatore, M. et al.
+#'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
+#'https://doi.org/10.1038/ng.2653
+#'
+#'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
+#'Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
+#'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 #'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
 #'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Lonsdale, J., Thomas, J., Salvatore, M. et al.
-#'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
-#'https://doi.org/10.1038/ng.2653
-#'
-#'
-#'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
-#'Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
-#'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Journal of Open Source So ware, 10(109), 8249. ISSN
+#'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'@import HPAanalyze
 #'@import gtexr
@@ -124,14 +124,14 @@ get_gtex_gencode_ids <- function(gene_symbols) {
 #'
 #' @references
 #'
+#'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
+#'Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
+#'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
+#'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 #'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
 #'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
-#'
-#'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
-#'Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
-#'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 
 protein_expr_values <- function(protein_expression){
 
@@ -176,7 +176,7 @@ protein_expr_values <- function(protein_expression){
 #'If a tissue cannot be converted, it returns "Unknown" and issues a warning.
 #'
 #'@param tissues Character vector of HPA tissue names.
-#'Valid tissue names are listed in \code{names(tissue_map)}.
+#'Valid tissue names are listed in \code{tissue_map$protein_tissue}.
 #'Any name not in this list will return \code{NA} and issue a warning.
 #'
 #'@return A character vector of GTEx tissue names.
@@ -201,16 +201,6 @@ protein_expr_values <- function(protein_expression){
 #'
 #'@references
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
-#'Journal of Open Source So ware, 10(109), 8249. ISSN
-#'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
-#'
-#'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
-#'https://doi.org/10.1186/s12859-019-3059-z
-#'
 #'Lonsdale, J., Thomas, J., Salvatore, M. et al.
 #'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
 #'https://doi.org/10.1038/ng.2653
@@ -218,6 +208,16 @@ protein_expr_values <- function(protein_expression){
 #'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
 #'Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
 #'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
+#'
+#'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
+#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'https://doi.org/10.1186/s12859-019-3059-z
+#'
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Journal of Open Source So ware, 10(109), 8249. ISSN
+#'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 
 
 convert_to_gtex <- function(tissues) {
@@ -234,6 +234,9 @@ convert_to_gtex <- function(tissues) {
   return(unname(converted))
 }
 
+#'
+#'
+#'
 
 
 # [END]

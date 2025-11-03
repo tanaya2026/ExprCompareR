@@ -5,10 +5,10 @@
 \alias{tissue_map}
 \title{Tissue mapping: HPAanalyze to gtexr}
 \format{
-A named character vector of length 37.
+A tibble with 33 rows and 2 variables:
 \describe{
-\item{names}{HPAanalyze tissue names (character)}
-\item{values}{Corresponding GTEx tissue names (character)}
+\item{protein_tissue}{Tissue name used in HPAanalyze (character).}
+\item{RNA_tissue}{Corresponding tissue name used in GTEx (character).}
 }
 }
 \source{
@@ -20,7 +20,7 @@ and GTEx Portal (\url{https://gtexportal.org/}) via gtexr
 tissue_map
 }
 \description{
-A named character vector that maps tissue names from the Human Protein Atlas (HPAanalyze)
+A tibble that maps tissue names from the Human Protein Atlas (HPAanalyze)
 to the corresponding tissue names used in the GTEx portal via the gtexr package.
 This is useful for converting HPA tissue names to GTEx-compatible names
 when querying RNA expression data.
@@ -29,23 +29,13 @@ when querying RNA expression data.
 data(tissue_map)
 length(tissue_map)
 head(tissue_map)
-names(tissue_map)
-unname(tissue_map)
+tissue_map$protein_tissue
+tissue_map$RNA_tissue
 \dontrun{
 tissue_map
 }
 }
 \references{
-Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
-Journal of Open Source So ware, 10(109), 8249. ISSN
-2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
-
-Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
-https://doi.org/10.1186/s12859-019-3059-z
-
 Lonsdale, J., Thomas, J., Salvatore, M. et al.
 The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
 https://doi.org/10.1038/ng.2653
@@ -53,5 +43,15 @@ https://doi.org/10.1038/ng.2653
 Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
 Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
 Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
+
+Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
+“HPAanalyze: an R package that facilitates the retrieval and analysis of the
+Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+https://doi.org/10.1186/s12859-019-3059-z
+
+Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
+convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+Journal of Open Source So ware, 10(109), 8249. ISSN
+2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 }
 \keyword{datasets}
