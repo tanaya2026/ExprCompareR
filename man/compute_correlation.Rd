@@ -2,14 +2,89 @@
 % Please edit documentation in R/Correlation.R
 \name{compute_correlation}
 \alias{compute_correlation}
-\title{Converts protein expression data queried from HPAanalyze, to numeric values}
+\title{Compute Correlation for Genes or Tissues}
 \usage{
 compute_correlation(gene_NAMES = NULL, tissue_NAMES = NULL)
 }
+\arguments{
+\item{gene_NAMES}{A character vector of gene names. Optional; if provided, must contain at least five elements.
+Valid gene symbols for the \code{gene_NAMES} argument can be accessed from
+\code{gene_symbols_list}.}
+
+\item{tissue_NAMES}{A character vector of tissue names. Optional; if provided, must contain at least five elements.
+Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
+\code{tissue_map$protein_tissue}}
+}
+\value{
+A plot object:
+\itemize{
+\item If \code{gene_NAMES} is provided and \code{tissue_NAMES} is NULL, returns the \code{per_gene_plot} from \code{correlation_genes_only()}.
+\item If \code{tissue_NAMES} is provided and \code{gene_NAMES} is NULL, returns the \code{per_tissue_plot} from \code{correlation_tissues_only()}.
+\item Returns \code{NA} and a warning if input criteria are not met.
+}
+}
 \description{
-A function that converts the protein expression data of a given gene/tissue
-from HPAanalyze, into numeric values. HPAnalyze returns protein expression as
-strings, for e.g.("low", "medium", etc). In order to determine the pearson
-correlation between the RNA expression and protein expression, we convert these
-strings into a numeric value.
+This function computes correlations either for a set of genes or a set of tissues.
+It requires at least five entries in the provided list (\code{gene_NAMES} or \code{tissue_NAMES})
+to perform the computation. Depending on the input, it calls either
+\code{correlation_genes_only()} or \code{correlation_tissues_only()} internally.
+}
+\details{
+\itemize{
+\item This function utilizes data/tissue_list_RNA.rda and data/tissue_list_protein.rda
+}
+
+The function validates the input before computing correlations:
+\itemize{
+\item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it returns \code{NA} with a warning.
+\item If both lists are provided but have fewer than 5 elements each, it returns \code{NA} with a warning.
+\item If only one list is provided, it must contain at least 5 elements.
+}
+
+This function is a wrapper that decides which correlation computation function to use
+based on the input provided.
+}
+\examples{
+\dontrun{
+# Example 1: Using gene names only
+
+gene_list <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+output<- compute_correlation(gene_NAMES = gene_list)
+output$per_gene_plot
+
+# Example 2: Using tissue names only
+
+tissue_list = c("lung", "spleen", "liver", "ovary", "testis")
+output<- compute_correlation(tissue_NAMES = tissue_list)
+output$per_tissue_plot
+
+
+# Example 3: Invalid input (too few elements)
+compute_correlation(gene_NAMES = c("BRCA1", "TP53"))
+}
+
+}
+\references{
+Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
+“HPAanalyze: an R package that facilitates the retrieval and analysis of the
+Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+https://doi.org/10.1186/s12859-019-3059-z
+
+Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
+convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+Journal of Open Source So ware, 10(109), 8249. ISSN
+2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
+
+Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
+
+Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
+https://dplyr.tidyverse.org.
+
+Wickham H, Henry L (2025). purrr: Functional Programming Tools.
+R package version 1.1.0, https://purrr.tidyverse.org/.
+
+Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data.
+R package version 1.3.1, https://tidyr.tidyverse.org.
 }
