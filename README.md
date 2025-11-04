@@ -32,6 +32,30 @@ novel and valuable resource for bioinformatics researchers,
 computational scientists, and students interested in tissue-specific
 expression, post-transcriptional regulation, or biomarker discovery.
 
+ExprCompareR analyzes two types of biological data: RNA-expression data
+and protein expression data. This data is queried from established
+databases, namely the Genotype-Tissue Expression Project (GTEx)(Lonsdale
+et al., 2013) and Human Protein Atlas (HPA)(Thul et al., 2018).
+
+The RNA-expression data from GTEx has been derived from GTEx healthy
+donors and measures the amount of mRNA produced by each gene in various
+tissues. This data is available in Transcripts Per Million (TPM), and
+organized in tabular form, where the rows depict the gene expression,
+while the columns are tissue type, gene name, gene expression, etc.
+(Lonsdale et al., 2013)
+
+The protein-expression data from Human Protein Atlas, has been derived
+from HPA healthy and diseases tissue samples, and measures the abundance
+of proteins in various tissues, and is organized in a tabular form,
+having columns such as gene, tissue, level, reliability etc. This has
+been measured by techniques like immunohistochemistry and mass
+spectrometry (Thul et al., 2018).
+
+As the transcriptomic data and proteomic data come from different
+sources and different individuals, technical and biological variation
+can cause limitations in our package. However, our package transforms
+and normalizes data to achieve a fair comparison.
+
 The targeted audience for `ExprCompareR` are bioinformatics researchers,
 computational scientists or even students who are interested in
 exploring the relationship between gene expression at RNA and protein
