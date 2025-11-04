@@ -1,5 +1,5 @@
 Package: ExprCompareR
-Title: Explore and quantify the relationship between RNA-seq and protein expression across tissues and conditions
+Title: Statistical comparison and visualization of transcript-protein relationships
 Version: 0.1.0
 Authors@R: 
     person("Tanaya", "Datar", , "tanaya.datar@mail.utoronto.ca", role = c("aut", "cre"))
@@ -14,7 +14,14 @@ Imports:
     gtexr,
     HPAanalyze,
     purrr,
-    tidyr
+    tidyr,
+    tibble
 Depends: 
     R (>= 3.5)
 LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
