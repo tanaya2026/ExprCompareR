@@ -31,11 +31,11 @@ tissue_list_RNA
 }
 \references{
 Lonsdale, J., Thomas, J., Salvatore, M. et al.
-The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
+The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580-585 (2013).
 https://doi.org/10.1038/ng.2653
 
-Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 Journal of Open Source So ware, 10(109), 8249. ISSN
 2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 }

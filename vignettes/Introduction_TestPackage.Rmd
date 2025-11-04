@@ -53,10 +53,18 @@ Summary table of key functions:
 
 | Function                      | Description                                                                                                          |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `compute_correlation()`       | Calculates the Spearman correlation between RNA and protein expression for a user-defined list of genes **or** tissues and generates correlation plots. |
+| `compute_correlation()`       | Calculates the Spearman correlation between RNA and protein expression for a user-defined list of genes **or** tissues and generates correlation plots. `compute_correlation` acts as a wrapper function and depending on the input, it calls either `correlation_genes_only()` or `correlation_tissues_only()` internally. |
 | `correlation_genes_tissues()` | Calculates the Spearman correlation between RNA and protein expression for a user-defined list of genes **and** tissues and generates correlation plots.|
 | `detect_outliers()`           | Identifies genes that exhibit significant discrepancies between RNA and protein expression within a selected tissue, and generates outlier plots |
 | `compareCancerProtein()`      | Compares protein expression levels between cancerous and normal tissue samples for a specified cancer type, and plots genes involved.          |
+
+
+To explore all avaliable functions:
+
+```r
+getNamespaceExports("ExprCompareR")
+```
+
 
 # Note
 ExprCompareR relies on performing API calls to HPA (Thul et al., 2018)
@@ -165,6 +173,10 @@ output$outlier_plot
 ```{r,echo=FALSE, fig.cap="Outlier Detection Plot"}
 knitr::include_graphics("images/outlier_detection.png")
 ```
+NOTE: Ignore warning from `gtexr`. Warnings will not affect final plot.
+
+
+
 In the scatter plot, each point represents a gene.
 Genes highlighted in red fall outside the expected range based on the overall RNA–protein distribution for that tissue.
 These genes may reflect post-transcriptional regulation, tissue-specific translation efficiency, or data outliers.

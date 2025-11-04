@@ -15,7 +15,7 @@ a warning will be issued.}
 \value{
 A list containing two components:
 \itemize{
-\item \code{table} — A tibble of metadata with the following columns:
+\item \code{table} - A tibble of metadata with the following columns:
 \describe{
 \item{ensembl}{Ensembl gene identifier.}
 \item{gene}{Gene symbol.}
@@ -24,14 +24,14 @@ A list containing two components:
 \item{delta_rank}{Difference (\eqn{cancer\_rank - normal\_rank}).}
 \item{direction}{Direction of change ("Up", "Down", or "No change").}
 }
-\item \code{plot} — A \pkg{ggplot2} bar plot showing the direction and
+\item \code{plot} - A \pkg{ggplot2} bar plot showing the direction and
 magnitude of protein rank changes for each gene.
 }
 }
 \description{
 This function compares the protein expression levels between normal and
 pathology (cancer) tissues for a specified cancer type. It calculates the
-change in expression rank (\eqn{\u0394 rank}) and direction ("Up", "Down", or
+change in expression rank and direction ("Up", "Down", or
 "No change") for each gene, and visualizes the shift in expression.
 }
 \details{
@@ -41,7 +41,7 @@ to match each cancer type to its corresponding tissue.
 }
 \examples{
 \dontrun{
-# Example 1: Compare protein expression in a common tissue/
+# Example 1: Compare protein expression in a common tissue
 
 output <- compareCancerProtein(cancer_type = "breast cancer")
 output$table
@@ -51,14 +51,14 @@ output$plot
 }
 \references{
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 https://doi.org/10.1186/s12859-019-3059-z
 
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 
-Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 https://dplyr.tidyverse.org.
 }

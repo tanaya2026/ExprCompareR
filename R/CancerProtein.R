@@ -1,14 +1,8 @@
-utils::globalVariables(c(
-  "cancer", "cancer_tissue_map", "high", "medium", "low", "not_detected",
-  "cancer_rank", "filtered_results", "delta_rank", "direction", "tissue_map"
-))
-
-
 #' Comparison of protein expression between normal and cancer tissues
 #'
 #' This function compares the protein expression levels between normal and
 #' pathology (cancer) tissues for a specified cancer type. It calculates the
-#' change in expression rank (\eqn{\u0394 rank}) and direction ("Up", "Down", or
+#' change in expression rank and direction ("Up", "Down", or
 #' "No change") for each gene, and visualizes the shift in expression.
 #'
 #'@param cancer_type A character string specifying the cancer type of interest.
@@ -19,7 +13,7 @@ utils::globalVariables(c(
 #' @return
 #' A list containing two components:
 #' \itemize{
-#'   \item \code{table} — A tibble of metadata with the following columns:
+#'   \item \code{table} - A tibble of metadata with the following columns:
 #'     \describe{
 #'       \item{ensembl}{Ensembl gene identifier.}
 #'       \item{gene}{Gene symbol.}
@@ -28,7 +22,7 @@ utils::globalVariables(c(
 #'       \item{delta_rank}{Difference (\eqn{cancer\_rank - normal\_rank}).}
 #'       \item{direction}{Direction of change ("Up", "Down", or "No change").}
 #'     }
-#'   \item \code{plot} — A \pkg{ggplot2} bar plot showing the direction and
+#'   \item \code{plot} - A \pkg{ggplot2} bar plot showing the direction and
 #'   magnitude of protein rank changes for each gene.
 #' }
 #'
@@ -39,7 +33,7 @@ utils::globalVariables(c(
 #'
 #'@examples
 #'\dontrun{
-#' # Example 1: Compare protein expression in a common tissue/
+#' # Example 1: Compare protein expression in a common tissue
 #'
 #' output <- compareCancerProtein(cancer_type = "breast cancer")
 #' output$table
@@ -49,14 +43,14 @@ utils::globalVariables(c(
 #'@references
 
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
@@ -64,17 +58,17 @@ utils::globalVariables(c(
 #'@import ggplot2
 #'@import dplyr
 #'@importFrom stats reorder
+#'@importFrom stats cor median
+#'@importFrom utils head
 #'
 #'@export
 compareCancerProtein<- function(cancer_type){
 
-  # Using HPAanalyze's built-in function hpaDownload to get protein expression data
-  downloadedData <- hpaDownload(downloadList='histology', version='example')
-  # Subsetting downloadedData to get normal tissue data
-  normal_tissue <- downloadedData$normal_tissue
-  # Subsetting downloadedData to get pathology data
-  pathology <- downloadedData$pathology
-
+  # Testing if the cancer_type exists in cancer_tissue_map$cancer
+  if (!cancer_type %in% cancer_tissue_map$cancer) {
+    warning("The cancer type '", cancer_type, "' is not found in cancer_tissue_map$cancer.")
+    return(NA)
+  }
   # Subset pathology for protein expression related to the given cancer type
   cancer_data <- pathology %>%
     dplyr::filter(cancer == cancer_type)
@@ -84,7 +78,7 @@ compareCancerProtein<- function(cancer_type){
   genes_involved <- unique(cancer_data$gene)
 
   # Use data cancer_tissue_map to find the equivalent tissues primarily
-  # involved/ affected by the cancer
+  # involved affected by the cancer
   type_tissue <- cancer_tissue_map %>%
     dplyr::filter(cancer == cancer_type) %>%
     dplyr::pull(tissue)
@@ -112,7 +106,7 @@ compareCancerProtein<- function(cancer_type){
 
   # Compute weighted rank for cancer_data
   cancer_summary <- cancer_data %>%
-    dplyr::mutate(cancer_rank = (1*high + 2*medium + 3*low + 0*`not_detected`) /
+    dplyr::mutate(cancer_rank = (1*high + 2*medium + 3*low + 0*`not_detected`)/
                     (high + medium + low + not_detected)) %>%
     dplyr::select(ensembl, gene, cancer_rank)
 
@@ -136,11 +130,11 @@ compareCancerProtein<- function(cancer_type){
     dplyr::filter(normal_rank >= 1 & normal_rank <= 2)
 
   # Plot the shift in rank for all genes specifically highlight the direction.
-  delta_plot <- ggplot(filtered_results, aes(x = reorder(gene, delta_rank), y = delta_rank, fill = direction)) +
+  delta_plot <- ggplot(results, aes(x = reorder(gene, delta_rank), y = delta_rank, fill = direction)) +
     geom_col() +
     coord_flip() +
     labs(title = paste("Protein Rank Shift in", cancer_type),
-         x = NULL, y = "Δ Rank (Cancer − Normal)") +
+         x = NULL, y = "Delta Rank (Cancer - Normal)") +
     theme_minimal() +
     theme(axis.text.y = element_blank())  # remove gene names
 

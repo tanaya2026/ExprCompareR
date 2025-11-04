@@ -52,37 +52,42 @@ The function then calls:
 \dontrun{
 # Example 1: Generate correlation plot per gene
 
+tissues = c("lung", "spleen", "liver", "ovary", "testis")
+genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 
 result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_gene")
 result_gene$per_gene_plot
 
 # Example 2: Generate correlation plot per tissue
 
-result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_tissue")
+tissues = c("lung", "spleen", "liver", "ovary", "testis")
+genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+
+result_gene <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
 result_gene$per_tissue_plot
 }
 
 }
 \references{
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 https://doi.org/10.1186/s12859-019-3059-z
 
-Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 Journal of Open Source So ware, 10(109), 8249. ISSN
 2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 
-Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+Wickham H, Fracois R, Henry L, Muller K, Vaughan D (2025).
 dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 https://dplyr.tidyverse.org.
 
 Wickham H, Henry L (2025). purrr: Functional Programming Tools.
-R package version 1.1.0, https://purrr.tidyverse.org/.
+R package version 1.1.0, https://purrr.tidyverse.org.
 
 Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data.
 R package version 1.3.1, https://tidyr.tidyverse.org.

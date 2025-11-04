@@ -43,7 +43,7 @@
 #' @references
 #'
 #'Lonsdale, J., Thomas, J., Salvatore, M. et al.
-#'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
+#'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580-585 (2013).
 #'https://doi.org/10.1038/ng.2653
 #'
 #'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
@@ -51,18 +51,21 @@
 #'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'@import HPAanalyze
 #'@import gtexr
 #'@import dplyr
+#'@importFrom stats cor median
+#'@importFrom utils head
+
 
 get_gtex_gencode_ids <- function(gene_symbols) {
   # Call get_genes() from gtexr with user-provided gene symbols,
@@ -105,11 +108,11 @@ get_gtex_gencode_ids <- function(gene_symbols) {
 #'@return A numeric vector of the same length as \code{protein_expression}
 #'with the following mapping:
 #' \itemize{
-#'   \item "Not detected", "n/a", "na", "NA" → 0
-#'   \item "Low" → 1
-#'   \item "Medium" → 2
-#'   \item "High" → 3
-#'   \item NA or unrecognized values → NA
+#'   \item "Not detected", "n/a", "na", "NA" -> 0
+#'   \item "Low" -> 1
+#'   \item "Medium" -> 2
+#'   \item "High" -> 3
+#'   \item NA or unrecognized values -> NA
 #' }
 #'
 #'@examples
@@ -129,8 +132,8 @@ get_gtex_gencode_ids <- function(gene_symbols) {
 #'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 
 protein_expr_values <- function(protein_expression){
@@ -177,15 +180,16 @@ protein_expr_values <- function(protein_expression){
 #'
 #'@param tissues Character vector of HPA tissue names.
 #'Valid tissue names are listed in \code{tissue_map$protein_tissue}.
-#'Any name not in this list will return \code{NA} and issue a warning.
+#'Any name not in this list will return  and issue a warning.
 #'
-#'@return A character vector of GTEx tissue names.
+#'@return A character vector of GTEx tissue names corresponding to input tissues.
+#
 #'
 #'@examples
-#'/dontrun{
+#'\dontrun{
 #' # Example 1: Convert list of simple tissues
 #'
-#' example_input <- c("liver", "skin 1", "breast", "appendix")
+#' example_input <- c("liver", "skin 1", "breast")
 #' gtexr_tissues <- convert_to_gtex(tissues = example_input)
 #' gtexr_tissues
 #'
@@ -202,7 +206,7 @@ protein_expr_values <- function(protein_expression){
 #'@references
 #'
 #'Lonsdale, J., Thomas, J., Salvatore, M. et al.
-#'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
+#'The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580-585 (2013).
 #'https://doi.org/10.1038/ng.2653
 #'
 #'Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
@@ -210,33 +214,31 @@ protein_expr_values <- function(protein_expression){
 #'Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 
 
 convert_to_gtex <- function(tissues) {
-  # Convert the input tissue to their HPAanalyze form
-  converted <- tissue_map[tolower(tissues)]
+    # Lookup in tissue_map dataframe
+    idx <- match(tolower(tissues), tolower(tissue_map$protein_tissue))
+    converted <- tissue_map$RNA_tissue[idx]
 
-  # If that tissue does not exist in the gtexr database;
-  # Replace any NA with "Unknown" and issue a warning
-  if (any(is.na(converted))) {
-    warning("Some tissues could not be converted: ",
-            paste(tissues[is.na(converted)], collapse = ", "))
+    # Warn if any tissue failed
+    if (any(is.na(converted))) {
+      warning("Some tissues could not be converted: ",
+              paste(tissues[is.na(converted)], collapse = ", "))
+    }
+
+    return(unname(converted))
   }
-  # Return the tissue now in gtexr format
-  return(unname(converted))
-}
 
-#'
-#'
-#'
+
 
 
 # [END]

@@ -82,7 +82,9 @@ browseVignettes("ExprCompareR")
 
 1.  ***compute_correlation*** - Computes spearman correlations across a
     set of genes **or** tissues of interest returns a plot summarizing
-    the results.
+    the results. `compute_correlation` acts as a wrapper function and
+    depending on the input, it calls either `correlation_genes_only()`
+    or `correlation_tissues_only()` internally.
 2.  ***correlation_genes_tissues*** - Computes spearman correlations
     across a set of genes **and** tissues of interest returns a plot
     summarizing the results.Users can choose to visualize per gene or
@@ -93,6 +95,10 @@ browseVignettes("ExprCompareR")
 4.  ***compareCancerProtein*** – Compares protein expression between
     normal and cancer tissues for a specified cancer type, providing a
     summary table and bar plot of rank changes.
+
+The package has prebuilt datasets like `normal_tissue` and `pathology`,
+to avoid dynamically downloading the protein expression datasets each
+time. Refer to `help` documentation for information on data.
 
 An overview of the package is illustrated below:
 

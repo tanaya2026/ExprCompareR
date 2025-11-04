@@ -1,10 +1,3 @@
-utils::globalVariables(c(
-  "tissue", "reliability", "level", "ensembl", "gene",
-  "rank_value", "normal_rank", "data", "geneSymbol",
-  "avg_expr", "RNA", "Protein", "RNA_log", "is_outlier"
-))
-
-
 #'Detects outlier genes present in a given tissue of interest, which have a
 #'large delta between their RNA expression and protein expression values
 #'
@@ -53,19 +46,19 @@ utils::globalVariables(c(
 #'@references
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
@@ -83,15 +76,18 @@ utils::globalVariables(c(
 #'@import tidyr
 #'@importFrom stats quantile
 #'@importFrom utils data
+#'@importFrom stats cor median
+#'@importFrom utils head
+
 
 #'@export
 detect_outliers <- function(input_tissue){
 
-  # Using HPAanalyze's built-in function hpaDownload to get protein expression data
-  downloadedData <- hpaDownload(downloadList='histology', version='example')
-  # Subsetting downloadedData to get normal tissue data
-  normal_tissue <- downloadedData$normal_tissue
-
+  # Testing if the input_tissue exists in tissue_map$protein_tissue
+  if (!input_tissue %in% tissue_map$protein_tissue) {
+    warning("The tissue '", input_tissue, "' is not found in tissue_map$protein_tissue.")
+    return(NA)
+  }
 
   # Subset normal_tissue to obtain protein expression of our tissue of interest,
   # and only consider values which have proper reliability to filter out protein
@@ -141,7 +137,7 @@ detect_outliers <- function(input_tissue){
 
 
   # Convert the input_tissue name to the correct tissue name gtexr uses.
-  RNA_input_tissue = convert_to_rna(input_tissue)
+  RNA_input_tissue = convert_to_gtex(input_tissue)
 
 
   # Query RNA expression for those genes found in the input tissue
@@ -152,10 +148,10 @@ detect_outliers <- function(input_tissue){
   RNA_result_list <- list()
 
   for (i in seq_along(batches)) {
-    cat("Fetching batch", i, "of", length(batches), "\n")
-    RNA_result_list[[i]] <- gtexr::get_gene_expression(
+    RNA_result_list[[i]] <- suppressMessages(gtexr::get_gene_expression(
       gencodeIds = batches[[i]],
       tissueSiteDetailIds = RNA_input_tissue
+    )
     )
   }
 

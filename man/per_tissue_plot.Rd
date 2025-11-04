@@ -4,16 +4,16 @@
 \alias{per_tissue_plot}
 \title{Generate Spearman Correlation Plot Per Tissue Across User's Gene List and Tissue List Of Interest}
 \usage{
-per_tissue_plot(tissue_NAMES, gene_NAMES)
+per_tissue_plot(gene_NAMES, tissue_NAMES)
 }
 \arguments{
-\item{tissue_NAMES}{A character vector of tissue names. Must contain at least five elements if provided.
-Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
-\code{tissue_map$protein_tissue}}
-
 \item{gene_NAMES}{A character vector of gene symbols. Must contain at least five elements if provided.
 Valid gene symbols for the \code{gene_NAMES} argument can be accessed from
 \code{gene_symbols_list}.}
+
+\item{tissue_NAMES}{A character vector of tissue names. Must contain at least five elements if provided.
+Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
+\code{tissue_map$protein_tissue}}
 }
 \value{
 A list containing:
@@ -47,26 +47,30 @@ The function performs the following steps:
 \dontrun{
 # Example 2: Generate correlation plot per tissue
 
-result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_tissue")
+
+result_gene <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
 result_gene$per_tissue_plot
 }
 
 }
 \references{
+Müller K, Wickham H (2025). tibble: Simple Data Frames.
+R package version 3.3.0, https://tibble.tidyverse.org/.
+
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 https://doi.org/10.1186/s12859-019-3059-z
 
-Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 Journal of Open Source So ware, 10(109), 8249. ISSN
 2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 
-Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 https://dplyr.tidyverse.org.
 

@@ -42,8 +42,8 @@ Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
 Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 https://doi.org/10.1186/s12859-019-3059-z
 }
 \keyword{datasets}

@@ -51,19 +51,19 @@
 #'@references
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
@@ -74,6 +74,8 @@
 #'R package version 1.3.1, https://tidyr.tidyverse.org.
 #'
 #'
+#'@importFrom stats cor median
+#'@importFrom utils head
 #' @export
 
 compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
@@ -106,13 +108,13 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
   # If only gene_NAMES are provided, call function correlation_genes_only
   if (is.null(tissue_NAMES) && length(gene_NAMES)>=5){
     output <-correlation_genes_only(gene_list = gene_NAMES)
-    output$per_gene_plot
+    return(output)
   }
 
   # If only tissue_NAMES are provided, call function correlation_tissues_only
   else if (is.null(gene_NAMES) && length(tissue_NAMES)>=5){
     output <- correlation_tissues_only(tissue_NAMES)
-    output$per_tissue_plot
+    return(output)
   }
 }
 
@@ -156,7 +158,7 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' # Example 1: Using valid gene names only
 #'
 #' gene_list <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
-#' output<- compute_correlation(gene_NAMES = gene_list)
+#' output<- correlation_genes_only(gene_NAMES = gene_list)
 #' output$per_gene_plot
 #'
 #' }
@@ -164,24 +166,24 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' @references
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
 #'Wickham H, Henry L (2025). purrr: Functional Programming Tools.
-#'R package version 1.1.0, https://purrr.tidyverse.org/.
+#'R package version 1.1.0, https://purrr.tidyverse.org.
 #'
 #'Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data.
 #'R package version 1.3.1, https://tidyr.tidyverse.org.
@@ -192,6 +194,9 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' @import tidyr
 #' @import purrr
 #' @import dplyr
+#' @importFrom stats cor median
+#' @importFrom utils head
+
 #' @export
 
 correlation_genes_only <- function(gene_list){
@@ -200,19 +205,13 @@ correlation_genes_only <- function(gene_list){
 
 
   # Querying gtexr to obtain RNA expression for the standard RNA tissue list
-  RNA_expr<- gtexr::get_gene_expression(gencodeIds = gene_ids, tissueSiteDetailIds = tissue_list_RNA)
+  RNA_expr<- suppressMessages(gtexr::get_gene_expression(gencodeIds = gene_ids, tissueSiteDetailIds = tissue_list_RNA))
 
 
   # Computing the average of different samples of a gene in the tissue
   # as we have multiple samples of a given gene.
   RNA_expr <- RNA_expr %>%
     mutate(avg_expr = map_dbl(data, ~ mean(.x, na.rm = TRUE)))
-
-
-  # Using HPAanalyze's built-in function hpaDownload to get protein expression data
-  downloadedData <- HPAanalyze::hpaDownload(downloadList='histology', version='example')
-  # Subsetting downloadedData to get normal tissue data
-  normal_tissue <- downloadedData$normal_tissue
 
   # Filter protein data to only include genes from gene_list and tissues in
   # tissue_list_protein
@@ -238,10 +237,11 @@ correlation_genes_only <- function(gene_list){
   if (nrow(missing_combos) != 0) {
     warning(
       paste(
-        "Some gene-tissue combinations are missing in protein data. Check 'missing_combos' tibble for details.",
+        "Some gene-tissue combinations are missing in protein data.",
         "These missing combos indicate that specific genes of interest are not present in the",
-        "standard tissue list.",
-        "You can either remove these genes from your analysis, replace these values or they will be filled by NA values.",
+        "standard tissue list.", "This may affect your final plot.",
+        "You can either remove these genes from your analysis, replace these values or they
+        will be filled by NA values.",
         sep = "\n"
       )
     )
@@ -308,29 +308,31 @@ correlation_genes_only <- function(gene_list){
   # Convert to a tibble for easy viewing
   gene_correlations_tbl <- tibble::tibble(
     gene = names(gene_correlations),
-    pearson_corr = gene_correlations
+    spear_corr = gene_correlations
   )
 
   # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
 
-  output_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = pearson_corr, fill = pearson_corr)) +
-    geom_col() +                        # Bar plot
-    geom_text(aes(label = round(pearson_corr, 2)), vjust = -0.5) + # add correlation labels
+  final_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
+    geom_col() +
+    geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) + # add correlation labels
     scale_y_continuous(limits = c(-1, 1)) +  # Pearson can be negative
     scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0) +
     labs(
-      title = "Spearman Correlation between RNA and Protein Expression of genes of interest across various tissues \n (kidney, lung, spleen, liver, ovary, testis, breast, \n adrenal gland, pancreas, cerebellum",
+      title = "Spearman Correlation between RNA and Protein Expression \n of genes of interest across various tissues \n (Kidney, Lung, Spleen, Liver, Ovary, Testis, Breast, \n Adrenal Gland, Pancreas, Cerebellum)",
       x = "Genes",
       y = "Spearman Correlation Value"
     ) +
-    theme_minimal(base_size = 14) +
+    theme_minimal(base_size = 12) +
     theme(legend.position = "none")
 
   # Returning an object output which contains the final plot we created
-  output <- list(per_gene_plot = output_plot)
+  output <- list(per_gene_plot = final_plot)
+
   return (output)
 
 }
+
 
 
 
@@ -371,31 +373,31 @@ correlation_genes_only <- function(gene_list){
 #' # Example 1: Using tissue names only
 #'
 #' tissue_list = c("lung", "spleen", "liver", "ovary", "testis")
-#' output<- compute_correlation(tissue_NAMES = tissue_list)
+#' output<- correlation_tissues_only(tissue_NAMES = tissue_list)
 #' output$per_tissue_plot
 #' }
 #'
 #'@references
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
 #'Wickham H, Henry L (2025). purrr: Functional Programming Tools.
-#'R package version 1.1.0, https://purrr.tidyverse.org/.
+#'R package version 1.1.0, https://purrr.tidyverse.org.
 #'
 #'Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data.
 #'R package version 1.3.1, https://tidyr.tidyverse.org.
@@ -407,13 +409,12 @@ correlation_genes_only <- function(gene_list){
 #' @import tidyr
 #' @import purrr
 #' @import dplyr
-#' @export
-correlation_tissues_only <- function(tissue_NAMES){
-  # Using HPAanalyze's built-in function hpaDownload to get protein expression data
-  downloadedData <- hpaDownload(downloadList='histology', version='example')
-  # Subsetting downloadedData to get normal tissue data
-  normal_tissue <- downloadedData$normal_tissue
+#' @importFrom stats cor median
+#' @importFrom utils head
 
+#' @export
+
+correlation_tissues_only <- function(tissue_NAMES){
 
   # Creating final lists to store RNA and protein expression data
   RNA_expr_list <- list()
@@ -539,6 +540,7 @@ correlation_tissues_only <- function(tissue_NAMES){
 
 
 
+
 #' Generate Correlation Plots for given list of genes and tissues
 #'
 #' This function serves as a wrapper to compute and visualize the Spearman correlation
@@ -584,41 +586,42 @@ correlation_tissues_only <- function(tissue_NAMES){
 #' \dontrun{
 #' # Example 1: Generate correlation plot per gene
 #'
-# tissues= c("lung", "spleen", "liver", "ovary", "testis")
-# genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+#' tissues = c("lung", "spleen", "liver", "ovary", "testis")
+#' genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 #'
 #' result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_gene")
 #' result_gene$per_gene_plot
 #'
 #' # Example 2: Generate correlation plot per tissue
 #'
-# tissues= c("lung", "spleen", "liver", "ovary", "testis")
-# genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
-#' result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_tissue")
+#'tissues = c("lung", "spleen", "liver", "ovary", "testis")
+#' genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+#'
+#' result_gene <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
 #' result_gene$per_tissue_plot
 #' }
 #'
 #'@references
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Fracois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
 #'Wickham H, Henry L (2025). purrr: Functional Programming Tools.
-#'R package version 1.1.0, https://purrr.tidyverse.org/.
+#'R package version 1.1.0, https://purrr.tidyverse.org.
 #'
 #'Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data.
 #'R package version 1.3.1, https://tidyr.tidyverse.org.
@@ -655,14 +658,14 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 
   # If plot_choice is per_gene, call function per_gene_plot
   if (plot_choice == "per_gene"){
-    output<- per_gene_plot(tissue_NAMES, gene_NAMES)
-    output$per_gene_plot
+    output<- per_gene_plot(gene_NAMES, tissue_NAMES)
+    return(output)
   }
 
   # If plot_choice is per_tissue, call function per_tissue_plot
   else if (plot_choice == "per_tissue"){
-    output<- per_tissue_plot(tissue_NAMES, gene_NAMES)
-    output$per_tissue_plot
+    output<- per_tissue_plot(gene_NAMES, tissue_NAMES)
+    return(output)
   }
 
   # If invalid plot_choice, flag a warning
@@ -725,26 +728,26 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 # tissues= c("lung", "spleen", "liver", "ovary", "testis")
 # genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 #'
-#' result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_gene")
+#' result_gene <- per_gene_plot(gene_NAMES = genes, tissue_NAMES = tissues)
 #' result_gene$per_gene_plot
 #'}
 #'
 #' @references
 #'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
@@ -762,6 +765,9 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 #' @import tidyr
 #' @import purrr
 #' @import dplyr
+#' @importFrom stats cor median
+#' @importFrom utils head
+
 #' @export
 
 per_gene_plot <- function(gene_NAMES, tissue_NAMES){
@@ -787,10 +793,10 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 
   # Query Protein expression
 
-  # Using HPAanalyze's built-in function hpaDownload to get protein expression data
-  downloadedData <- HPAanalyze::hpaDownload(downloadList='histology', version='example')
-  # Subsetting downloadedData to get normal tissue data
-  normal_tissue <- downloadedData$normal_tissue
+  # # Using HPAanalyze's built-in function hpaDownload to get protein expression data
+  # downloadedData <- HPAanalyze::hpaDownload(downloadList='histology', version='example')
+  # # Subsetting downloadedData to get normal tissue data
+  # normal_tissue <- downloadedData$normal_tissue
 
 
   # Filter protein data to only include genes from gene_NAMES and tissues in
@@ -886,15 +892,15 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
   # Convert to a tibble for easy viewing
   gene_correlations_tbl <- tibble::tibble(
     gene = names(gene_correlations),
-    pearson_corr = gene_correlations
+    spear_corr = gene_correlations
   )
 
 
   # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
 
-  output_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = pearson_corr, fill = pearson_corr)) +
+  output_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
     geom_col() +                        # Bar plot
-    geom_text(aes(label = round(pearson_corr, 2)), vjust = -0.5) + # add correlation labels
+    geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) + # add correlation labels
     scale_y_continuous(limits = c(-1, 1)) +  # Pearson can be negative
     scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0) +
     labs(
@@ -958,26 +964,30 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #'
 # tissues= c("lung", "spleen", "liver", "ovary", "testis")
 # genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
-#' result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_tissue")
+#'
+#' result_gene <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
 #' result_gene$per_tissue_plot
 #' }
 #'
 #' @references
 #'
+#'Müller K, Wickham H (2025). tibble: Simple Data Frames.
+#' R package version 3.3.0, https://tibble.tidyverse.org/.
+#'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
-#'“HPAanalyze: an R package that facilitates the retrieval and analysis of the
-#'Human Protein Atlas data.” MC Bioinformatics 20, 463 (2019).
+#'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
+#'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
 #'
-#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A
-#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.”
+#'Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
+#'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 #'
 #'Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #'Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
 #'
-#'Wickham H, François R, Henry L, Müller K, Vaughan D (2025).
+#'Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 #'dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
 #'https://dplyr.tidyverse.org.
 #'
@@ -995,14 +1005,12 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #' @import purrr
 #' @import dplyr
 #' @import tibble
+#' @importFrom stats cor median
+#' @importFrom utils head
+
 #' @export
 
-per_tissue_plot <- function (tissue_NAMES, gene_NAMES){
-  # Using HPAanalyze's built-in function hpaDownload to get protein expression data
-  downloadedData <- HPAanalyze::hpaDownload(downloadList='histology', version='example')
-  # Subsetting downloadedData to get normal tissue data
-  normal_tissue <- downloadedData$normal_tissue
-
+per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
 
   # Query RNA expression
 
