@@ -69,7 +69,7 @@ getNamespaceExports("ExprCompareR")
 # Note
 ExprCompareR relies on performing API calls to HPA (Thul et al., 2018)
 and GTEx (Lonsdale et al., 2013) via packages,
-HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025). These calls make the vignette building slow and network dependent. Hence I have used eval=false, and included static images for reference. Tests have been conducted for these functions and examples, and they do produce accurrate and expected results.
+HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025). These calls make the vignette building slow and network dependent. Hence, as a form of a tutorial, this vignette includes static images for reference. Tests have been conducted for these functions and examples, and they do produce accurate and expected results. After installation of the package, the user can follow the vignette and confirm.
 
 # Correlation
 
@@ -80,6 +80,8 @@ library(ExprCompareR)
 ?ExprCompareR::correlation_genes_tissues
 ?ExprCompareR::correlation_genes_only
 ?ExprCompareR::correlation_tissues_only
+?ExprCompareR::per_gene_plot
+?ExprCompareR::per_tissue_plot
 ``` 
 
 ExprCompareR's correlation function's depend on user input i.e. their choice of genes of interest and tissues of interest. Let us consider the following examples as sample input the user provides:
@@ -156,7 +158,12 @@ ExprCompareR's outliers function depends on user input i.e. their choice of the 
 ```{r outlier_detection, eval=FALSE }
 
 output <- detect_outliers(input_tissue = "lung")
+```
 
+NOTE: Ignore warning from `gtexr`. Warnings will not affect final plot.
+
+
+```{r outlier_detection_vector, eval=FALSE }
 output$outlier_vector
  [1] "CD74"     "VIM"      "ENO1"     "ACTB"     "HSP90AB1" "HSPB1"    "ANXA10"  
  [8] "SPARC"    "PEX5L"    "FN1"      "AGMAT"    "NT5C1A"   "CTSD"     "SFTPA1"  
@@ -173,9 +180,6 @@ output$outlier_plot
 ```{r,echo=FALSE, fig.cap="Outlier Detection Plot"}
 knitr::include_graphics("images/outlier_detection.png")
 ```
-NOTE: Ignore warning from `gtexr`. Warnings will not affect final plot.
-
-
 
 In the scatter plot, each point represents a gene.
 Genes highlighted in red fall outside the expected range based on the overall RNA–protein distribution for that tissue.
