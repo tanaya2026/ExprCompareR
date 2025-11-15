@@ -71,4 +71,48 @@ test_that("Function handles vector of only High, Medium, Low correctly", {
   expect_equal(protein_expr_values(input), c(1, 2, 3))
 })
 
+#________________________________________________________________________________
+
+# Tests for helper function convert_to_gtex
+
+
+library(testthat)
+
+test_that("Valid simple tissues are converted correctly", {
+  input <- c("liver", "skin 1", "breast")
+  expected <- tissue_map$RNA_tissue[match(tolower(input), tolower(tissue_map$protein_tissue))]
+
+  result <- convert_to_gtex(input)
+  expect_equal(result, expected)
+})
+
+test_that("Valid complex tissues are converted correctly", {
+  input <- c("kidney","lung","spleen","liver","ovary","testis",
+             "breast","adrenal gland","pancreas","cerebellum")
+  expected <- tissue_map$RNA_tissue[match(tolower(input), tolower(tissue_map$protein_tissue))]
+
+  result <- convert_to_gtex(input)
+  expect_equal(result, expected)
+})
+
+test_that("Unknown tissues trigger warning and return NA", {
+  input <- c("liver", "unknown_tissue", "skin 1")
+
+  expect_warning(result <- convert_to_gtex(input),
+                 "Some tissues could not be converted")
+
+  # The unknown tissue should produce NA
+  expect_true("unknown_tissue" %in% input[is.na(result) | result == "Unknown"])
+})
+
+test_that("Non-character input triggers error", {
+  expect_error(convert_to_gtex(123), "`tissues` must be a character vector")
+  expect_error(convert_to_gtex(list("liver")), "`tissues` must be a character vector")
+})
+
+test_that("Empty input returns character(0)", {
+  expect_equal(convert_to_gtex(character(0)), character(0))
+})
+
+#________________________________________________________________________________
 

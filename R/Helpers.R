@@ -262,20 +262,32 @@ protein_expr_values <- function(protein_expression){
 
 
 convert_to_gtex <- function(tissues) {
-    # Lookup in tissue_map dataframe
-    idx <- match(tolower(tissues), tolower(tissue_map$protein_tissue))
-    converted <- tissue_map$RNA_tissue[idx]
 
-    # Warn if any tissue failed
-    if (any(is.na(converted))) {
-      warning("Some tissues could not be converted: ",
-              paste(tissues[is.na(converted)], collapse = ", "))
-    }
+  # Testing for correct input
 
-    return(unname(converted))
+  # Check that input is character
+  if (!is.character(tissues)) {
+    stop("`tissues` must be a character vector of tissue names.")
+  }
+
+  # Check if it is empty vector
+  if (length(tissues) == 0) {
+    return(character(0))
   }
 
 
+  # Lookup in tissue_map dataframe
+  idx <- match(tolower(tissues), tolower(tissue_map$protein_tissue))
+  converted <- tissue_map$RNA_tissue[idx]
+
+  # Warn if any tissue failed
+  if (any(is.na(converted))) {
+    warning("Some tissues could not be converted: ",
+            paste(tissues[is.na(converted)], collapse = ", "))
+  }
+
+  return(unname(converted))
+  }
 
 
 # [END]
