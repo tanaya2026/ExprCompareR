@@ -68,6 +68,25 @@
 
 
 get_gtex_gencode_ids <- function(gene_symbols) {
+
+  # Testing Input validation
+  # Test if all inputs are characters
+  if (!is.character(gene_symbols)) {
+    stop("`gene_symbols` must be a character vector of gene symbols.")
+  }
+
+  # Test if all gene_symbols are valid i.e. in gene_symbols_list
+  if (!all(gene_symbols %in% gene_symbols_list)) {
+    stop("All `gene_symbols` must be valid symbols listed in `gene_symbols_list`.")
+  }
+
+  # If the user inputs an empty vector, then return an empty character vector
+  if (length(gene_symbols) == 0) {
+    return(character(0))
+  }
+
+
+
   # Call get_genes() from gtexr with user-provided gene symbols,
   # to get gene metadata
   gene_info <- suppressMessages(gtexr::get_genes(gene_symbols))
