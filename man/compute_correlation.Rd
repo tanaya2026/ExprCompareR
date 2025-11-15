@@ -28,15 +28,14 @@ A plot object:
 }
 }
 \description{
-This function computes correlations either for a list of genes or a list of tissues.
+This function computes correlations either for a list of genes \strong{OR} a list of tissues.
 It requires at least five entries in the provided list (\code{gene_NAMES} or \code{tissue_NAMES})
 to perform the computation. Depending on the input, it calls either
 \code{correlation_genes_only()} or \code{correlation_tissues_only()} internally.
+If you wish to input a list of genes \strong{AND} list of tissues, utilize function \code{correlation_genes_tissues}, or
+see \code{help} documentation \code{?correlation_genes_tissues}.
 }
 \details{
-\emph{NOTE}: This function \emph{ONLY} computes correlations either for a list of genes \emph{OR} a list of tissues.
-If you wish to input a list of genes \emph{AND} list of tissues, utilize function \code{correlation_genes_tissues}, or
-see \code{help} documentation \code{?correlation_genes_tissues}
 \itemize{
 \item This function utilizes data/tissue_list_RNA.rda and data/tissue_list_protein.rda
 }
@@ -50,6 +49,11 @@ The function validates the input before computing correlations:
 
 This function is a wrapper that decides which correlation computation function to use
 based on the input provided.
+}
+\note{
+This function \strong{ONLY} computes correlations either for a list of genes \strong{OR} a list of tissues.
+If you wish to input a list of genes \strong{AND} list of tissues, utilize function \code{correlation_genes_tissues}, or
+see \code{help} documentation \code{?correlation_genes_tissues}
 }
 \examples{
 \dontrun{
