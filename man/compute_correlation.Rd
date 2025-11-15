@@ -7,11 +7,15 @@
 compute_correlation(gene_NAMES = NULL, tissue_NAMES = NULL)
 }
 \arguments{
-\item{gene_NAMES}{A character vector of gene names. Optional; if provided, must contain at least five elements.
+\item{gene_NAMES}{A character vector of gene names.
+Optional; defaults to \code{NULL}.
+If provided, must contain at least five elements.
 Valid gene symbols for the \code{gene_NAMES} argument can be accessed from
 \code{gene_symbols_list}.}
 
-\item{tissue_NAMES}{A character vector of tissue names. Optional; if provided, must contain at least five elements.
+\item{tissue_NAMES}{A character vector of tissue names.
+Optional; defaults to \code{NULL}.
+If provided, must contain at least five elements.
 Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
 \code{tissue_map$protein_tissue}}
 }
@@ -24,12 +28,15 @@ A plot object:
 }
 }
 \description{
-This function computes correlations either for a set of genes or a set of tissues.
+This function computes correlations either for a list of genes or a list of tissues.
 It requires at least five entries in the provided list (\code{gene_NAMES} or \code{tissue_NAMES})
 to perform the computation. Depending on the input, it calls either
 \code{correlation_genes_only()} or \code{correlation_tissues_only()} internally.
 }
 \details{
+\emph{NOTE}: This function \emph{ONLY} computes correlations either for a list of genes \emph{OR} a list of tissues.
+If you wish to input a list of genes \emph{AND} list of tissues, utilize function \code{correlation_genes_tissues}, or
+see \code{help} documentation \code{?correlation_genes_tissues}
 \itemize{
 \item This function utilizes data/tissue_list_RNA.rda and data/tissue_list_protein.rda
 }

@@ -1,15 +1,23 @@
 #' Compute Correlation for Genes or Tissues
 #'
-#' This function computes correlations either for a set of genes or a set of tissues.
+#' This function computes correlations either for a list of genes or a list of tissues.
 #' It requires at least five entries in the provided list (`gene_NAMES` or `tissue_NAMES`)
 #' to perform the computation. Depending on the input, it calls either
 #' `correlation_genes_only()` or `correlation_tissues_only()` internally.
 #'
-#' @param gene_NAMES A character vector of gene names. Optional; if provided, must contain at least five elements.
+#' *NOTE*: This function *ONLY* computes correlations either for a list of genes *OR* a list of tissues.
+#' If you wish to input a list of genes *AND* list of tissues, utilize function `correlation_genes_tissues`, or
+#' see `help` documentation `?correlation_genes_tissues`
+#'
+#' @param gene_NAMES A character vector of gene names.
+#' Optional; defaults to \code{NULL}.
+#' If provided, must contain at least five elements.
 #' Valid gene symbols for the \code{gene_NAMES} argument can be accessed from
 #' \code{gene_symbols_list}.
 #'
-#' @param tissue_NAMES A character vector of tissue names. Optional; if provided, must contain at least five elements.
+#' @param tissue_NAMES A character vector of tissue names.
+#' Optional; defaults to \code{NULL}.
+#' If provided, must contain at least five elements.
 #' Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
 #' \code{tissue_map$protein_tissue}
 #'
