@@ -157,6 +157,24 @@ get_gtex_gencode_ids <- function(gene_symbols) {
 
 protein_expr_values <- function(protein_expression){
 
+  # Tests helper for valid input
+
+  # Check that input is character
+  if (!is.character(protein_expression)) {
+    stop("`protein_expression` must be a character vector.")
+  }
+
+  # Allowed values
+  allowed <- c("Not detected", "n/a", "na", "NA", "Low", "Medium", "High", NA)
+
+  # Check for invalid entries
+  invalid <- setdiff(unique(protein_expression), allowed)
+  if (length(invalid) > 0) {
+    stop("Invalid protein expression values found: ", paste(invalid, collapse = ", "))
+  }
+
+
+
   # Generate the final result vector
   result <- numeric(length(protein_expression))
 

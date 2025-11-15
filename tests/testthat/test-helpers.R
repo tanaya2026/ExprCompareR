@@ -31,4 +31,44 @@ test_that("Empty input returns empty vector", {
 
 #________________________________________________________________________________
 
+# Tests for helper function protein_expr_values
+
+test_that("Valid protein expression levels are converted correctly", {
+  input <- c("Not detected", "n/a", "na", "NA", "Low", "Medium", "High", NA)
+  expected <- c(0, 0, 0, 0, 1, 2, 3, NA)
+
+  result <- protein_expr_values(input)
+  expect_equal(result, expected)
+})
+
+test_that("Non-character input triggers an error", {
+  expect_error(protein_expr_values(123), "`protein_expression` must be a character vector")
+  expect_error(protein_expr_values(list("Low")), "`protein_expression` must be a character vector")
+})
+
+test_that("Unknown string values trigger an error", {
+  expect_error(protein_expr_values(c("Very High", "Low")),
+               "Invalid protein expression values found: Very High")
+})
+
+test_that("Empty input returns numeric(0)", {
+  expect_equal(protein_expr_values(character(0)), numeric(0))
+})
+
+test_that("NA values are preserved", {
+  input <- c(NA, "Low", NA)
+  result <- protein_expr_values(input)
+  expect_equal(result, c(NA, 1, NA))
+})
+
+test_that("Function handles vector of only recognized zeros correctly", {
+  input <- c("Not detected", "n/a", "na", "NA")
+  expect_equal(protein_expr_values(input), c(0, 0, 0, 0))
+})
+
+test_that("Function handles vector of only High, Medium, Low correctly", {
+  input <- c("Low", "Medium", "High")
+  expect_equal(protein_expr_values(input), c(1, 2, 3))
+})
+
 
