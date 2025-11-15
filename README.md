@@ -187,7 +187,7 @@ was done by the author.
   <https://doi.org/10.1038/ng.2653>
 
 - Müller K, Wickham H (2025). tibble: Simple Data Frames. R package
-  version 3.3.0, <https://tibble.tidyverse.org/>. to list!!
+  version 3.3.0, <https://tibble.tidyverse.org/>.
 
 - OpenAI.(2025). ChatGPT (GPT-5) \[Large language model\]. Retrieved
   November 2, 2025, from <https://chatgpt.com/>
