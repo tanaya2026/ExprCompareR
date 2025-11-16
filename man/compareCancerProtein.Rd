@@ -10,7 +10,7 @@ compareCancerProtein(cancer_type)
 \item{cancer_type}{A character string specifying the cancer type of interest.
 The value must be one of the valid cancer names available in
 \code{cancer_tissue_map$cancer}. If an invalid cancer type is provided,
-a warning will be issued.}
+the function will stop execution and throw an error.}
 }
 \value{
 A list containing two components:

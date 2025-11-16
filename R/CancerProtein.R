@@ -8,7 +8,7 @@
 #'@param cancer_type A character string specifying the cancer type of interest.
 #' The value must be one of the valid cancer names available in
 #' \code{cancer_tissue_map$cancer}. If an invalid cancer type is provided,
-#' a warning will be issued.
+#' the function will stop execution and throw an error.
 #'
 #' @return
 #' A list containing two components:
@@ -66,8 +66,7 @@ compareCancerProtein<- function(cancer_type){
 
   # Testing if the cancer_type exists in cancer_tissue_map$cancer
   if (!cancer_type %in% cancer_tissue_map$cancer) {
-    warning("The cancer type '", cancer_type, "' is not found in cancer_tissue_map$cancer.")
-    return(NA)
+    stop("The cancer type '", cancer_type, "' is not found in cancer_tissue_map$cancer.")
   }
   # Subset pathology for protein expression related to the given cancer type
   cancer_data <- pathology %>%
@@ -84,9 +83,9 @@ compareCancerProtein<- function(cancer_type){
     dplyr::pull(tissue)
 
 
-  # If their is no equivalent tissue, flag a warning.
+  # If their is no equivalent tissue, stop analysis.
   if(length(type_tissue) == 0){
-    warning("No tissue match found for ", cancer_type, ". This is an invalid cancer type.")
+    stop("No tissue match found for ", cancer_type, ". This is an invalid cancer type.")
   }
 
   # Query normal tissue for genes in genes_involved and those which have tissue type, to
