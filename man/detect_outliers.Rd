@@ -11,7 +11,8 @@ detect_outliers(input_tissue)
 \item{input_tissue}{Character String specifying the tissue of interest to analyze.
 The name must be present in the given list of tissues:
 Valid tissue names are listed in \code{tissue_map$protein_tissue}.
-Any name not in this list will issue a warning.}
+If an invalid tissue name is provided,
+the function will stop execution and throw an error.}
 }
 \value{
 Returns an object of class list with two components:

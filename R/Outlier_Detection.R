@@ -10,7 +10,8 @@
 #'@param input_tissue Character String specifying the tissue of interest to analyze.
 #'The name must be present in the given list of tissues:
 #' Valid tissue names are listed in \code{tissue_map$protein_tissue}.
-#' Any name not in this list will issue a warning.
+#' If an invalid tissue name is provided,
+#' the function will stop execution and throw an error.
 #'
 #'
 #'@return Returns an object of class list with two components:
@@ -85,8 +86,7 @@ detect_outliers <- function(input_tissue){
 
   # Testing if the input_tissue exists in tissue_map$protein_tissue
   if (!input_tissue %in% tissue_map$protein_tissue) {
-    warning("The tissue '", input_tissue, "' is not found in tissue_map$protein_tissue.")
-    return(NA)
+    stop("The tissue '", input_tissue, "' is not found in tissue_map$protein_tissue.")
   }
 
   # Subset normal_tissue to obtain protein expression of our tissue of interest,
