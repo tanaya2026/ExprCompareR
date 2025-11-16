@@ -28,7 +28,7 @@ Depending on \code{plot_choice}, the function returns:
 }
 \description{
 This function serves as a wrapper to compute and visualize the Spearman correlation
-between RNA and protein expression between a user's gene list and tissue list of interest.
+between RNA and protein expression between a user's gene list \strong{AND} tissue list of interest.
 Depending on the user's choice, it calls either \code{per_gene_plot} or \code{per_tissue_plot} internally.
 \code{per_gene_plot} visualizes the spearman correlation and plot per gene from the input list.
 \code{per_tissue_plot} visualizes the spearman correlation and plot per tissue from the input list.
@@ -36,8 +36,8 @@ Depending on the user's choice, it calls either \code{per_gene_plot} or \code{pe
 \details{
 The function validates the inputs before generating plots:
 \itemize{
-\item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it returns \code{NA} with a warning.
-\item If both lists have fewer than five elements, it returns \code{NA} with a warning.
+\item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it stops execution and throws an error.
+\item If both lists have fewer than five elements, it stops execution and throws an error.
 \item If only one list is provided, it must contain at least five elements.
 \item The \code{plot_choice} argument must be either \code{"per_gene"} or \code{"per_tissue"}. Any other value triggers a warning.
 }
@@ -47,6 +47,11 @@ The function then calls:
 \item \code{per_gene_plot(tissue_NAMES, gene_NAMES)} if \code{plot_choice = "per_gene"}.
 \item \code{per_tissue_plot(tissue_NAMES, gene_NAMES)} if \code{plot_choice = "per_tissue"}.
 }
+}
+\note{
+This function computes correlations for a list of genes \strong{AND} a list of tissues.
+If you wish to input  \strong{ONLY} a list of genes \strong{OR} list of tissues, utilize function \code{compute_correlation}, or
+see \code{help} documentation \code{?compute_correlation}
 }
 \examples{
 \dontrun{

@@ -24,7 +24,7 @@ A plot object:
 \itemize{
 \item If \code{gene_NAMES} is provided and \code{tissue_NAMES} is NULL, returns the \code{per_gene_plot} from \code{correlation_genes_only()}.
 \item If \code{tissue_NAMES} is provided and \code{gene_NAMES} is NULL, returns the \code{per_tissue_plot} from \code{correlation_tissues_only()}.
-\item Returns \code{NA} and a warning if input criteria are not met.
+\item Stops execution and throws an error if input criteria is not met.
 }
 }
 \description{
@@ -42,8 +42,8 @@ see \code{help} documentation \code{?correlation_genes_tissues}.
 
 The function validates the input before computing correlations:
 \itemize{
-\item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it returns \code{NA} with a warning.
-\item If both lists are provided but have fewer than 5 elements each, it returns \code{NA} with a warning.
+\item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it stops execution and throws an error
+\item If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
 \item If only one list is provided, it must contain at least 5 elements.
 }
 

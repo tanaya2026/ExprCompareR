@@ -27,14 +27,14 @@
 #' @return A plot object:
 #'   - If `gene_NAMES` is provided and `tissue_NAMES` is NULL, returns the `per_gene_plot` from `correlation_genes_only()`.
 #'   - If `tissue_NAMES` is provided and `gene_NAMES` is NULL, returns the `per_tissue_plot` from `correlation_tissues_only()`.
-#'   - Returns `NA` and a warning if input criteria are not met.
+#'   - Stops execution and throws an error if input criteria is not met.
 #'
 #' @details
 #' - This function utilizes data/tissue_list_RNA.rda and data/tissue_list_protein.rda
 #'
 #' The function validates the input before computing correlations:
-#' - If both `gene_NAMES` and `tissue_NAMES` are NULL, it returns `NA` with a warning.
-#' - If both lists are provided but have fewer than 5 elements each, it returns `NA` with a warning.
+#' - If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error
+#' - If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
 #' - If only one list is provided, it must contain at least 5 elements.
 #'
 #' This function is a wrapper that decides which correlation computation function to use
@@ -93,27 +93,23 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 
   # Case 1: Inputs, gene_NAMES and tissue_NAMES are both NULL
   if (is.null(gene_NAMES) && is.null(tissue_NAMES)){
-    warning("Please provide at least five gene names or tissue names")
-    return (NA)
+    stop("Please provide at least five gene names OR tissue names")
   }
 
-  # Case 2: Not enough entries in gene_NAMES and tissue_NAMES
+  # Case 2: Not enough entries in gene_NAMES or tissue_NAMES
   if ((!is.null(gene_NAMES) && length(gene_NAMES) < 5) &&
       (!is.null(tissue_NAMES) && length(tissue_NAMES) < 5)) {
-    warning("Please provide at least five gene names or tissue names.")
-    return(NA)
+    stop("Please provide at least five gene names OR tissue names.")
   }
 
   # Case 3: if only one list is provided, ensure it has >= 5 elements
   if (!is.null(gene_NAMES) && is.null(tissue_NAMES) && length(gene_NAMES) < 5) {
-    warning("Need at least five gene names.")
-    return(NA)
+    stop("Need at least five gene names.")
   }
 
   # Case 4: if only one list is provided, ensure it has >= 5 elements
   if (is.null(gene_NAMES) && !is.null(tissue_NAMES) && length(tissue_NAMES) < 5) {
-    warning("Need at least five tissue names.")
-    return(NA)
+    stop("Need at least five tissue names.")
   }
 
   # If only gene_NAMES are provided, call function correlation_genes_only
@@ -555,10 +551,15 @@ correlation_tissues_only <- function(tissue_NAMES){
 #' Generate Correlation Plots for given list of genes and tissues
 #'
 #' This function serves as a wrapper to compute and visualize the Spearman correlation
-#' between RNA and protein expression between a user's gene list and tissue list of interest.
+#' between RNA and protein expression between a user's gene list **AND** tissue list of interest.
 #' Depending on the user's choice, it calls either `per_gene_plot` or `per_tissue_plot` internally.
 #' `per_gene_plot` visualizes the spearman correlation and plot per gene from the input list.
 #' `per_tissue_plot` visualizes the spearman correlation and plot per tissue from the input list.
+#'
+#' @note
+#' This function computes correlations for a list of genes **AND** a list of tissues.
+#' If you wish to input  **ONLY** a list of genes **OR** list of tissues, utilize function `compute_correlation`, or
+#' see `help` documentation `?compute_correlation`
 #'
 #' @param gene_NAMES A character vector of gene symbols. Must contain at least five elements if provided.
 #' Valid gene symbols for the \code{gene_NAMES} argument can be accessed from
@@ -581,8 +582,8 @@ correlation_tissues_only <- function(tissue_NAMES){
 #' @details
 #' The function validates the inputs before generating plots:
 #' \itemize{
-#'   \item If both `gene_NAMES` and `tissue_NAMES` are NULL, it returns `NA` with a warning.
-#'   \item If both lists have fewer than five elements, it returns `NA` with a warning.
+#'   \item If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error.
+#'   \item If both lists have fewer than five elements, it stops execution and throws an error.
 #'   \item If only one list is provided, it must contain at least five elements.
 #'   \item The `plot_choice` argument must be either `"per_gene"` or `"per_tissue"`. Any other value triggers a warning.
 #' }
@@ -644,27 +645,23 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 
   # Case 1: Inputs, gene_NAMES and tissue_NAMES are both NULL
   if (is.null(gene_NAMES) && is.null(tissue_NAMES)){
-    warning("Please provide at least five gene names or tissue names")
-    return (NA)
+    stop("Please provide at least five gene names or tissue names")
   }
 
   # Case 2: Not enough entries in gene_NAMES and tissue_NAMES
   if ((!is.null(gene_NAMES) && length(gene_NAMES) < 5) &&
       (!is.null(tissue_NAMES) && length(tissue_NAMES) < 5)) {
-    warning("Please provide at least five gene names or tissue names.")
-    return(NA)
+    stop("Please provide at least five gene names or tissue names.")
   }
 
   # Case 3: if only one list is provided, ensure it has >= 5 elements
   if (!is.null(gene_NAMES) && is.null(tissue_NAMES) && length(gene_NAMES) < 5) {
-    warning("Need at least five gene names.")
-    return(NA)
+    stop("Need at least five gene names.")
   }
 
   # Case 4: if only one list is provided, ensure it has >= 5 elements
   if (is.null(gene_NAMES) && !is.null(tissue_NAMES) && length(tissue_NAMES) < 5) {
-    warning("Need at least five tissue names.")
-    return(NA)
+    stop("Need at least five tissue names.")
   }
 
   # If plot_choice is per_gene, call function per_gene_plot
