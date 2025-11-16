@@ -35,6 +35,7 @@
 #' The function validates the input before computing correlations:
 #' - If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error
 #' - If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
+#' - If both lists are provided with 5>= elements each, it stops execution and throws an error
 #' - If only one list is provided, it must contain at least 5 elements.
 #'
 #' This function is a wrapper that decides which correlation computation function to use
@@ -102,15 +103,21 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
     stop("Please provide at least five gene names OR tissue names.")
   }
 
-  # Case 3: if only one list is provided, ensure it has >= 5 elements
+  # Case 3: If only one list is provided, ensure it has >= 5 elements
   if (!is.null(gene_NAMES) && is.null(tissue_NAMES) && length(gene_NAMES) < 5) {
     stop("Need at least five gene names.")
   }
 
-  # Case 4: if only one list is provided, ensure it has >= 5 elements
+  # Case 4: If only one list is provided, ensure it has >= 5 elements
   if (is.null(gene_NAMES) && !is.null(tissue_NAMES) && length(tissue_NAMES) < 5) {
     stop("Need at least five tissue names.")
   }
+
+  # Case 5: If both lists are provided, then stop
+  if (!is.null(gene_NAMES) && !is.null(tissue_NAMES)) {
+  stop("This function only supports either genes OR tissues, not both. Use `correlation_genes_tissues` for both.")
+  }
+
 
   # If only gene_NAMES are provided, call function correlation_genes_only
   if (is.null(tissue_NAMES) && length(gene_NAMES)>=5){
@@ -584,8 +591,8 @@ correlation_tissues_only <- function(tissue_NAMES){
 #' \itemize{
 #'   \item If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error.
 #'   \item If both lists have fewer than five elements, it stops execution and throws an error.
-#'   \item If only one list is provided, it must contain at least five elements.
-#'   \item The `plot_choice` argument must be either `"per_gene"` or `"per_tissue"`. Any other value triggers a warning.
+#'   \item If only one list is provided, it stops execution and throws an error.
+#'   \item The `plot_choice` argument must be either `"per_gene"` or `"per_tissue"`. Any other value stops execution and throws an error.
 #' }
 #'
 #' The function then calls:
@@ -645,23 +652,28 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 
   # Case 1: Inputs, gene_NAMES and tissue_NAMES are both NULL
   if (is.null(gene_NAMES) && is.null(tissue_NAMES)){
-    stop("Please provide at least five gene names or tissue names")
+    stop("Please provide at least five gene names AND at least five tissue names")
   }
 
-  # Case 2: Not enough entries in gene_NAMES and tissue_NAMES
-  if ((!is.null(gene_NAMES) && length(gene_NAMES) < 5) &&
-      (!is.null(tissue_NAMES) && length(tissue_NAMES) < 5)) {
-    stop("Please provide at least five gene names or tissue names.")
+  # Case 2: Only one list provided (function requires both lists)
+  if (is.null(gene_NAMES) || is.null(tissue_NAMES)){
+    stop("This function requires both gene_NAMES and tissue_NAMES. For only one list, use compute_correlation().")
   }
 
-  # Case 3: if only one list is provided, ensure it has >= 5 elements
-  if (!is.null(gene_NAMES) && is.null(tissue_NAMES) && length(gene_NAMES) < 5) {
-    stop("Need at least five gene names.")
+  # Case 3: if gene list <5
+  if (length(gene_NAMES) < 5){
+    stop("gene_NAMES must contain at least five elements.")
   }
 
-  # Case 4: if only one list is provided, ensure it has >= 5 elements
-  if (is.null(gene_NAMES) && !is.null(tissue_NAMES) && length(tissue_NAMES) < 5) {
-    stop("Need at least five tissue names.")
+  # Case 4: tissue list <5
+  if (length(tissue_NAMES) < 5){
+    stop("tissue_NAMES must contain at least five elements.")
+  }
+
+  # Validate plot_choice
+  if (!plot_choice %in% c("per_gene","per_tissue")){
+    stop("Choice of variable plot_choice is invalid. Please choose
+            between per_gene and per_tissue")
   }
 
   # If plot_choice is per_gene, call function per_gene_plot
@@ -676,11 +688,6 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
     return(output)
   }
 
-  # If invalid plot_choice, flag a warning
-  else{
-    warning("Choice of variable plot_choice is invalid. Please choose
-            between per_gene and per_tissue")
-  }
 
 }
 

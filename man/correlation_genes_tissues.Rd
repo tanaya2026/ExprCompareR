@@ -38,8 +38,8 @@ The function validates the inputs before generating plots:
 \itemize{
 \item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it stops execution and throws an error.
 \item If both lists have fewer than five elements, it stops execution and throws an error.
-\item If only one list is provided, it must contain at least five elements.
-\item The \code{plot_choice} argument must be either \code{"per_gene"} or \code{"per_tissue"}. Any other value triggers a warning.
+\item If only one list is provided, it stops execution and throws an error.
+\item The \code{plot_choice} argument must be either \code{"per_gene"} or \code{"per_tissue"}. Any other value stops execution and throws an error.
 }
 
 The function then calls:
