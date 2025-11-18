@@ -53,12 +53,12 @@ output$plot
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 "HPAanalyze: an R package that facilitates the retrieval and analysis of the
 Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
-https://doi.org/10.1186/s12859-019-3059-z
+\url{https://doi.org/10.1186/s12859-019-3059-z}
 
 Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
-Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
+Springer-Verlag New York. ISBN 978-3 319-24277-4, \url{https://ggplot2.tidyverse.org.}
 
 Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).
 dplyr: A Grammar of Data Manipulation. R package version 1.1.4,
-https://dplyr.tidyverse.org.
+\url{https://dplyr.tidyverse.org.}
 }

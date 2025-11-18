@@ -137,7 +137,7 @@ An overview of the package is illustrated below:
 **Image 1:** Depicts the functionality of functions compute_correlation,
 correlation_genes_tissues and detect_outliers.
 
-![](./inst/extdata/Correlation_Overview.png)
+![](./inst/extdata/Correlation_Overview.png) <br> <br>
 
 **Image 2:** Depicts the functionality for function
 compareCancerProtein.
@@ -190,6 +190,14 @@ was done by the author.
 - BioRender.com. BioRender \[Online\]. Available at:
   <https://www.biorender.com> (accessed 2 November 2025).
 
+- Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with
+  HTML. <https://shiny.posit.co/r/articles/build/html-tags/>
+
+- Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie
+  Y, Allen J, McPherson J, Dipert A, Borges B (2025). shiny: Web
+  Application Framework for R. R package version 1.11.1,
+  <https://CRAN.R-project.org/package=shiny>
+
 - Lonsdale, J., Thomas, J., Salvatore, M. et al. The Genotype-Tissue
   Expression (GTEx) project. Nat Genet 45, 580–585 (2013).
   <https://doi.org/10.1038/ng.2653>
@@ -203,6 +211,11 @@ was done by the author.
 - R Core Team (2024). *R: A Language and Environment for Statistical
   Computing*. R Foundation for Statistical Computing, Vienna, Austria.
   <https://www.R-project.org/>.
+
+- Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019). A
+  multivariate Poisson-log normal mixture model for clustering
+  transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394.
+  <https://pubmed.ncbi.nlm.nih.gov/31311497/>
 
 - Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial
   map of the human proteome. Protein science : a publication of the

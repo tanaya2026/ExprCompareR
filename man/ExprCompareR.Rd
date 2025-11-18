@@ -10,18 +10,22 @@ The package provides functions for correlation analysis, outlier detection, anal
 }
 \references{
 \itemize{
-\item BioRender.com. BioRender. Available at: https://www.biorender.com (accessed 2 November 2025).
-\item Lonsdale, J., Thomas, J., Salvatore, M. et al. The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013). https://doi.org/10.1038/ng.2653
-\item Müller K, Wickham H (2025). tibble: Simple Data Frames. R package version 3.3.0, https://tibble.tidyverse.org/.
-\item OpenAI.(2025). ChatGPT (GPT-5). Retrieved November 2, 2025, from https://chatgpt.com/
-\item R Core Team (2024). R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/
-\item Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial map of the human proteome. Protein science : a publication of the Protein Society, 27(1), 233–244. https://doi.org/10.1002/pro.3307
-\item Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019). “HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data.”MC Bioinformatics 20, 463 (2019). https://doi.org/10.1186/s12859-019-3059-z
-\item Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.” Journal of Open Source Software, 10(109), 8249. ISSN 2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
-\item Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org.
-\item Wickham H, François R, Henry L, Müller K, Vaughan D (2025). dplyr: A Grammar of Data Manipulation. R package version 1.1.4, https://dplyr.tidyverse.org.
-\item Wickham H, Henry L (2025). purrr: Functional Programming Tools. R package version 1.1.0, https://purrr.tidyverse.org/
-\item Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data. R package version 1.3.1, https://tidyr.tidyverse.org.
+\item BioRender.com. BioRender. Available at: \url{https://www.biorender.com} (accessed 2 November 2025).
+\item Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML. \url{https://shiny.posit.co/r/articles/build/html-tags/}
+\item Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).
+shiny: Web Application Framework for R. R package version 1.11.1, \url{https://CRAN.R-project.org/package=shiny}
+\item Lonsdale, J., Thomas, J., Salvatore, M. et al. The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013). \url{https://doi.org/10.1038/ng.2653}
+\item Müller K, Wickham H (2025). tibble: Simple Data Frames. R package version 3.3.0, \url{https://tibble.tidyverse.org/.}
+\item OpenAI.(2025). ChatGPT (GPT-5). Retrieved November 2, 2025, from \url{https://chatgpt.com/}
+\item R Core Team (2024). R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. \url{https://www.R-project.org/}
+\item Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394. \url{https://pubmed.ncbi.nlm.nih.gov/31311497/}
+\item Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial map of the human proteome. Protein science : a publication of the Protein Society, 27(1), 233–244. \url{https://doi.org/10.1002/pro.3307}
+\item Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019). “HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data.”MC Bioinformatics 20, 463 (2019). \url{https://doi.org/10.1186/s12859-019-3059-z}
+\item Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.” Journal of Open Source Software, 10(109), 8249. ISSN 2475-9066, \url{doi:10.21105/joss.08249}, gigs v0.2.1.
+\item Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3 319-24277-4, \url{https://ggplot2.tidyverse.org.}
+\item Wickham H, François R, Henry L, Müller K, Vaughan D (2025). dplyr: A Grammar of Data Manipulation. R package version 1.1.4, \url{https://dplyr.tidyverse.org.}
+\item Wickham H, Henry L (2025). purrr: Functional Programming Tools. R package version 1.1.0, \url{https://purrr.tidyverse.org/}
+\item Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data. R package version 1.3.1, \url{https://tidyr.tidyverse.org.}
 }
 }
 \seealso{

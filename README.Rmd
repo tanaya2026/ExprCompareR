@@ -95,7 +95,8 @@ An overview of the package is illustrated below:
 
 
  ![](./inst/extdata/Correlation_Overview.png)
- 
+ <br>
+ <br>
  
  
  **Image 2:** Depicts the functionality for function compareCancerProtein.
@@ -118,6 +119,14 @@ ChatGPT was used across the functions to debug errors and to refine the wording 
 
 * BioRender.com. BioRender [Online]. Available at: https://www.biorender.com (accessed 2 November 2025).
 
+* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML. 
+https://shiny.posit.co/r/articles/build/html-tags/
+
+* Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,
+Allen J, McPherson J, Dipert A, Borges B (2025).
+shiny: Web Application Framework for R. R package version 1.11.1,
+https://CRAN.R-project.org/package=shiny
+
 * Lonsdale, J., Thomas, J., Salvatore, M. et al. The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580–585 (2013). https://doi.org/10.1038/ng.2653
 
 * Müller K, Wickham H (2025). tibble: Simple Data Frames. R package version 3.3.0, https://tibble.tidyverse.org/.
@@ -126,12 +135,15 @@ ChatGPT was used across the functions to debug errors and to refine the wording 
 
 * R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
 
+* Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).
+A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394. https://pubmed.ncbi.nlm.nih.gov/31311497/
+
 * Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial map of the human proteome. Protein science : a publication of the Protein Society, 27(1), 233–244. https://doi.org/10.1002/pro.3307
 
 * Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019). “HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data.”
 MC Bioinformatics 20, 463 (2019). https://doi.org/10.1186/s12859-019-3059-z
 
-* Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.” Journal of Open Source Software, 10(109), 8249. ISSN 2475-9066, doi:10.21105/joss.08249, gigs v0.2.1. 
+* Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). “gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.” Journal of Open Source Software, 10(109), 8249. ISSN 2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
 
 * Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org. 
 

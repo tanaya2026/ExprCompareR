@@ -43,20 +43,20 @@ gtexr_tissues
 \references{
 Lonsdale, J., Thomas, J., Salvatore, M. et al.
 The Genotype-Tissue Expression (GTEx) project. Nat Genet 45, 580-585 (2013).
-https://doi.org/10.1038/ng.2653
+\url{https://doi.org/10.1038/ng.2653}
 
 Thul PJ, Lindskog C. The human protein atlas: A spatial map of the human proteome.
-Protein Sci. 2018 Jan;27(1):233-244. doi: 10.1002/pro.3307.
+Protein Sci. 2018 Jan;27(1):233-244. \url{doi: 10.1002/pro.3307}.
 Epub 2017 Oct 10. PMID: 28940711; PMCID: PMC5734309.
 
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 "HPAanalyze: an R package that facilitates the retrieval and analysis of the
 Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
-https://doi.org/10.1186/s12859-019-3059-z
+\url{https://doi.org/10.1186/s12859-019-3059-z}
 
 Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). "gtexr: A
 convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 Journal of Open Source So ware, 10(109), 8249. ISSN
-2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
+2475-9066, \url{doi:10.21105/joss.08249, gigs v0.2.1.}
 }
 \keyword{internal}

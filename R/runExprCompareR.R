@@ -38,7 +38,6 @@
 #' shiny: Web Application Framework for R. R package version 1.11.1,
 #' \url{https://CRAN.R-project.org/package=shiny}
 #'
-#'
 #' Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).
 #' A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.
 #' BMC Bioinformatics. 2019;20(1):394. \url{https://pubmed.ncbi.nlm.nih.gov/31311497/}
