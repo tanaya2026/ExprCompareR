@@ -247,6 +247,7 @@ The package tree structure is provided below.
   |- DESCRIPTION
   |- NAMESPACE
   |- LICENSE
+  |- NEWS
   |- README
   |- data
     |- cancer_tissue_map.rda
