@@ -236,3 +236,80 @@ This package was developed as part of an assessment for 2025 BCB410H:
 Applied Bioinformatics course at the University of Toronto, Toronto,
 CANADA. `ExprCompareR` welcomes issues, enhancement requests, and other
 contributions. To submit an issue, use the GitHub issues.
+
+## Package Structure
+
+The package tree structure is provided below.
+
+``` r
+- ExprCompareR
+  |- ExprCompareR.Rproj
+  |- DESCRIPTION
+  |- NAMESPACE
+  |- LICENSE
+  |- README
+  |- data
+    |- cancer_tissue_map.rda
+    |- gene_symbols_list.rda
+    |- normal_tissue.rda
+    |- tissue_list_RNA.rda
+    |- tissue_list_protein.rda
+    |- tissue_map.rda
+  |- inst
+    CITATION
+    |- extdata
+      |- Correlation_Overview.png
+      |- Pathology_Overview.png
+    |- shiny-scripts 
+        |- app.R
+        |- modules
+          |- module-cancer_protein.R
+          |- module-compute_correlation.R
+          |- module-correlation_genes_tissues.R
+          |- module-outlier.R
+  |- man
+    |- ExprCompareR.Rd
+    |- cancer_tissue_map.Rd
+    |- compareCancerProtein.Rd
+    |- compute_correlation.Rd
+    |- convert_to_gtex.Rd
+    |- correlation_genes_only.Rd
+    |- correlation_genes_tissues.Rd
+    |- correlation_tissues_only.Rd
+    |- detect_outliers.Rd
+    |- gene_symbols_list.Rd
+    |- get_gtex_gencode_ids.Rd
+    |- normal_tissue.Rd
+    |- pathology.Rd
+    |- per_gene_plot.Rd
+    |- per_tissue_plot.Rd
+    |- protein_expr_values.Rd
+    |- runExprCompareR.Rd
+    |- tissue_list_RNA.Rd
+    |- tissue_list_protein.Rd
+    |- tissue_map.Rd
+  |- R
+    |- data.R
+    |- _PACKAGE.R
+    |- Helpers.R
+    |- Outlier_Detection.R
+    |- runExprCompareR.R
+    |- Correlation.R
+    |- CancerProtein.R
+  |- vignettes
+    |- Introduction_TestPackage.rmd
+    |- images
+      |- both_per_gene.png
+      |- both_per_tissue.png
+      |- outlier_detection.png
+      |- pathology.png
+      |- per_gene_only.png
+      |- per_tissue_only.png
+  |- tests
+    |- testthat.R
+    |- testthat
+      |- test-helpers.R
+      |- test-outlier.R
+      |- test-correlation.R
+      |- test-cancer-protein.R
+```
