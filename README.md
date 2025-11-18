@@ -93,6 +93,12 @@ library(ExprCompareR)
 
 ```
 
+To run the shiny app:
+
+``` r
+runExprCompareR()
+```
+
 ## Overview
 
 ``` r

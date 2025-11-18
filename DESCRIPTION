@@ -16,7 +16,9 @@ Imports:
     HPAanalyze,
     purrr,
     tidyr,
-    tibble
+    tibble,
+    shiny,
+    shinyalert
 Depends: 
     R (>= 3.5)
 LazyData: true

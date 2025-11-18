@@ -1,6 +1,8 @@
 #' Compute Correlation for Genes or Tissues
 #'
-#' This function computes correlations either for a list of genes **OR** a list of tissues.
+#'
+#' This function serves as a wrapper to compute and visualize the Spearman correlation
+#' between RNA and protein expression between a user's gene list **OR** tissue list of interest and plots the results.
 #' It requires at least five entries in the provided list (`gene_NAMES` or `tissue_NAMES`)
 #' to perform the computation. Depending on the input, it calls either
 #' `correlation_genes_only()` or `correlation_tissues_only()` internally.
@@ -25,8 +27,8 @@
 #' \code{tissue_map$protein_tissue}
 #'
 #' @return A plot object:
-#'   - If `gene_NAMES` is provided and `tissue_NAMES` is NULL, returns the `per_gene_plot` from `correlation_genes_only()`.
-#'   - If `tissue_NAMES` is provided and `gene_NAMES` is NULL, returns the `per_tissue_plot` from `correlation_tissues_only()`.
+#'   - If `gene_NAMES` is provided and `tissue_NAMES` is NULL, returns the `per_gene_plot`  of spearman correlations from `correlation_genes_only()`.
+#'   - If `tissue_NAMES` is provided and `gene_NAMES` is NULL, returns the `per_tissue_plot` of spearman correlations from `correlation_tissues_only()`.
 #'   - Stops execution and throws an error if input criteria is not met.
 #'
 #' @details

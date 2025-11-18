@@ -1,0 +1,65 @@
+#' Launch Shiny App for ExprCompareR
+#'
+#' A function that launches the Shiny app for ExprCompareR,
+#' a tool designed to streamline exploration and analysis of the relationship
+#' between RNA expression and protein expression across human tissues and conditions.
+#' The purpose of this app is only to illustrate how a Shiny
+#' app works. The code has been placed in \code{./inst/shiny-scripts}.
+#'
+#'
+#' The Shiny app provides a user-friendly interface to:
+#' \itemize{
+#'   \item Compute correlations between RNA and protein expression for selected genes or tissues.
+#'   \item Explore correlations between specific genes and tissues simultaneously.
+#'   \item Detect outlier genes showing unusual RNA-protein expression patterns.
+#'   \item Compare protein expression between normal and cancerous tissues.
+#' }
+#'
+#'The app also includes example datasets to help users quickly try out analyses.
+#' All functionality is accessible via four tabs in the navigation bar.
+#'
+#' @return No return value. Launches the Shiny page.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Launches the ExprCompareR Shiny App
+#'
+#' ExprCompareR::runExprCompareR()
+#' }
+#'
+#' @references
+#'
+#' Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).
+#' Customize your UI with HTML. - Article \url{https://shiny.posit.co/r/articles/build/html-tags/}
+#'
+#' Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,
+#' Allen J, McPherson J, Dipert A, Borges B (2025).
+#' shiny: Web Application Framework for R. R package version 1.11.1,
+#' \url{https://CRAN.R-project.org/package=shiny}
+#'
+#'
+#' Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).
+#' A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.
+#' BMC Bioinformatics. 2019;20(1):394. \url{https://pubmed.ncbi.nlm.nih.gov/31311497/}
+#'
+#' OpenAI.(2025). ChatGPT (GPT-5) Large language model.
+#' Retrieved November 17, 2025, from \url{https://chatgpt.com/}
+#'
+#'
+#'@export
+#'@importFrom shiny runApp
+#'
+
+runExprCompareR<- function(){
+  # Find the path to the shiny application and app.R
+  appDir <- system.file("shiny-scripts",
+                        package = "ExprCompareR")
+  # Launch the shiny app with normal display mode
+  actionShiny <- shiny::runApp(appDir, display.mode = "normal")
+  return(actionShiny)
+
+}
+
+
+# [END]

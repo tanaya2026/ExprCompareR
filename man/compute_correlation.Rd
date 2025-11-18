@@ -22,13 +22,14 @@ Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
 \value{
 A plot object:
 \itemize{
-\item If \code{gene_NAMES} is provided and \code{tissue_NAMES} is NULL, returns the \code{per_gene_plot} from \code{correlation_genes_only()}.
-\item If \code{tissue_NAMES} is provided and \code{gene_NAMES} is NULL, returns the \code{per_tissue_plot} from \code{correlation_tissues_only()}.
+\item If \code{gene_NAMES} is provided and \code{tissue_NAMES} is NULL, returns the \code{per_gene_plot}  of spearman correlations from \code{correlation_genes_only()}.
+\item If \code{tissue_NAMES} is provided and \code{gene_NAMES} is NULL, returns the \code{per_tissue_plot} of spearman correlations from \code{correlation_tissues_only()}.
 \item Stops execution and throws an error if input criteria is not met.
 }
 }
 \description{
-This function computes correlations either for a list of genes \strong{OR} a list of tissues.
+This function serves as a wrapper to compute and visualize the Spearman correlation
+between RNA and protein expression between a user's gene list \strong{OR} tissue list of interest and plots the results.
 It requires at least five entries in the provided list (\code{gene_NAMES} or \code{tissue_NAMES})
 to perform the computation. Depending on the input, it calls either
 \code{correlation_genes_only()} or \code{correlation_tissues_only()} internally.
