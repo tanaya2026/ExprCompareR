@@ -1,3 +1,5 @@
+# Correlation Module (Genes OR Tissues)
+
 # Prepare top 1000 genes including example genes
 example_genes <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 remaining_genes <- setdiff(gene_symbols_list, example_genes)
@@ -5,13 +7,70 @@ set.seed(123)
 random_genes <- sample(remaining_genes, 995)
 top_genes <- c(example_genes, random_genes)
 
-
+# UI
 correlationUI <- function(id) {
   ns <- NS(id)
 
   tagList(
-    sidebarLayout(
-      sidebarPanel(
+    fluidRow(
+      # Left column: Scrollable descriptive text + Run Examples
+      column(
+        width = 4,
+        div(
+          style = "max-height: 600px; overflow-y: auto; padding: 10px; background-color: #f9f9f9;
+                   border-radius: 8px; border: 1px solid #ddd;",
+          strong("Description"),
+          p("Compute Correlation for Genes or Tissues."),
+          p("This function serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **OR** tissue list of interest and plots the results. It requires at least five entries in the provided list to perform the computation."),
+          p("NOTE: This function only takes a list of genes or a list of tissues, and does not take both. If you want to provide both, use the 'Correlation (Genes AND Tissues)' tab."),
+          br(),
+          strong("Input:"),
+          p("Either a list of gene names or tissue names. Each list needs to be between 5 to 10 elements inclusive."),
+          strong("Output:"),
+          p("Returns a per-gene plot if gene names are provided, or a per-tissue plot if tissue names are provided."),
+          br(),
+          strong("Instructions:"),
+          p("1. Choose input type: Genes or Tissues."),
+          p("2. Use the slider to select the number of entries (5-10)."),
+          p("3. Select entries from dropdowns."),
+          p("4. Click 'Run Correlation' to view results."),
+          br(),
+          strong("Run Examples:"),
+          p("To run the example, follow the steps:"),
+          p("1. If you are interested in a gene list as input, Click on the 'Run Example (Genes)' button to view results"),
+          p("2. If you are interested in a tissue list as input, Click on the 'Run Example (Tissues)' button to view results."),
+          br(),
+          actionButton(ns("run_example_genes"), "Run Example (Genes)"),
+          br(), br(),
+          actionButton(ns("run_example_tissues"), "Run Example (Tissues)"),
+          br(), br(),
+          strong("Interpretation of plot"),
+          p("Gene List Plot"),
+          p("This function computes the spearman correlation of the gene list of interest across standard tissues (kidney, lung, spleen, ovary, testis, breast, cerebellum, pancreas and adrenal gland)"),
+          p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
+          br(),
+          p("Tissue List Plot"),
+          p("This function considers the top expressed genes in each given tissue in the user's tissue list of interest."),
+          p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
+          br(),
+          strong("References:"),
+          p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
+          p("* Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).shiny: Web Application Framework for R. R package version 1.11.1,https://CRAN.R-project.org/package=shiny"),
+          p("* OpenAI.(2025). ChatGPT (GPT-5) Large language model.Retrieved November 17, 2025, from https://chatgpt.com/ "),
+          p("* Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).,A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394. https://pubmed.ncbi.nlm.nih.gov/31311497/"),
+          p("* Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data. MC Bioinformatics 20, 463 (2019).https://doi.org/10.1186/s12859-019-3059-z"),
+          p("* Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.Journal of Open Source So ware, 10(109), 8249. ISSN 2475-9066,doi:10.21105/joss.08249}, gigs v0.2.1."),
+          p("* Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org."),
+          p("* Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).dplyr: A Grammar of Data Manipulation. R package version 1.1.4, https://dplyr.tidyverse.org."),
+          p("* Wickham H, Henry L (2025). purrr: Functional Programming Tools. R package version 1.1.0, https://purrr.tidyverse.org/."),
+          p("* Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data. R package version 1.3.1, https://tidyr.tidyverse.org."),
+          br()
+        )
+      ),
+
+      # Right column: Inputs and output
+      column(
+        width = 8,
         radioButtons(
           inputId = ns("input_type"),
           label = "Select input type:",
@@ -27,9 +86,8 @@ correlationUI <- function(id) {
           step = 1
         ),
         uiOutput(ns("dynamic_selects")),
-        actionButton(ns("run"), "Run Correlation")
-      ),
-      mainPanel(
+        actionButton(ns("run"), "Run Correlation"),
+        br(), br(),
         h3("Correlation Plot"),
         plotOutput(ns("cor_plot"))
       )
@@ -37,17 +95,17 @@ correlationUI <- function(id) {
   )
 }
 
+# Server
 correlationServer <- function(id) {
   moduleServer(id, function(input, output, session) {
 
-    # Dynamically generate dropdowns based on slider input
+    # Dynamically generate dropdowns
     output$dynamic_selects <- renderUI({
       ns <- session$ns
       n <- input$num_inputs
 
       selects <- lapply(1:n, function(i) {
         if (input$input_type == "Genes") {
-          # Use limited gene list
           selectizeInput(
             ns(paste0("sel_", i)),
             label = paste("Gene", i),
@@ -57,7 +115,6 @@ correlationServer <- function(id) {
             options = list(maxOptions = 1000)
           )
         } else {
-          # Small list, regular selectInput is fine
           selectInput(
             ns(paste0("sel_", i)),
             label = paste("Tissue", i),
@@ -70,33 +127,54 @@ correlationServer <- function(id) {
       do.call(tagList, selects)
     })
 
-    # Reactive expression to gather selected inputs
+    # Gather selected inputs
     selected_inputs <- reactive({
       n <- input$num_inputs
-      vals <- sapply(1:n, function(i) {
-        input[[paste0("sel_", i)]]
-      })
-      vals
+      sapply(1:n, function(i) input[[paste0("sel_", i)]])
     })
 
-    # Run correlation when button is clicked
-    result <- eventReactive(input$run, {
+    # Function to run correlation
+    run_correlation <- function(input_type, selections) {
+      if (input_type == "Genes") {
+        compute_correlation(gene_NAMES = selections, tissue_NAMES = NULL)
+      } else {
+        compute_correlation(gene_NAMES = NULL, tissue_NAMES = selections)
+      }
+    }
+
+    # ReactiveValues to store result
+    rv <- reactiveValues(result = NULL)
+
+    # Normal Run button
+    observeEvent(input$run, {
       req(selected_inputs())
-
-      if (input$input_type == "Genes") {
-        compute_correlation(gene_NAMES = selected_inputs(), tissue_NAMES = NULL)
-      } else {
-        compute_correlation(gene_NAMES = NULL, tissue_NAMES = selected_inputs())
-      }
+      rv$result <- run_correlation(input$input_type, selected_inputs())
     })
 
-    output$cor_plot <- renderPlot({
-      req(result())
-      if (input$input_type == "Genes") {
-        result()$per_gene_plot
-      } else {
-        result()$per_tissue_plot
+    # Run Example: Genes
+    observeEvent(input$run_example_genes, {
+      updateRadioButtons(session, "input_type", selected = "Genes")
+      updateSliderInput(session, "num_inputs", value = 5)
+      for (i in 1:5) {
+        updateSelectizeInput(session, paste0("sel_", i), selected = top_genes[i])
       }
+      rv$result <- run_correlation("Genes", top_genes[1:5])
+    })
+
+    # Run Example: Tissues
+    observeEvent(input$run_example_tissues, {
+      updateRadioButtons(session, "input_type", selected = "Tissues")
+      updateSliderInput(session, "num_inputs", value = 5)
+      for (i in 1:5) {
+        updateSelectInput(session, paste0("sel_", i), selected = tissue_map$protein_tissue[i])
+      }
+      rv$result <- run_correlation("Tissues", tissue_map$protein_tissue[1:5])
+    })
+
+    # Output
+    output$cor_plot <- renderPlot({
+      req(rv$result)
+      if (input$input_type == "Genes") rv$result$per_gene_plot else rv$result$per_tissue_plot
     })
 
   })
