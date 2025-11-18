@@ -81,7 +81,7 @@ browseVignettes("ExprCompareR")
 `ExprCompareR` contains four main user-accessible functions:
 
 1. ***compute_correlation*** - Computes spearman correlations across a set of genes **or** tissues of interest returns a plot summarizing the results. `compute_correlation` acts as a wrapper function and depending on the input, it calls either `correlation_genes_only()` or `correlation_tissues_only()` internally.
-2. ***correlation_genes_tissues*** - Computes spearman correlations across a set of genes **and** tissues of interest returns a plot summarizing the results.Users can choose to visualize per gene or per tissue.
+2. ***correlation_genes_tissues*** - Computes spearman correlations across a set of genes **and** tissues of interest returns a plot summarizing the results. Users can choose to visualize per gene or per tissue. `correlation_genes_tissues` acts as a wrapper function and depending on the input, it calls either `per_gene_plot()` or `per_tissue_plot()` internally.
 3. ***detect_outliers*** – Identifies genes in a given tissue that show large differences between RNA and protein expression and highlights them in a plot.
 4. ***compareCancerProtein*** – Compares protein expression between normal and cancer tissues for a specified cancer type, providing a summary table and bar plot of rank changes.
 

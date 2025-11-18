@@ -22,7 +22,14 @@ knitr::opts_chunk$set(
 
 **ExprCompareR** is a package designed to allow researchers and computational biologists to easily explore and quantify the relationship between RNA-seq and protein expression across various tissues and conditions. ExprCompareR provides functions for calculating and plotting the Spearman correlation of RNA-seq and protein expression data from the user's genes and tissues of interest.
 
-Additionally, ExprCompareR includes functionalities for detecting outlier genes i.e., genes that show large discrepancies between RNA and protein expression and for comparing protein expression between cancer and healthy tissues.
+Additionally, ExprCompareR includes functionalities for detecting outlier genes i.e., genes that show large discrepancies between RNA and protein expression and for comparing protein expression between cancer and healthy tissues. 
+
+For more information, try:
+
+```r
+?ExprCompareR
+
+```
 
 This document gives a quick tour of **ExprCompareR** (version 0.1.0)  functionalities. It was written in R Markdown, using the [knitr](https://cran.r-project.org/package=knitr) package for production. See `help(package="ExprCompareR")` for further details and references provided by `citation("ExprCompareR")`.
 
@@ -54,7 +61,7 @@ Summary table of key functions:
 | Function                      | Description                                                                                                          |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | `compute_correlation()`       | Calculates the Spearman correlation between RNA and protein expression for a user-defined list of genes **or** tissues and generates correlation plots. `compute_correlation` acts as a wrapper function and depending on the input, it calls either `correlation_genes_only()` or `correlation_tissues_only()` internally. |
-| `correlation_genes_tissues()` | Calculates the Spearman correlation between RNA and protein expression for a user-defined list of genes **and** tissues and generates correlation plots.|
+| `correlation_genes_tissues()` | Calculates the Spearman correlation between RNA and protein expression for a user-defined list of genes **and** tissues and generates correlation plots.Users can choose to visualize per gene or per tissue. `correlation_genes_tissues` acts as a wrapper function and depending on the input, it calls either `per_gene_plot()` or `per_tissue_plot()` internally.|
 | `detect_outliers()`           | Identifies genes that exhibit significant discrepancies between RNA and protein expression within a selected tissue, and generates outlier plots |
 | `compareCancerProtein()`      | Compares protein expression levels between cancerous and normal tissue samples for a specified cancer type, and plots genes involved.          |
 

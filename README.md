@@ -117,8 +117,10 @@ browseVignettes("ExprCompareR")
     or `correlation_tissues_only()` internally.
 2.  ***correlation_genes_tissues*** - Computes spearman correlations
     across a set of genes **and** tissues of interest returns a plot
-    summarizing the results.Users can choose to visualize per gene or
-    per tissue.
+    summarizing the results. Users can choose to visualize per gene or
+    per tissue. `correlation_genes_tissues` acts as a wrapper function
+    and depending on the input, it calls either `per_gene_plot()` or
+    `per_tissue_plot()` internally.
 3.  ***detect_outliers*** – Identifies genes in a given tissue that show
     large differences between RNA and protein expression and highlights
     them in a plot.

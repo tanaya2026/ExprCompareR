@@ -65,6 +65,8 @@
 #'@import dplyr
 #'@importFrom stats cor median
 #'@importFrom utils head
+#'
+#'@keywords internal
 
 
 get_gtex_gencode_ids <- function(gene_symbols) {
@@ -154,6 +156,8 @@ get_gtex_gencode_ids <- function(gene_symbols) {
 #'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
 #'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
 #'https://doi.org/10.1186/s12859-019-3059-z
+#'
+#'@keywords internal
 
 protein_expr_values <- function(protein_expression){
 
@@ -259,6 +263,8 @@ protein_expr_values <- function(protein_expression){
 #'convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API."
 #'Journal of Open Source So ware, 10(109), 8249. ISSN
 #'2475-9066, doi:10.21105/joss.08249, gigs v0.2.1.
+#'
+#'@keywords internal
 
 
 convert_to_gtex <- function(tissues) {

@@ -2,12 +2,8 @@
 
 export(compareCancerProtein)
 export(compute_correlation)
-export(correlation_genes_only)
 export(correlation_genes_tissues)
-export(correlation_tissues_only)
 export(detect_outliers)
-export(per_gene_plot)
-export(per_tissue_plot)
 export(runExprCompareR)
 import(HPAanalyze)
 import(dplyr)

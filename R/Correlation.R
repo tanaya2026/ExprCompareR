@@ -212,8 +212,8 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' @import dplyr
 #' @importFrom stats cor median
 #' @importFrom utils head
-
-#' @export
+#'
+#' @keywords internal
 
 correlation_genes_only <- function(gene_list){
   # Convert the gene_list to GENCODE IDs using helper function get_gtex_gencode_ids
@@ -428,7 +428,7 @@ correlation_genes_only <- function(gene_list){
 #' @importFrom stats cor median
 #' @importFrom utils head
 
-#' @export
+#' @keywords internal
 
 correlation_tissues_only <- function(tissue_NAMES){
 
@@ -785,7 +785,7 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 #' @importFrom stats cor median
 #' @importFrom utils head
 
-#' @export
+#' @keywords internal
 
 per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 
@@ -1025,7 +1025,7 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #' @importFrom stats cor median
 #' @importFrom utils head
 
-#' @export
+#' @keywords internal
 
 per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
 
