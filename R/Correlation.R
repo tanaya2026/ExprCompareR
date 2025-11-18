@@ -38,6 +38,7 @@
 #' - If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error
 #' - If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
 #' - If both lists are provided with 5>= elements each, it stops execution and throws an error
+#' - If duplicates exist in either list, it stops execution and throws an error
 #' - If only one list is provided, it must contain at least 5 elements.
 #'
 #' This function is a wrapper that decides which correlation computation function to use
@@ -119,6 +120,31 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
   if (!is.null(gene_NAMES) && !is.null(tissue_NAMES)) {
   stop("This function only supports either genes OR tissues, not both. Use `correlation_genes_tissues` for both.")
   }
+
+  # Case 6: Check for duplicates in gene_NAMES
+  if (!is.null(gene_NAMES) && any(duplicated(gene_NAMES))) {
+    dupes <- unique(gene_NAMES[duplicated(gene_NAMES)])
+    stop(
+      paste0(
+        "Duplicate gene names detected: ",
+        paste(dupes, collapse = ", "),
+        ".\nPlease remove duplicates before proceeding."
+      )
+    )
+  }
+
+  # Case 7: Check for duplicates in tissue_NAMES
+  if (!is.null(tissue_NAMES) && any(duplicated(tissue_NAMES))) {
+    dupes <- unique(tissue_NAMES[duplicated(tissue_NAMES)])
+    stop(
+      paste0(
+        "Duplicate tissue names detected: ",
+        paste(dupes, collapse = ", "),
+        ".\nPlease remove duplicates before proceeding."
+      )
+    )
+  }
+
 
 
   # If only gene_NAMES are provided, call function correlation_genes_only
@@ -594,6 +620,7 @@ correlation_tissues_only <- function(tissue_NAMES){
 #'   \item If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error.
 #'   \item If both lists have fewer than five elements, it stops execution and throws an error.
 #'   \item If only one list is provided, it stops execution and throws an error.
+#'   \item If either list has duplicates, it stops execution and throws an error.
 #'   \item The `plot_choice` argument must be either `"per_gene"` or `"per_tissue"`. Any other value stops execution and throws an error.
 #' }
 #'
@@ -671,6 +698,31 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
   if (length(tissue_NAMES) < 5){
     stop("tissue_NAMES must contain at least five elements.")
   }
+
+  # Case 5: Check for duplicates in gene_NAMES
+  if (any(duplicated(gene_NAMES))) {
+    dupes <- unique(gene_NAMES[duplicated(gene_NAMES)])
+    stop(
+      paste0(
+        "Duplicate gene names detected: ",
+        paste(dupes, collapse = ", "),
+        ".\nPlease remove duplicates before proceeding."
+      )
+    )
+  }
+
+  # Case 6: Check for duplicates in tissue_NAMES
+  if (any(duplicated(tissue_NAMES))) {
+    dupes <- unique(tissue_NAMES[duplicated(tissue_NAMES)])
+    stop(
+      paste0(
+        "Duplicate tissue names detected: ",
+        paste(dupes, collapse = ", "),
+        ".\nPlease remove duplicates before proceeding."
+      )
+    )
+  }
+
 
   # Validate plot_choice
   if (!plot_choice %in% c("per_gene","per_tissue")){

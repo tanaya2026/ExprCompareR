@@ -46,6 +46,7 @@ The function validates the input before computing correlations:
 \item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it stops execution and throws an error
 \item If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
 \item If both lists are provided with 5>= elements each, it stops execution and throws an error
+\item If duplicates exist in either list, it stops execution and throws an error
 \item If only one list is provided, it must contain at least 5 elements.
 }
 
