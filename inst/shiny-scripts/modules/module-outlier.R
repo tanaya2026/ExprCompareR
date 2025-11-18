@@ -35,20 +35,21 @@ outlierUI <- function(id) {
           # Run Example button
           actionButton(ns("run_example"), "Run Example"),
           br(), br(),
+          strong("Interpretation of plot"),
+          p("The scatter plot generated, depicts the outliers detected in the tissue of interest i.e. those genes who have a large delta in their RNA and protein expression. The X axis represents the RNA expression of the genes found in the tissue of interest and the Y axis represents the protein expression of genes found in the tissue of interest. These RNA values are log transformed (log 2) as they are far right skewed as compared to the protein values to have a fair comparison of RNA and protein values as they are obtained from different sources. This function utlizies IQR thresholds to identify outlier genes."),
+          p("The black dots indicate genes which do not have a significant change in their RNA vs protein expression, where the red dots indicate outliers."),
+          br(),
+          strong("Interpretation of list"),
+          p("This function provides the list of genes in the tissue of interest which are detected as outliers.These genes are most likely candidates for post-transcriptional modifications, and this list can be used to narrow down potential targets for post-transcriptional modifications. These genes can reflect regulatory mechanism of microRNA-mediated degradation, altered translation rates, or differences in protein stability."),
+          br(),
           strong("References"),
-          p(""),
-          p(""),
-          p(""),
-          p(""),
-          p(""),
-          br(),
-          strong("Explanation of plot"),
-          p(""),
-          br(),
-          strong("Explanation of table"),
-          p(""),
+          p("* Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data. MC Bioinformatics 20, 463 (2019).https://doi.org/10.1186/s12859-019-3059-z"),
+          p("* Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.Journal of Open Source So ware, 10(109), 8249. ISSN 2475-9066,doi:10.21105/joss.08249}, gigs v0.2.1."),
+          p("* Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org."),
+          p("* Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).dplyr: A Grammar of Data Manipulation. R package version 1.1.4, https://dplyr.tidyverse.org."),
+          p("* Wickham H, Henry L (2025). purrr: Functional Programming Tools. R package version 1.1.0, https://purrr.tidyverse.org/."),
+          p("* Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data. R package version 1.3.1, https://tidyr.tidyverse.org."),
           br()
-
         )
       ),
 
