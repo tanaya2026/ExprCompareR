@@ -33,7 +33,7 @@ ui <- navbarPage(
             margin-top: 10px;
           }
           table.custom-table th {
-            background-color: #4CAF50;
+            background-color: #00008B;
             color: white;
             padding: 10px;
             text-align: left;
@@ -52,7 +52,8 @@ ui <- navbarPage(
       # --- Description Card ---
       div(class="custom-card",
           h2("Welcome to ExprCompareR"),
-          p("`ExprCompareR` is an R package designed to streamline the exploration and quantification of the relationship between RNA expression and protein expression across human tissues and conditions. Researchers studying post-transcriptional regulation currently face the time-consuming task of manually retrieving RNA-seq and protein-expression data, filtering, normalizing, computing correlations, and creating visualizations for their genes of interest. `ExprCompareR` automates and integrates these steps, providing a user-friendly workflow to quickly retrieve transcriptomic and proteomic data from public repositories such as the Genotype-Tissue Expression Project (GTEx)(Lonsdale et al., 2013) and the Human Protein Atlas (HPA)(Thul et al., 2018), compute correlations, flag outlier genes, and visualize results.")
+          br(),
+          p("ExprCompareR is an R package designed to streamline the exploration and quantification of the relationship between RNA expression and protein expression across human tissues and conditions. Researchers studying post-transcriptional regulation currently face the time-consuming task of manually retrieving RNA-seq and protein-expression data, filtering, normalizing, computing correlations, and creating visualizations for their genes of interest. `ExprCompareR` automates and integrates these steps, providing a user-friendly workflow to quickly retrieve transcriptomic and proteomic data from public repositories such as the Genotype-Tissue Expression Project (GTEx)(Lonsdale et al., 2013) and the Human Protein Atlas (HPA)(Thul et al., 2018), compute correlations, flag outlier genes, and visualize results.")
       ),
 
       # --- Key Functions Card ---
@@ -121,13 +122,72 @@ ui <- navbarPage(
               </tbody>
             </table>
           '),
-          p("Simply click on a tab to access its interface, input your data or selections, and view the resulting plots and tables interactively. This layout ensures that all major functions are easily accessible without leaving the app.")
+          br(),
+          p("On each Shiny tab you will find the following sections:"),
+          br(),
+          HTML('
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Explanation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Description</td>
+                  <td>Explains the main functionality of the function</td>
+                </tr>
+                <tr>
+                  <td>Input</td>
+                  <td>Explains the input for that function</td>
+                </tr>
+                <tr>
+                  <td>Output</td>
+                  <td>Explains the output for that function</td>
+                </tr>
+                <tr>
+                  <td>Instructions</td>
+                  <td>Explains the UI and how to run the function using shiny</td>
+                </tr>
+                 <tr>
+                  <td>Run Examples </td>
+                  <td>Explains how the user can run examples for the function</td>
+                </tr>
+                 <tr>
+                  <td>Interpretation of plot</td>
+                  <td>Explains the plot generated and how to interpret the plot</td>
+                </tr>
+                 <tr>
+                  <td>Interpretation of list</td>
+                  <td>Explains the list or table generated and how to interpret list or table</td>
+                </tr>
+                 <tr>
+                  <td>References</td>
+                  <td>Includes the references for that function</td>
+                </tr>
+              </tbody>
+            </table>
+          '),
+          br(),
+          h4("Simply click on a tab to access its interface, input your selections, and view the resulting plots and tables interactively.")
+
+
       ),
 
-      # --- Example Datasets Card ---
-      div(class="custom-card",
-          h3("Example Datasets"),
-          p("You can include here a description or links to example datasets for users to explore the functionalities of ExprCompareR.")
+
+      div(class = "custom-card",
+          h3("References"),
+          p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
+          p("* Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).shiny: Web Application Framework for R. R package version 1.11.1,https://CRAN.R-project.org/package=shiny"),
+          p("* OpenAI.(2025). ChatGPT (GPT-5) Large language model.Retrieved November 17, 2025, from https://chatgpt.com/ "),
+          p("* Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).,A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394. https://pubmed.ncbi.nlm.nih.gov/31311497/"),
+          p("* Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data. MC Bioinformatics 20, 463 (2019).https://doi.org/10.1186/s12859-019-3059-z"),
+          p("* Warwick A, Zuckerman B, Ung C, Luben R, Olvera-Barrios A (2025). gtexr: A convenient R interface to the Genotype-Tissue Expression (GTEx) Portal API.Journal of Open Source So ware, 10(109), 8249. ISSN 2475-9066,doi:10.21105/joss.08249}, gigs v0.2.1."),
+          p("* Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. ISBN 978-3 319-24277-4, https://ggplot2.tidyverse.org."),
+          p("* Wickham H, Francois R, Henry L, Muller K, Vaughan D (2025).dplyr: A Grammar of Data Manipulation. R package version 1.1.4, https://dplyr.tidyverse.org."),
+          p("* Wickham H, Henry L (2025). purrr: Functional Programming Tools. R package version 1.1.0, https://purrr.tidyverse.org/."),
+          p("* Wickham H, Vaughan D, Girlich M (2025). tidyr: Tidy Messy Data. R package version 1.3.1, https://tidyr.tidyverse.org.")
       )
     )
   ),

@@ -22,9 +22,9 @@ correlationGenesTissuesUI <- function(id) {
                    border: 1px solid #ddd;",
 
           strong("Description"),
-          p("Generate correlation plots for a user-provided list of genes **AND** tissues."),
-          p("This function computes Spearman correlations between RNA and protein expression.
-             It produces either:"),
+          p("Compute Correlation for Genes AND Tissues."),
+          p("This function serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list ", strong("AND"), " tissue list of interest and plots the results. It requires at least five entries in the both lists to perform the computation."),
+          p("It produces either:"),
           tags$ul(
             tags$li("A per-gene plot (correlation computed across tissues), OR"),
             tags$li("A per-tissue plot (correlation computed across genes)")
@@ -32,13 +32,18 @@ correlationGenesTissuesUI <- function(id) {
           p("depending on the selected plot type."),
 
           br(),
+          p("NOTE: This function takes a list of genes AND a list of tissues. If you want to provide only a list of tissues or genes, use the 'Correlation (Genes OR Tissues)' tab."),
+          br(),
           strong("Input:"),
           tags$ol(
             tags$li("A list of gene names (5–10 required)."),
             tags$li("A list of tissue names (5–10 required)."),
             tags$li("A choice of plot type: per_gene or per_tissue.")
           ),
-
+          br(),
+          p("Note: This function queries data from HPA (Lonsdale et al., 2013) and GTEx(Lonsdale et al., 2013). To avoid high load and long query times, the", strong ("shiny UI"), " of this function is limited to 5-10 genes/tissues at a time."),
+          p("If you are interested in querying larger data, you can run this function in RStudio"),
+          br(),
           strong("Output:"),
           p("A plot object showing Spearman correlations per gene or per tissue."),
 
@@ -60,13 +65,17 @@ correlationGenesTissuesUI <- function(id) {
           actionButton(ns("run_example_tissue"), "Run Example (per_tissue)"),
           br(), br(),
           strong("Interpretation of plot"),
-          p("per_gene Plot"),
+          br(),
+          br(),
+          strong("per_gene Plot"),
           p("This function computes the spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual genes and the Y axis being the spearman coefficient."),
           p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
+          p("Plot Key: High spearman values are indicated in blue, medium spearman values are indicated in white and low spearman values are indicated in red."),
           br(),
-          p("per_tissue Plot"),
+          strong("per_tissue Plot"),
           p("This function computes the spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual tissues and the Y axis being the spearman coefficient."),
           p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
+          p("Plot Key: High spearman values are indicated in blue, medium spearman values are indicated in white and low spearman values are indicated in red."),
           br(),
           strong("References:"),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
