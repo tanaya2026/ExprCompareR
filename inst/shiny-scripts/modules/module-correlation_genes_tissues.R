@@ -8,6 +8,10 @@ random_genes <- sample(remaining_genes, 995)
 top_genes <- c(example_genes, random_genes)
 
 
+example_genes <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+example_tissues <- c("lung", "spleen", "liver", "ovary", "testis")
+
+
 correlationGenesTissuesUI <- function(id) {
   ns <- NS(id)
 
@@ -64,18 +68,34 @@ correlationGenesTissuesUI <- function(id) {
           br(), br(),
           actionButton(ns("run_example_tissue"), "Run Example (per_tissue)"),
           br(), br(),
+          strong("Example Configuration:"),
+          p("The example that  'Run Example (per_gene)'  button runs is "),
+          br(),
+          p("tissues = lung, spleen, liver, ovary, testis"),
+          p("genes = MYC, TP53, BRCA1, CRP, EGFR"),
+          p("plot_choice = per_gene"),
+          br(),
+          p("The example that  'Run Example (per_tissue)'  button runs is" ),
+          p("tissues = lung, spleen, liver, ovary, testis"),
+          p("genes = MYC, TP53, BRCA1, CRP, EGFR"),
+          p("plot_choice = per_tissue"),
+          br(),
+          p("All inputs are automatically updated when the example runs."),
+          br(),
           strong("Interpretation of plot"),
           br(),
           br(),
           strong("per_gene Plot"),
           p("This function computes the spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual genes and the Y axis being the spearman coefficient."),
           p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
-          p("Plot Key: High spearman values are indicated in blue, medium spearman values are indicated in white and low spearman values are indicated in red."),
+          br(),
+          p("Plot Key: Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation."),
           br(),
           strong("per_tissue Plot"),
           p("This function computes the spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual tissues and the Y axis being the spearman coefficient."),
           p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
-          p("Plot Key: High spearman values are indicated in blue, medium spearman values are indicated in white and low spearman values are indicated in red."),
+          br(),
+          p("Plot Key: Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation."),
           br(),
           strong("References:"),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
@@ -194,14 +214,14 @@ correlationGenesTissuesServer <- function(id) {
         updateSelectizeInput(session, paste0("gene_", i),
                              selected = example_genes[i])
         updateSelectInput(session, paste0("tissue_", i),
-                          selected = tissue_map$protein_tissue[i])
+                          selected = example_tissues[i])
       }
 
       updateSelectInput(session, "plot_choice", selected = "per_gene")
 
       rv$result <- correlation_genes_tissues(
         gene_NAMES = example_genes,
-        tissue_NAMES = tissue_map$protein_tissue[1:5],
+        tissue_NAMES = example_tissues,
         plot_choice = "per_gene"
       )
     })
@@ -217,14 +237,14 @@ correlationGenesTissuesServer <- function(id) {
         updateSelectizeInput(session, paste0("gene_", i),
                              selected = example_genes[i])
         updateSelectInput(session, paste0("tissue_", i),
-                          selected = tissue_map$protein_tissue[i])
+                          selected = example_tissues[i])
       }
 
       updateSelectInput(session, "plot_choice", selected = "per_tissue")
 
       rv$result <- correlation_genes_tissues(
         gene_NAMES = example_genes,
-        tissue_NAMES = tissue_map$protein_tissue[1:5],
+        tissue_NAMES = example_tissues,
         plot_choice = "per_tissue"
       )
     })

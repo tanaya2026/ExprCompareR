@@ -7,6 +7,8 @@ set.seed(123)
 random_genes <- sample(remaining_genes, 995)
 top_genes <- c(example_genes, random_genes)
 
+example_tissues <- c("lung", "spleen", "liver", "ovary", "testis")
+
 # UI
 correlationUI <- function(id) {
   ns <- NS(id)
@@ -48,18 +50,32 @@ correlationUI <- function(id) {
           br(), br(),
           actionButton(ns("run_example_tissues"), "Run Example (Tissues)"),
           br(), br(),
+          strong("Example Configuration:"),
+          p("The example that  'Run Example (Genes)'  button runs is "),
+          br(),
+          p("genes = MYC, TP53, BRCA1, CRP, EGFR"),
+          br(),
+          p("NOTE: This function uses a standard list of tissues to obtain the expression of the gene list of interest, these are:cerebellum, kidney, adrenal gland, breast,lung, spleen, liver, ovary, testis, pancreas"),
+          br(),
+          p("The example that  'Run Example (Tissues)'   button runs is" ),
+          p("tissues = lung, spleen, liver, ovary, testis"),
+          br(),
+          p("All inputs are automatically updated when the example runs."),
+          br(),
           strong("Interpretation of plot"),
           br(),
           br(),
           strong("Gene List Plot"),
           p("This function computes the spearman correlation of the gene list of interest across standard tissues (kidney, lung, spleen, ovary, testis, breast, cerebellum, pancreas and adrenal gland) with the X axis being the individual genes and the Y axis being the spearman coefficient."),
           p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
-          p("Plot Key: High spearman values are indicated in blue, medium spearman values are indicated in white and low spearman values are indicated in red."),
+          br(),
+          p("Plot Key: Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation."),
           br(),
           strong("Tissue List Plot"),
           p("This function considers the top expressed genes in each given tissue in the user's tissue list of interest, with the X axis being the individual tissues and the Y axis being the spearman coefficient"),
           p("Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends."),
-          p("Plot Key: High spearman values are indicated in blue, medium spearman values are indicated in white and low spearman values are indicated in red."),
+          br(),
+          p("Plot Key: Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation."),
           br(),
           strong("References:"),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
@@ -164,9 +180,9 @@ correlationServer <- function(id) {
       updateRadioButtons(session, "input_type", selected = "Genes")
       updateSliderInput(session, "num_inputs", value = 5)
       for (i in 1:5) {
-        updateSelectizeInput(session, paste0("sel_", i), selected = top_genes[i])
+        updateSelectizeInput(session, paste0("sel_", i), selected = example_genes)
       }
-      rv$result <- run_correlation("Genes", top_genes[1:5])
+      rv$result <- run_correlation("Genes", example_genes)
     })
 
     # Run Example: Tissues
@@ -174,15 +190,19 @@ correlationServer <- function(id) {
       updateRadioButtons(session, "input_type", selected = "Tissues")
       updateSliderInput(session, "num_inputs", value = 5)
       for (i in 1:5) {
-        updateSelectInput(session, paste0("sel_", i), selected = tissue_map$protein_tissue[i])
+        updateSelectInput(session, paste0("sel_", i), selected = example_tissues)
       }
-      rv$result <- run_correlation("Tissues", tissue_map$protein_tissue[1:5])
+      rv$result <- run_correlation("Tissues", example_tissues)
     })
 
     # Output
     output$cor_plot <- renderPlot({
       req(rv$result)
-      if (input$input_type == "Genes") rv$result$per_gene_plot else rv$result$per_tissue_plot
+      if (input$input_type == "Genes"){
+        rv$result$per_gene_plot
+        } else {
+          rv$result$per_tissue_plot
+        }
     })
 
   })

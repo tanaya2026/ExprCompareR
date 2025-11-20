@@ -155,6 +155,10 @@ ui <- navbarPage(
                   <td>Explains how the user can run examples for the function</td>
                 </tr>
                  <tr>
+                  <td>Example Configuration</td>
+                  <td>Explains the example run when you click on the Run Example button </td>
+                </tr>
+                 <tr>
                   <td>Interpretation of plot</td>
                   <td>Explains the plot generated and how to interpret the plot</td>
                 </tr>

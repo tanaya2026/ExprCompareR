@@ -6,7 +6,7 @@ outlierUI <- function(id) {
 
   tagList(
     fluidRow(
-      # Left column: Scrollable explanatory text
+      # Left column: Scrollable explanatory text + Run Example
       column(
         width = 4,
         div(
@@ -29,12 +29,18 @@ outlierUI <- function(id) {
           br(),
           strong("Run Examples:"),
           p("To run the example, follow the steps:"),
-          p("1. Click on the 'Run Example' button"),
-          p("2. Click on the 'Run Outlier Detection' button to view results."),
+          p("1. Click on the 'Run Example' button to view the results."),
           br(),
           # Run Example button
           actionButton(ns("run_example"), "Run Example"),
           br(), br(),
+          strong("Example Configuration:"),
+          br(),
+          p("The example that 'Run Example' button runs is:"),
+          p("tissue = lung"),
+          br(),
+          p("All inputs are automatically updated when the example runs."),
+          br(),
           strong("Interpretation of plot"),
           p("The scatter plot generated, depicts the outliers detected in the tissue of interest i.e. those genes who have a large delta in their RNA and protein expression. The X axis represents the RNA expression of the genes found in the tissue of interest and the Y axis represents the protein expression of genes found in the tissue of interest. These RNA values are log transformed (log 2) as they are far right skewed as compared to the protein values to have a fair comparison of RNA and protein values as they are obtained from different sources. This function utlizies IQR thresholds to identify outlier genes."),
           p("The black dots indicate genes which do not have a significant change in their RNA vs protein expression, where the red dots indicate outliers."),
@@ -57,7 +63,7 @@ outlierUI <- function(id) {
         )
       ),
 
-      # Right column: Input controls and output
+      # Right column: Input controls and outputs
       column(
         width = 8,
         selectInput(
@@ -81,30 +87,33 @@ outlierUI <- function(id) {
 outlierServer <- function(id) {
   moduleServer(id, function(input, output, session) {
 
-    # EventReactive for normal Run button
-    result <- eventReactive(input$run, {
+    # ReactiveValues to store results
+    rv <- reactiveValues(result = NULL)
+
+    # Normal Run button
+    observeEvent(input$run, {
       req(input$tissue)
-      detect_outliers(input_tissue = input$tissue)
+      rv$result <- detect_outliers(input_tissue = input$tissue)
     })
 
-    # Observe Example button click
+    # Run Example button
     observeEvent(input$run_example, {
-      # Update tissue input to "lung"
+      # Automatically select "lung" tissue
       updateSelectInput(session, "tissue", selected = "lung")
 
-      # Trigger the same reactive as Run button
-      result()
+      # Run detection immediately
+      rv$result <- detect_outliers(input_tissue = "lung")
     })
 
     # Outputs
     output$outlier_plot <- renderPlot({
-      req(result())
-      result()$outlier_plot
+      req(rv$result)
+      rv$result$outlier_plot
     })
 
     output$outlier_vector <- renderPrint({
-      req(result())
-      result()$outlier_vector
+      req(rv$result)
+      rv$result$outlier_vector
     })
   })
 }

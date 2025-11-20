@@ -353,20 +353,25 @@ correlation_genes_only <- function(gene_list){
     spear_corr = gene_correlations
   )
 
-  # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
 
+  # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
   final_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
     geom_col() +
     geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) + # add correlation labels
     scale_y_continuous(limits = c(-1, 1)) +  # Pearson can be negative
-    scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0) +
+    scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0,   name = "Spearman Correlation\n(red = high negative, white = ~0, blue = high positive)\n(Color intensity reflects magnitude)"
+) +
     labs(
-      title = "Spearman Correlation between RNA and Protein Expression \n of genes of interest across various tissues \n (Kidney, Lung, Spleen, Liver, Ovary, Testis, Breast, \n Adrenal Gland, Pancreas, Cerebellum)",
+      title = "Spearman Correlation between RNA and Protein Expression \n of genes of interest across various tissues",
       x = "Genes",
-      y = "Spearman Correlation Value"
+      y = "Spearman Correlation Value",
     ) +
     theme_minimal(base_size = 12) +
-    theme(legend.position = "none")
+    theme(
+      legend.position = "right",   # places the key on the side
+      legend.title = element_text(size = 10),
+      legend.text = element_text(size = 8)
+    )
 
   # Returning an object output which contains the final plot we created
   output <- list(per_gene_plot = final_plot)
@@ -557,18 +562,29 @@ correlation_tissues_only <- function(tissue_NAMES){
 
   Tissue_correlations_tbl <- tibble(tissue = names(Tissue_correlations), spearman_correlation = Tissue_correlations)
 
-
-  # Generating a plot using ggplot2 to visualize the spearman correlation of each tissue.
-  output_plot <-ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = tissue)) +
+  # Generating a plot using ggplot2 to visualize the spearman correlation of each tissue
+    output_plot <-ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = spearman_correlation)) +
     geom_col() +
     geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +  # show values
+    scale_fill_gradient2(
+      low = "red",
+      mid = "white",
+      high = "blue",
+      midpoint = 0,
+      name = "Spearman Correlation\n(red = high negative,\nwhite = ~0, blue = high positive)"
+    ) +  # adds legend with descriptive title
     labs(
-      title = "Spearman Correlation between RNA and Protein Expression of the top expressed genes \n in tissues of interest",
+      title = "Spearman Correlation between RNA and Protein Expression \n of the top expressed genes in tissues of interest",
       x = "Tissues",
-      y = "Spearman Correlation Values "
+      y = "Spearman Correlation Values"
     ) +
-    theme_minimal() +
-    theme(legend.position = "none")
+    theme_minimal(base_size = 12) +
+    theme(
+      legend.position = "right",  # place legend on the right
+      legend.title = element_text(size = 10),
+      legend.text = element_text(size = 8)
+    )
+
 
   # Returning an object output which contains the final plot we created
   output <- list(per_tissue_plot = output_plot)
@@ -744,10 +760,6 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 
 
 }
-
-
-
-
 
 
 
@@ -969,16 +981,20 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 
   output_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
     geom_col() +                        # Bar plot
-    geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) + # add correlation labels
+    geom_text(aes(label = round(spear_corr, 2), vjust = -0.5)) + # add correlation labels
     scale_y_continuous(limits = c(-1, 1)) +  # Pearson can be negative
-    scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0) +
+    scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0,  name = "Spearman Correlation\n(red = high negative,\nwhite = ~0, blue = high positive)") +
     labs(
-      title = "Spearman Correlation between RNA and Protein Expression of genes of interest across tissues of interest",
+      title = "Spearman Correlation between RNA and Protein Expression \n of genes of interest across tissues of interest",
       x = "Genes",
       y = "Spearman Correlation Value"
     ) +
-    theme_minimal(base_size = 14) +
-    theme(legend.position = "none")
+    theme_minimal(base_size = 12) +
+    theme(
+      legend.position = "right",  # place legend on the right
+      legend.title = element_text(size = 10),
+      legend.text = element_text(size = 8)
+    )
 
   # Returning an object output which contains the final plot we created
   output<- list(per_gene_plot = output_plot)
@@ -1217,16 +1233,27 @@ per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
 
   # Generating a plot using ggplot2 to visualize the spearman correlation of each tissue.
 
-  output_plot <- ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = tissue)) +
+  output_plot <- ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = spearman_correlation)) +
     geom_col() +
-    geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +  # show values
+    geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +
+    scale_fill_gradient2(
+      low = "red",
+      mid = "white",
+      high = "blue",
+      midpoint = 0,
+      name = "Spearman Correlation\n(red = high negative,\nwhite = ~0, blue = high positive)"
+    )+
     labs(
-      title = "Spearman Correlation between RNA and Protein Expression of genes of interest across tissues of interest",
+      title = "Spearman Correlation between RNA and Protein Expression \n of genes of interest across tissues of interest",
       x = "Tissues",
       y = "Spearman Correlation Values "
     ) +
-    theme_minimal() +
-    theme(legend.position = "none")
+    theme_minimal(base_size = 12) +
+    theme(
+      legend.position = "right",  # place legend on the right
+      legend.title = element_text(size = 10),
+      legend.text = element_text(size = 8)
+    )
 
   # Returning an object output which contains the final plot we created
   output <- list(per_tissue_plot = output_plot)

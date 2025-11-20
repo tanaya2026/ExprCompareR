@@ -42,6 +42,13 @@ cancerUI <- function(id) {
           # Run Example button
           actionButton(ns("run_example"), "Run Example"),
           br(), br(),
+          strong("Example Configuration:"),
+          br(),
+          p("The example that 'Run Example' button runs is:"),
+          p("cancer type = ovarian cancer"),
+          br(),
+          p("All inputs are automatically updated when the example runs."),
+          br(),
           strong("Interpretation of plot"),
           p("Each gene is plotted to show the magnitude and direction of change in protein rank between normal and cancer tissue. The X axis represents the delta rank i.e. the change in protein expression of normal vs pathology. A decrease in rank is indicated by the colour red, an increase is indicated in the colour blue, and no change is indicated by green. This plot gives researchers a quick overview of the general direction of the genes in this cancer type."),
           p("If you want to find the genes whose direction has changed, then the protein table, gives a more in depth explanation below."),
