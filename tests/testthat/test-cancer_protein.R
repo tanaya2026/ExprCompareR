@@ -1,5 +1,11 @@
 library(testthat)
 
+
+#_______________________________________________________________________________
+
+# Testing cancer_protein for valid inputs
+
+
 test_that("compareCancerProtein warns for invalid cancer_type input", {
 
   # Case 1: completely invalid cancer type
@@ -15,3 +21,9 @@ test_that("compareCancerProtein warns for invalid cancer_type input", {
   )
 
 })
+
+
+#_______________________________________________________________________________
+
+# Testing actual implementation of cancer_protein
+

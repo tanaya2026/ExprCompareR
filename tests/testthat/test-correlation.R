@@ -53,3 +53,69 @@ test_that("compute_correlation handles all 7 invalid input cases", {
 
 })
 
+
+
+#--------------------------------------------------------------------------------------------------------
+
+# Test correlation_genes_tissues
+
+
+# Dummy valid inputs
+valid_genes   <- c("A", "B", "C", "D", "E")
+valid_tissues <- c("lung", "heart", "liver", "brain", "kidney")
+
+test_that("Error if both gene_NAMES and tissue_NAMES are NULL", {
+  expect_error(
+    correlation_genes_tissues(NULL, NULL, plot_choice = "per_gene"),
+    "Please provide at least five gene names AND at least five tissue names"
+  )
+})
+
+test_that("Error if only gene_NAMES is provided", {
+  expect_error(
+    correlation_genes_tissues(valid_genes, NULL, plot_choice = "per_gene"),
+    "requires both gene_NAMES and tissue_NAMES"
+  )
+})
+
+test_that("Error if only tissue_NAMES is provided", {
+  expect_error(
+    correlation_genes_tissues(NULL, valid_tissues, plot_choice = "per_gene"),
+    "requires both gene_NAMES and tissue_NAMES"
+  )
+})
+
+test_that("Error if gene_NAMES has fewer than five elements", {
+  expect_error(
+    correlation_genes_tissues(c("A","B","C"), valid_tissues, "per_gene"),
+    "gene_NAMES must contain at least five elements"
+  )
+})
+
+test_that("Error if tissue_NAMES has fewer than five elements", {
+  expect_error(
+    correlation_genes_tissues(valid_genes, c("lung", "heart"), "per_gene"),
+    "tissue_NAMES must contain at least five elements"
+  )
+})
+
+test_that("Error if duplicate genes provided", {
+  expect_error(
+    correlation_genes_tissues(c("A","B","C","A","D"), valid_tissues, "per_gene"),
+    "Duplicate gene names detected"
+  )
+})
+
+test_that("Error if duplicate tissues provided", {
+  expect_error(
+    correlation_genes_tissues(valid_genes, c("lung","heart","lung","kidney","liver"), "per_gene"),
+    "Duplicate tissue names detected"
+  )
+})
+
+test_that("Error if invalid plot_choice is provided", {
+  expect_error(
+    correlation_genes_tissues(valid_genes, valid_tissues, plot_choice = "invalid"),
+    "plot_choice is invalid"
+  )
+})
