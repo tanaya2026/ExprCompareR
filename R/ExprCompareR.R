@@ -5,14 +5,29 @@
 #'between RNA expression and protein expression across human tissues and conditions.
 #'The package provides functions for correlation analysis, outlier detection, analyzing differential expression between diseased and healthy tissues, and plotting.
 #'
-#'@name ExprCompareR
-#'@keywords internal
-#'@author Tanaya Datar
+#'@section ExprCompareR functions:
+#'ExprCompareR provides 4 functions:
+#' \itemize{
+#'   \item compute_correlation
+#'   \item correlation_genes_tissues
+#'   \item detect_outliers
+#'   \item compareCancerProtein
+#' }
+#'
+#'For a quick introduction to ExprCompareR see the vignettes or shiny implementation.
+#'
+#'
+#'@author {Tanaya Datar, \email{tanaya.datar@mail.utoronto.ca}. }
 #'
 #' @seealso
-#' \code{\link{compute_correlation}}, \code{\link{detect_outliers}}, \code{\link{correlation_genes_only}},
-#' \code{\link{correlation_tissues_only}},\code{\link{correlation_genes_tissues}},
-#' \code{\link{per_gene_plot}},\code{\link{per_tissue_plot}},\code{\link{compareCancerProtein}}
+#' \code{\link{compute_correlation}},
+#' \code{\link{detect_outliers}},
+#' \code{\link{correlation_genes_only}},
+#' \code{\link{correlation_tissues_only}},
+#' \code{\link{correlation_genes_tissues}},
+#' \code{\link{per_gene_plot}},
+#' \code{\link{per_tissue_plot}},
+#' \code{\link{compareCancerProtein}}
 #'
 #'@references
 #'* BioRender.com. BioRender. Available at: \url{https://www.biorender.com} (accessed 2 November 2025).
@@ -35,5 +50,7 @@
 #'
 #'
 #'
+#'@keywords internal
 
-NULL
+#'@name ExprCompareR
+"_PACKAGE"
