@@ -19,7 +19,9 @@ cancerUI <- function(id) {
           strong("Input:"),
           p("The cancer type of interest."),
           strong("Output:"),
-          p("Returns a plot showing the direction and magnitude of protein rank changes for each gene and a metadata tibble with columns:"),
+          p("Returns a plot showing the direction and magnitude of protein rank changes for each gene and 3 metadata tables."),
+          p("There are three tables returned, titled 'Top 10 Up-regulated Genes', 'Top 10 Down-regulated Genes', 'Top 10 No-change Genes', and as the name suggests, each table depicts the top ten genes for each direction."),
+          p("Each table has the following columns"),
           tags$ul(
             tags$li("{ensembl}: Ensembl gene identifier"),
             tags$li("{gene}: Gene symbol"),
@@ -33,7 +35,7 @@ cancerUI <- function(id) {
           p("1. From the 'Select a cancer type' toolbar, choose a cancer type to analyze."),
           p("2. Once selected, click on 'Run Cancer Protein Analysis' to view results."),
           p("3. The output plot is under the heading 'Protein Rank Shift Plot'."),
-          p("4. The output tibble is under the heading 'Protein Expression Table'."),
+          p("4. The 3 output tables are under the headings 'Top 10 Up-regulated Genes', 'Top 10 Down-regulated Genes', 'Top 10 No-change Genes'"),
           br(),
           strong("Run Examples:"),
           p("To run the example, follow the steps:"),
@@ -53,9 +55,10 @@ cancerUI <- function(id) {
           p("Each gene is plotted to show the magnitude and direction of change in protein rank between normal and cancer tissue. The X axis represents the delta rank i.e. the change in protein expression of normal vs pathology. A decrease in rank is indicated by the colour red, an increase is indicated in the colour blue, and no change is indicated by green. This plot gives researchers a quick overview of the general direction of the genes in this cancer type."),
           p("If you want to find the genes whose direction has changed, then the protein table, gives a more in depth explanation below."),
           br(),
-          strong("Interpretation of table"),
-          p("As mentioned above in the output section, the table is structured, to allow researchers to investigate the role of each gene involved in this cancer type."),
+          strong("Interpretation of tables"),
+          p("As mentioned above in the output section, each table is structured, to allow researchers to investigate the role of each gene involved in this cancer type."),
           p("This table assists in scientists narrowing down their gene of interest based on the delta rank and direction column. These genes maybe be affected during cancer development and can be potential driver genes. "),
+          p("Sectioning in the tables by direction, allows users to quickly recognize the top expressed genes. If you are interested in looking the metadata of more genes, run the function `detect_outliers` in RStudio"),
           br(),
           strong("References"),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
@@ -82,8 +85,18 @@ cancerUI <- function(id) {
         br(), br(),
         h3("Protein Rank Shift Plot"),
         plotOutput(ns("plot")),
-        h3("Protein Expression Table"),
-        verbatimTextOutput(ns("table"))
+        br(),
+        br(),
+        h3("Top 10 Up-regulated Genes"),
+        DT::dataTableOutput(ns("table_up")),
+        br(),
+
+        h3("Top 10 Down-regulated Genes"),
+        DT::dataTableOutput(ns("table_down")),
+        br(),
+
+        h3("Top 10 No-change Genes"),
+        DT::dataTableOutput(ns("table_nochange"))
       )
     )
   )
@@ -119,9 +132,35 @@ cancerServer <- function(id) {
       rv$result$plot
     })
 
-    output$table <- renderPrint({
+    output$table_up <- DT::renderDataTable({
       req(rv$result)
-      rv$result$table
-    })
+
+      rv$result$table %>%
+        dplyr::filter(direction == "Up") %>%
+        dplyr::arrange(dplyr::desc(delta_rank)) %>%
+        dplyr::slice_head(n = 10)
+    },
+    options = list(pageLength = 10,lengthMenu = list(c(5, 10), c("5", "10")), paging = FALSE, scrollX = TRUE))
+
+    output$table_down <- DT::renderDataTable({
+      req(rv$result)
+
+      rv$result$table %>%
+        dplyr::filter(direction == "Down") %>%
+        dplyr::arrange(delta_rank) %>%  # most negative first
+        dplyr::slice_head(n = 10)
+    },
+    options = list(pageLength = 10, lengthMenu = list(c(5, 10), c("5", "10")), paging = FALSE, scrollX = TRUE))
+
+
+    output$table_nochange <- DT::renderDataTable({
+      req(rv$result)
+
+      rv$result$table %>%
+        dplyr::filter(direction == "No change") %>%
+        dplyr::slice_head(n = 10)
+    },
+    options = list(pageLength = 10, lengthMenu = list(c(5, 10), c("5", "10")),  paging = FALSE, scrollX = TRUE))
+
   })
 }
