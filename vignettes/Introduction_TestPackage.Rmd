@@ -253,6 +253,8 @@ Datar, T. (2025) ExprCompareR:Explore and quantify the relationship between RNA-
 
 * R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
 
+* Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping Text Labels with 'ggplot2'. https://ggrepel.slowkow.com/,https://github.com/slowkow/ggrepel.
+
 * Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial map of the human proteome. Protein science : a publication of the Protein Society, 27(1), 233–244. https://doi.org/10.1002/pro.3307
 
 * Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019). “HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data.”

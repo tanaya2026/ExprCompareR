@@ -69,7 +69,7 @@ data(package = "ExprCompareR")
 browseVignettes("ExprCompareR")
 ```
 
-`ExprCompareR` contains four main user-accessible functions:
+`ExprCompareR` contains five main user-accessible functions:
 
 1.  ***compute_correlation*** - Computes spearman correlations across a
     set of genes **or** tissues of interest returns a plot summarizing
@@ -88,6 +88,7 @@ browseVignettes("ExprCompareR")
 4.  ***compareCancerProtein*** – Compares protein expression between
     normal and cancer tissues for a specified cancer type, providing a
     summary table and bar plot of rank changes.
+5.  ***runExprCompareR*** - Launches the Shiny app for ExprCompareR.
 
 The package has prebuilt datasets like `normal_tissue` and `pathology`,
 to avoid dynamically downloading the protein expression datasets each
@@ -128,13 +129,15 @@ protein data that was queried, to perform analysis. Package `tidyr`
 Wickham H, 2025)`tibble` function was used to generate tibbles for
 analysis in `correlation_genes_tissues`. Package `purr` (Wickham et al.,
 2025) `map_dbl` and `map` function was used to map RNA and protein
-expression for each gene in `correlation_genes_tissues`.Package
+expression for each gene in `correlation_genes_tissues`. Package
 `stats`(R Core Team, 2024) and `utils` (R Core Team, 2024) `quantile`,
 `reorder` and `utils` were used to filter data for analysis. Package
 `ggplot2` (Wickham H, 2016)’s `ggplot` function was used to create
 scatter plots in `outlier_detection`, bar plots in `compute_correlation`
 and `correlation_genes_tissues`, and directional plots in
-`compareCancerProtein` for visualization.
+`compareCancerProtein` for visualization. Package `ggrepel`(Slowikowski
+K, 2024)’s function `geom_text_repel` was used in `outlier_detection` to
+prevent overlapping labels.
 
 Additionally BioRender(BioRender.com. BioRender \[Online\], accessed 2
 November 2025), was used to generate the images used in the Overview
@@ -177,6 +180,10 @@ was done by the author.
   multivariate Poisson-log normal mixture model for clustering
   transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394.
   <https://pubmed.ncbi.nlm.nih.gov/31311497/>
+
+- Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping
+  Text Labels with ‘ggplot2’.
+  <https://ggrepel.slowkow.com/,https://github.com/slowkow/ggrepel>.
 
 - Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial
   map of the human proteome. Protein science : a publication of the

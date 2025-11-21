@@ -54,6 +54,9 @@ output$outlier_plot
 
 }
 \references{
+Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping
+Text Labels with 'ggplot2'. \url{https://ggrepel.slowkow.com/,}\url{ https://github.com/slowkow/ggrepel.}
+
 Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 "HPAanalyze: an R package that facilitates the retrieval and analysis of the
 Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).

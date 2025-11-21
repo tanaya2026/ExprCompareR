@@ -33,6 +33,7 @@ shiny: Web Application Framework for R. R package version 1.11.1, \url{https://C
 \item Müller K, Wickham H (2025). tibble: Simple Data Frames. R package version 3.3.0, \url{https://tibble.tidyverse.org/.}
 \item OpenAI.(2025). ChatGPT (GPT-5). Retrieved November 2, 2025, from \url{https://chatgpt.com/}
 \item R Core Team (2024). R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. \url{https://www.R-project.org/}
+\item Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping 'Text Labels with 'ggplot2' \url{https://ggrepel.slowkow.com/,}\url{ https://github.com/slowkow/ggrepel.}
 \item Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394. \url{https://pubmed.ncbi.nlm.nih.gov/31311497/}
 \item Thul, P. J., & Lindskog, C. (2018). The human protein atlas: A spatial map of the human proteome. Protein science : a publication of the Protein Society, 27(1), 233–244. \url{https://doi.org/10.1002/pro.3307}
 \item Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019). “HPAanalyze: an R package that facilitates the retrieval and analysis of the Human Protein Atlas data.”MC Bioinformatics 20, 463 (2019). \url{https://doi.org/10.1186/s12859-019-3059-z}

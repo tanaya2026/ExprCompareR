@@ -46,6 +46,9 @@
 #'
 #'@references
 #'
+#'Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping
+#'Text Labels with 'ggplot2'. \url{https://ggrepel.slowkow.com/,}\url{ https://github.com/slowkow/ggrepel.}
+#'
 #'Tran AN, Dussaq AM, Kennell Jr T, Willey CD, Hjelmeland AB (2019).
 #'"HPAanalyze: an R package that facilitates the retrieval and analysis of the
 #'Human Protein Atlas data." MC Bioinformatics 20, 463 (2019).
@@ -79,6 +82,7 @@
 #'@importFrom utils data
 #'@importFrom stats cor median
 #'@importFrom utils head
+#'@importFrom ggrepel geom_text_repel
 
 
 #'@export
@@ -214,8 +218,14 @@ detect_outliers <- function(input_tissue){
   # Specifically highlight the genes which are outliers.
   plots <- ggplot(expr_table, aes(x = RNA_log, y = Protein)) +
     geom_point(aes(color = is_outlier), alpha = 0.7) +
-    geom_text(aes(label = ifelse(is_outlier, gene, "")),
-              vjust = -0.5, size = 3) +
+    geom_text_repel(
+      data = expr_table %>% filter(is_outlier),
+      aes(label = gene),
+      size = 3,
+      box.padding = 0.3,
+      point.padding = 0.2,
+      max.overlaps = Inf
+    ) +
     scale_color_manual(values = c("black", "red")) +
     labs(x = "Log2 RNA expression", y = "Protein expression",
          title = paste("RNA vs Protein Correlation in ", RNA_input_tissue, "\n Outlier genes indicated in red"),

@@ -12,6 +12,7 @@ biocViews: Software, GeneExpression, RNASeq, Protein, DifferentialExpression, St
 Imports: 
     dplyr,
     ggplot2,
+    ggrepel,
     gtexr,
     HPAanalyze,
     purrr,
