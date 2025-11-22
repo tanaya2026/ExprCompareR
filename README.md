@@ -96,15 +96,11 @@ time. Refer to `help` documentation for information on data.
 
 An overview of the package is illustrated below:
 
-**Image 1:** Depicts the functionality of functions compute_correlation,
-correlation_genes_tissues and detect_outliers.
+**Image 1:** Depicts the functionality of functions
+`compute_correlation`, `correlation_genes_tissues`, `detect_outliers`,
+and `compareCancerProtein`.
 
-![](./inst/extdata/Correlation_Overview.png) <br> <br>
-
-**Image 2:** Depicts the functionality for function
-compareCancerProtein.
-
-![](./inst/extdata/Pathology_Overview.png)
+![](./inst/extdata/ExprCompareR_Overview.png) <br>
 
 ## Contributions
 
@@ -286,8 +282,7 @@ The package tree structure is provided below.
   |- inst
     CITATION
     |- extdata
-      |- Correlation_Overview.png
-      |- Pathology_Overview.png
+      |- ExprCompareR_Overview.png
     |- shiny-scripts 
         |- app.R
         |- modules
@@ -333,6 +328,7 @@ The package tree structure is provided below.
       |- pathology.png
       |- per_gene_only.png
       |- per_tissue_only.png
+      |- ExprCompareR_Overview.png
   |- tests
     |- testthat.R
     |- testthat

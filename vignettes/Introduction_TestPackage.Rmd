@@ -23,14 +23,13 @@ knitr::opts_chunk$set(
 **ExprCompareR** is an R package designed to streamline the exploration and quantification of the relationship between RNA expression and protein expression across human tissues and conditions. Researchers studying post-transcriptional regulation currently face the time-consuming task of manually retrieving RNA-seq and protein-expression data, filtering, normalizing, computing correlations, and creating visualizations for their genes of interest. `ExprCompareR` automates and integrates these steps, providing a user-friendly workflow to quickly retrieve transcriptomic and proteomic data from public repositories such as the Genotype-Tissue Expression Project (GTEx)(Lonsdale et al., 2013) and the Human Protein Atlas (HPA)(Thul et al., 2018), compute correlations, flag outlier genes, and visualize results.
 
 ExprCompareR provides functions for calculating and plotting the Spearman correlation of RNA-seq and protein expression data from the user's genes or tissues of interest or both. Additionally, ExprCompareR includes functionalities for detecting outlier genes i.e., genes that show large discrepancies between RNA and protein expression and for comparing protein expression between cancer and healthy tissues. 
+<br>
 
-<br><br>
+An overview of the package is illustrated below:
 
-An overview of the functionality is here:
-
- **Image 1:** Depicts the functionality of functions `compute_correlation`, `correlation_genes_tissues`, `detect_outliers`, and `cancer_protein`
-
-Include Image + add caption as above
+ **Image 1:** Depicts the functionality of functions `compute_correlation`, `correlation_genes_tissues`, `detect_outliers`, and `cancer_protein`. <br>
+ 
+![](./images/ExprCompareR_Overview.png)
 
 <br><br>
 
@@ -40,7 +39,7 @@ For more information, try:
 ?ExprCompareR
 
 ```
-<br><br>
+<br>
 
 This document gives a quick tour of **ExprCompareR** (version 0.1.0)  functionalities. It was written in R Markdown, using the [knitr](https://cran.r-project.org/package=knitr) package for production. See `help(package="ExprCompareR")` for further details and references provided by `citation("ExprCompareR")`.
 
