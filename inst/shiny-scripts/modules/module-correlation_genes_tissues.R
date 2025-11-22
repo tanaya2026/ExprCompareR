@@ -49,8 +49,7 @@ correlationGenesTissuesUI <- function(id) {
           p("If you are interested in querying larger data, you can run this function in RStudio"),
           br(),
           strong("Output:"),
-          p("A plot object showing Spearman correlations per gene or per tissue."),
-
+          p("A plot object showing Spearman correlations per gene or per tissue, depending on plot choice"),
           br(),
           strong("Instructions"),
           p("1. Choose number of genes (5–10) and select gene names."),
