@@ -44,7 +44,7 @@ see \code{help} documentation \code{?correlation_genes_tissues}.
 The function validates the input before computing correlations:
 \itemize{
 \item If both \code{gene_NAMES} and \code{tissue_NAMES} are NULL, it stops execution and throws an error
-\item If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
+\item If one list is provided but has fewer than 5 elements, it stops execution and throws an error
 \item If both lists are provided with 5>= elements each, it stops execution and throws an error
 \item If duplicates exist in either list, it stops execution and throws an error
 \item If only one list is provided, it must contain at least 5 elements.
@@ -60,6 +60,11 @@ based on the input provided.
 This function \strong{ONLY} computes correlations either for a list of genes \strong{OR} a list of tissues.
 If you wish to input a list of genes \strong{AND} list of tissues, utilize function \code{correlation_genes_tissues}, or
 see \code{help} documentation \code{?correlation_genes_tissues}
+
+ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+Because these functions make external API calls, some operations may take time to complete
+typically around 30 seconds to 1 minute.
 }
 \examples{
 \dontrun{

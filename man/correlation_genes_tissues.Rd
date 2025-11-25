@@ -56,6 +56,11 @@ The function then calls:
 This function computes correlations for a list of genes \strong{AND} a list of tissues.
 If you wish to input  \strong{ONLY} a list of genes \strong{OR} list of tissues, utilize function \code{compute_correlation}, or
 see \code{help} documentation \code{?compute_correlation}
+
+ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+Because these functions make external API calls, some operations may take time to complete
+typically around 30 seconds to 1 minute.
 }
 \examples{
 \dontrun{

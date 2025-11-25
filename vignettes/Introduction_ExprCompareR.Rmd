@@ -88,7 +88,7 @@ getNamespaceExports("ExprCompareR")
 <br><br>
 
 # Note
-ExprCompareR relies on performing API calls to HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013) via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025). These calls make the vignette building slow and network dependent. Hence, as a form of a tutorial, this vignette includes static images for reference. Tests have been conducted for these functions and examples, and they do produce accurate and expected results. After installation of the package, the user can follow the vignette to confirm. These images are found in vignettes/images of the package.
+ExprCompareR relies on performing API calls to HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013) via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025). These calls make the vignette building slow and network dependent. Hence, as a form of a tutorial, this vignette includes static images for reference. Tests have been conducted for these functions and examples, and they do produce accurate and expected results. After installation of the package, the user can follow the vignette to confirm. These images are located in vignettes/images of the package.
 
 <br><br>
 
@@ -136,7 +136,48 @@ ExprCompareR's correlation function's depend on user input i.e. their choice of 
 
 ### Compute Correlation for Genes OR Tissues
 
-The function `compute_correlation` serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **OR** tissue list of interest and plots the results. It requires at least five entries in the provided list to perform the computation.
+The function `compute_correlation` serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **OR** tissue list of interest and plots the results.
+
+`compute_correlation` performs a number of checks, to prevent the user from providing the wrong input type. The correct input type for `compute_correlation` is either a list of gene names(>=5 in length) **OR** a list of tissue names(>=5 in length). Valid gene symbols for the {gene_NAMES} argument can be accessed from {gene_symbols_list}. Valid tissue names as for the {tissue_NAMES} argument can be accessed from
+{tissue_map$protein_tissue}. To get more information about the datasets mentioned above, the help documentation will helpful to explore: 
+
+```{r,}
+data(package = "ExprCompareR")
+?gene_symbols_list
+?tissue_map
+
+# Explore the valid gene names
+head(gene_symbols_list)
+length(gene_symbols_list)
+
+# Explore the valid tissue names
+tissue_map$protein_tissue
+
+
+```
+
+These are the following conditions which will result in stopping execution and an error being thrown:
+
+1. The given gene names do not exist in {gene_symbols_list} or the given tissue names do not exist in {tissue_map$protein_tissue}.
+2. If both `gene_NAMES` and `tissue_NAMES` are NULL.
+3. If one list is provided but has fewer than 5 elements.
+4. If both lists are provided with 5>= elements each.
+5. If duplicates exist in either list.
+
+The following are examples of an error being thrown, and execution being stopped in `compute_correlation`:
+
+
+```{r test_cc, eval=FALSE}
+
+# Example 1: Test if provided list has less than 5 elements
+compute_correlation(tissue_NAMES = c("liver", "lung", "spleen"))
+"Need at least five tissue names."
+
+# Example 2: Test if provided list has duplicate gene names
+compute_correlation(gene_NAMES = c("BRCA1", "TP53", "BRCA1", "MYC", "EGFR"))
+"Duplicate gene names detected: BRCA1"
+
+```
 
 
 Let us consider the following example as sample input the user provides, if they have a gene list of interest:
@@ -191,7 +232,7 @@ Higher Spearman correlation coefficients indicate stronger agreement between RNA
 
 ### Compute Correlation for Genes AND Tissues
 
-This function serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **AND** tissue list of interest and plots the results. It requires at least five entries in the both lists to perform the computation.
+This function serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **AND** tissue list of interest and plots the results.
 
 <br>
 
@@ -200,6 +241,34 @@ It produces either: <br>
 2. A per-tissue plot (correlation computed across genes), depending on the selected plot type.<br>
 
 <br>
+
+`correlation_genes_tissues` performs a number of checks, to prevent the user from providing the wrong input type. The correct input type for `correlation_genes_tissues` is a list of gene names(>=5 in length) **AND** a list of tissue names(>=5 in length) **AND** a choice of plot. Valid gene symbols for the {gene_NAMES} argument can be accessed from {gene_symbols_list}. Valid tissue names as for the {tissue_NAMES} argument can be accessed from
+{tissue_map$protein_tissue}.Valid plot choices can only be `"per_gene"` to visualize correlation for each gene, or `"per_tissue"` to visualize correlation for each tissue.
+
+
+These are the following conditions which will result in stopping execution and an error being thrown:
+
+1. The given gene names do not exist in {gene_symbols_list} or the given tissue names do not exist in {tissue_map$protein_tissue} or the plot_choice is not `"per_gene"` or `"per_tissue"`. 
+2. If both `gene_NAMES` and `tissue_NAMES` are NULL.
+3. If both lists are provided but have fewer than 5 elements each.
+4. If duplicates exist in either list.
+
+The following are examples of an error being thrown, and execution being stopped in `correlation_genes_tissues`:
+
+```{r test_c_g_t, eval=FALSE}
+
+# Example 1: Test if only one list if provided
+valid_tissues <- c("lung", "heart", "liver", "brain", "kidney")
+correlation_genes_tissues(NULL, valid_tissues, plot_choice = "per_gene")
+"This function requires both gene_NAMES and tissue_NAMES. For only one list, use compute_correlation()."
+
+# Example 2: Test if invalid plot choice is provided
+correlation_genes_tissues(valid_genes, valid_tissues, plot_choice = "invalid")
+"Choice of variable plot_choice is invalid. Please choose between per_gene and per_tissue"
+
+```
+
+
 
 Let us consider the following example as sample input the user provides, for joint analysis of specific genes across specific tissues:
 
@@ -286,16 +355,41 @@ library(ExprCompareR)
 
 <br>
 
-ExprCompareR's outliers function depends on user input i.e. their choice of the tissue of interest. Let us consider the following example as sample input the user provides:
+ExprCompareR's `detect_outliers` function depends on user input i.e. their choice of the tissue of interest. 
+`detect_outliers` performs checks, to prevent the user from providing the wrong input type. The correct input type for `detect_outliers` is  valid character string specifying the tissue of interest to analyze.Valid tissue names are listed in tissue_map$protein_tissue. If an invalid tissue name is provided,
+the function will stop execution and throw an error.
+
+To get more information about the datasets mentioned above, the help documentation will helpful to explore: 
+
+```{r,}
+data(package = "ExprCompareR")
+?tissue_map
+
+# Explore the valid tissue names
+tissue_map$protein_tissue
+```
+
+The following are examples of an error being thrown, and execution being stopped in `detect_outliers`:
+
+```{r test_outlier, eval=FALSE}
+
+# Example 1: The given tissue does not exist in tissue_map$protein_tissue
+detect_outliers("brainstem")
+"The tissue brainstem is not found in tissue_map$protein_tissue."
+
+# Example 2: Slightly misspelled tissue names, "lvg" instead of "liver"
+detect_outliers("lvg")
+"The tissue lvg is not found in tissue_map$protein_tissue."
+```
+
+Let us consider the following example as sample input the user provides:
 
 ```{r outlier_detection, eval=FALSE }
 
 output <- detect_outliers(input_tissue = "lung")
 ```
-
-NOTE: Ignore warning from `gtexr`. Warnings will not affect final plot.
-
-
+<br>
+<br>
 ```{r outlier_detection_vector, eval=FALSE }
 output$outlier_vector
  [1] "CD74"     "VIM"      "ENO1"     "ACTB"     "HSP90AB1" "HSPB1"    "ANXA10"  
@@ -356,6 +450,34 @@ library(ExprCompareR)
 <br>
 
 ExprCompareR's pathology function depends on user input i.e. their choice of the cancer of interest. <br>
+
+`compareCancerProtein` performs checks, to prevent the user from providing the wrong input type.The correct input type for `compareCancerProtein` is a character string specifying the cancer type of interest.The value must be one of the valid cancer names available in {cancer_tissue_map$cancer}. If an invalid cancer type is provided, the function will stop execution and throw an error.
+
+To get more information about the datasets mentioned above, the help documentation will helpful to explore: 
+
+```{r,}
+data(package = "ExprCompareR")
+?cancer_tissue_map
+
+# Explore the valid cancer types
+cancer_tissue_map$cancer
+
+```
+
+The following are examples of an error being thrown, and execution being stopped in `compareCancerProtein`:
+
+```{r test_cancer, eval=FALSE}
+
+# Example 1: The given tissue does not exist in cancer_tissue_map$cancer
+compareCancerProtein("bladder cancer")
+"The cancer type bladder cancer is not found in cancer_tissue_map$cancer."
+
+# Example 2: Slightly misspelled cancer name, "breastt cancer" instead of "breast cancer"
+compareCancerProtein("breastt cancer")
+"The cancer type breastt cancer is not found in cancer_tissue_map$cancer."
+
+```
+
 Let us consider the following example as sample input the user provides:
 
 ```{r pathology,eval=FALSE}

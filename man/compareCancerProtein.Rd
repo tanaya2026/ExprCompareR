@@ -42,6 +42,12 @@ The function uses the \pkg{HPAanalyze} dataset (\code{hpaDownload}) for
 expression data, and the internal dataset \code{\link{cancer_tissue_map}}
 to match each cancer type to its corresponding tissue.
 }
+\note{
+ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+Because these functions make external API calls, some operations may take time to complete
+typically around 30 seconds to 1 minute.
+}
 \examples{
 \dontrun{
 # Example 1: Compare protein expression in a common tissue

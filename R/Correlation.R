@@ -36,7 +36,7 @@
 #'
 #' The function validates the input before computing correlations:
 #' - If both `gene_NAMES` and `tissue_NAMES` are NULL, it stops execution and throws an error
-#' - If both lists are provided but have fewer than 5 elements each, it stops execution and throws an error
+#' - If one list is provided but has fewer than 5 elements, it stops execution and throws an error
 #' - If both lists are provided with 5>= elements each, it stops execution and throws an error
 #' - If duplicates exist in either list, it stops execution and throws an error
 #' - If only one list is provided, it must contain at least 5 elements.
@@ -46,6 +46,12 @@
 #'
 #' This function is a wrapper that decides which correlation computation function to use
 #' based on the input provided.
+#'
+#' @note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+#'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+#'Because these functions make external API calls, some operations may take time to complete
+#'typically around 30 seconds to 1 minute.
+#'
 #'
 #' @examples
 #' \dontrun{
@@ -200,6 +206,11 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' low correlations around zero are white, and high negative correlations are indicated in dark red.
 #' The shade intensity reflects the magnitude of the correlation.
 #' }
+#'
+#'@note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+#'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+#'Because these functions make external API calls, some operations may take time to complete
+#'typically around 30 seconds to 1 minute.
 #'
 #' @examples
 #' \dontrun{
@@ -427,6 +438,11 @@ correlation_genes_only <- function(gene_list){
 #' The shade intensity reflects the magnitude of the correlation.
 #'
 #' }
+#'
+#'@note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+#'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+#'Because these functions make external API calls, some operations may take time to complete
+#'typically around 30 seconds to 1 minute.
 #'
 #' @examples
 #' \dontrun{
@@ -662,6 +678,11 @@ correlation_tissues_only <- function(tissue_NAMES){
 #'   \item `per_tissue_plot(tissue_NAMES, gene_NAMES)` if `plot_choice = "per_tissue"`.
 #' }
 #'
+#' @note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+#'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+#'Because these functions make external API calls, some operations may take time to complete
+#'typically around 30 seconds to 1 minute.
+#'
 #' @examples
 #' \dontrun{
 #' # Example 1: Generate correlation plot per gene
@@ -822,6 +843,12 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 #' low correlations around zero are white, and high negative correlations are indicated in dark red.
 #' The shade intensity reflects the magnitude of the correlation.
 #' }
+#'
+#'
+#'@note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+#'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+#'Because these functions make external API calls, some operations may take time to complete
+#'typically around 30 seconds to 1 minute.
 #'
 #' @examples
 #' \dontrun{
@@ -1067,6 +1094,10 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #' The shade intensity reflects the magnitude of the correlation.
 #' }
 #'
+#'@note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
+#'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
+#'Because these functions make external API calls, some operations may take time to complete
+#'typically around 30 seconds to 1 minute.
 #'
 #' @examples
 #' \dontrun{
