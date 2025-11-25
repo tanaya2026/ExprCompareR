@@ -36,6 +36,11 @@ The function performs the following steps:
 \item Aligns RNA and protein data and creates a separate tibble for each gene.
 \item Computes Spearman correlations between RNA and protein expression across tissues.
 \item Generates a bar plot displaying the Spearman correlation for each gene.
+\itemize{
+\item Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+low correlations around zero are white, and high negative correlations are indicated in dark red.
+The shade intensity reflects the magnitude of the correlation.
+}
 }
 }
 \examples{

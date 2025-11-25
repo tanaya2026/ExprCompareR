@@ -35,6 +35,12 @@ The function performs the following steps:
 \item Creates a combined table of RNA and protein expression per tissue.
 \item Computes Spearman correlations between RNA and protein expression for each tissue.
 \item Generates a bar plot displaying Spearman correlations across tissues.
+\itemize{
+\item Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+low correlations around zero are white, and high negative correlations are indicated in dark red.
+The shade intensity reflects the magnitude of the correlation.
+}
+
 }
 }
 \examples{

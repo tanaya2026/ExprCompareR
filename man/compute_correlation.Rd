@@ -48,6 +48,9 @@ The function validates the input before computing correlations:
 \item If both lists are provided with 5>= elements each, it stops execution and throws an error
 \item If duplicates exist in either list, it stops execution and throws an error
 \item If only one list is provided, it must contain at least 5 elements.
+\item Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+low correlations around zero are white, and high negative correlations are indicated in dark red.
+The shade intensity reflects the magnitude of the correlation.
 }
 
 This function is a wrapper that decides which correlation computation function to use

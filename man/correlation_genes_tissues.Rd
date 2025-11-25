@@ -41,6 +41,9 @@ The function validates the inputs before generating plots:
 \item If only one list is provided, it stops execution and throws an error.
 \item If either list has duplicates, it stops execution and throws an error.
 \item The \code{plot_choice} argument must be either \code{"per_gene"} or \code{"per_tissue"}. Any other value stops execution and throws an error.
+\item Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+low correlations around zero are white, and high negative correlations are indicated in dark red.
+The shade intensity reflects the magnitude of the correlation.
 }
 
 The function then calls:

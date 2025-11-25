@@ -42,6 +42,11 @@ The function performs the following steps:
 \item Aggregates protein data by mean per gene and tissue.
 \item Computes Spearman correlations between RNA and protein expression for each gene.
 \item Generates a bar plot showing correlations for all genes.
+\itemize{
+\item Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+low correlations around zero are white, and high negative correlations are indicated in dark red.
+The shade intensity reflects the magnitude of the correlation.
+}
 }
 }
 \examples{

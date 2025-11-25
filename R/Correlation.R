@@ -40,6 +40,9 @@
 #' - If both lists are provided with 5>= elements each, it stops execution and throws an error
 #' - If duplicates exist in either list, it stops execution and throws an error
 #' - If only one list is provided, it must contain at least 5 elements.
+#' - Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+#' low correlations around zero are white, and high negative correlations are indicated in dark red.
+#' The shade intensity reflects the magnitude of the correlation.
 #'
 #' This function is a wrapper that decides which correlation computation function to use
 #' based on the input provided.
@@ -192,6 +195,10 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #'   \item Aligns RNA and protein data and creates a separate tibble for each gene.
 #'   \item Computes Spearman correlations between RNA and protein expression across tissues.
 #'   \item Generates a bar plot displaying the Spearman correlation for each gene.
+#'
+#' - Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+#' low correlations around zero are white, and high negative correlations are indicated in dark red.
+#' The shade intensity reflects the magnitude of the correlation.
 #' }
 #'
 #' @examples
@@ -413,6 +420,12 @@ correlation_genes_only <- function(gene_list){
 #'   \item Creates a combined table of RNA and protein expression per tissue.
 #'   \item Computes Spearman correlations between RNA and protein expression for each tissue.
 #'   \item Generates a bar plot displaying Spearman correlations across tissues.
+#'
+#'
+#' - Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+#' low correlations around zero are white, and high negative correlations are indicated in dark red.
+#' The shade intensity reflects the magnitude of the correlation.
+#'
 #' }
 #'
 #' @examples
@@ -638,6 +651,9 @@ correlation_tissues_only <- function(tissue_NAMES){
 #'   \item If only one list is provided, it stops execution and throws an error.
 #'   \item If either list has duplicates, it stops execution and throws an error.
 #'   \item The `plot_choice` argument must be either `"per_gene"` or `"per_tissue"`. Any other value stops execution and throws an error.
+#'   \item Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+#' low correlations around zero are white, and high negative correlations are indicated in dark red.
+#' The shade intensity reflects the magnitude of the correlation.
 #' }
 #'
 #' The function then calls:
@@ -800,6 +816,11 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 #'   \item Aggregates protein data by mean per gene and tissue.
 #'   \item Computes Spearman correlations between RNA and protein expression for each gene.
 #'   \item Generates a bar plot showing correlations for all genes.
+#'
+#'
+#'  - Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+#' low correlations around zero are white, and high negative correlations are indicated in dark red.
+#' The shade intensity reflects the magnitude of the correlation.
 #' }
 #'
 #' @examples
@@ -1040,6 +1061,10 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #'   \item Aggregates protein data by mean per gene per tissue.
 #'   \item Computes Spearman correlations between RNA and protein expression for each tissue.
 #'   \item Generates a bar plot showing correlations for all tissues.
+#'
+#'  - Plot key - Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue,
+#' low correlations around zero are white, and high negative correlations are indicated in dark red.
+#' The shade intensity reflects the magnitude of the correlation.
 #' }
 #'
 #'

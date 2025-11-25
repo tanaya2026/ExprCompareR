@@ -26,6 +26,9 @@ A list containing two components:
 }
 \item \code{plot} - A \pkg{ggplot2} bar plot showing the direction and
 magnitude of protein rank changes for each gene.
+The down regulated genes are labeled in red, the up regulated genes are labeled in blue,
+and the genes with no change in protein expression are labeled in green.
+
 }
 }
 \description{
