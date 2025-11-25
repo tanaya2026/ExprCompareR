@@ -131,7 +131,7 @@ detect_outliers <- function(input_tissue){
 
   for (i in seq(1, length(gene_names), by = batch_size)) {
     batch <- gene_names[i:min(i + batch_size - 1, length(gene_names))]
-    batch_ids <- get_gtex_gencode_ids(batch)
+    batch_ids <- suppressWarnings(get_gtex_gencode_ids(batch))
     all_ids <- c(all_ids, batch_ids)
     Sys.sleep(0.5)  # pause to avoid API rate limiting
   }
