@@ -138,7 +138,7 @@ compareCancerProtein<- function(cancer_type){
     labs(title = paste("Protein Rank Shift in", cancer_type),
          x = NULL, y = "Delta Rank (Cancer - Normal)") +
     theme_minimal() +
-    theme(axis.text.y = element_blank())  # remove gene names
+    theme(axis.text.y = element_blank())
 
   # return an object which has the results of direction and detla, and the plot of
   # delta and direction

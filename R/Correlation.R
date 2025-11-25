@@ -364,8 +364,8 @@ correlation_genes_only <- function(gene_list){
   # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
   final_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
     geom_col() +
-    geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) + # add correlation labels
-    scale_y_continuous(limits = c(-1, 1)) +  # Pearson can be negative
+    geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) +
+    scale_y_continuous(limits = c(-1, 1)) +
     scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0,   name = "Spearman Correlation\n(red = high negative, white = ~0, blue = high positive)\n(Color intensity reflects magnitude)"
 ) +
     labs(
@@ -375,7 +375,7 @@ correlation_genes_only <- function(gene_list){
     ) +
     theme_minimal(base_size = 12) +
     theme(
-      legend.position = "right",   # places the key on the side
+      legend.position = "right",
       legend.title = element_text(size = 10),
       legend.text = element_text(size = 8)
     )
@@ -578,14 +578,14 @@ correlation_tissues_only <- function(tissue_NAMES){
   # Generating a plot using ggplot2 to visualize the spearman correlation of each tissue
     output_plot <-ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = spearman_correlation)) +
     geom_col() +
-    geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +  # show values
+    geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +
     scale_fill_gradient2(
       low = "red",
       mid = "white",
       high = "blue",
       midpoint = 0,
       name = "Spearman Correlation\n(red = high negative,\nwhite = ~0, blue = high positive)"
-    ) +  # adds legend with descriptive title
+    ) +
     labs(
       title = "Spearman Correlation between RNA and Protein Expression \n of the top expressed genes in tissues of interest",
       x = "Tissues",
@@ -593,7 +593,7 @@ correlation_tissues_only <- function(tissue_NAMES){
     ) +
     theme_minimal(base_size = 12) +
     theme(
-      legend.position = "right",  # place legend on the right
+      legend.position = "right",
       legend.title = element_text(size = 10),
       legend.text = element_text(size = 8)
     )
@@ -1001,9 +1001,9 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
   # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
 
   output_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
-    geom_col() +                        # Bar plot
-    geom_text(aes(label = round(spear_corr, 2), vjust = -0.5)) + # add correlation labels
-    scale_y_continuous(limits = c(-1, 1)) +  # Pearson can be negative
+    geom_col() +
+    geom_text(aes(label = round(spear_corr, 2), vjust = -0.5)) +
+    scale_y_continuous(limits = c(-1, 1)) +
     scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0,  name = "Spearman Correlation\n(red = high negative,\nwhite = ~0, blue = high positive)") +
     labs(
       title = "Spearman Correlation between RNA and Protein Expression \n of genes of interest across tissues of interest",
@@ -1012,7 +1012,7 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
     ) +
     theme_minimal(base_size = 12) +
     theme(
-      legend.position = "right",  # place legend on the right
+      legend.position = "right",
       legend.title = element_text(size = 10),
       legend.text = element_text(size = 8)
     )
@@ -1218,7 +1218,7 @@ per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
     RNA_tbl <- RNA_expr_clean %>%
       filter(tissue == tissue_name) %>%
       mutate(
-        gene = trimws(as.character(gene)),  # remove extra spaces
+        gene = trimws(as.character(gene)),
         RNA = as.numeric(RNA)
       ) %>%
       select(gene, RNA)
@@ -1275,7 +1275,7 @@ per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
     ) +
     theme_minimal(base_size = 12) +
     theme(
-      legend.position = "right",  # place legend on the right
+      legend.position = "right",
       legend.title = element_text(size = 10),
       legend.text = element_text(size = 8)
     )
