@@ -54,8 +54,8 @@ runExprCompareR()
 
 ```
 <br>
-Note: Before running the Shiny app, make sure **ALL** your R packages are up to date.
-If RStudio prompts you to update packages after installation, click Yes. Running the app without updating packages may cause errors.
+**Note:** Before running the Shiny app, make sure **ALL** your R packages are up to date.
+If RStudio prompts you to update packages during **installation**, click Yes. Running the app without updating packages may cause errors.
 <br>
 
 
