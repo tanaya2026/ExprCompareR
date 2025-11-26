@@ -22,8 +22,8 @@ Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
 \value{
 A plot object:
 \itemize{
-\item If \code{gene_NAMES} is provided and \code{tissue_NAMES} is NULL, returns the \code{per_gene_plot}  of spearman correlations from \code{correlation_genes_only()}.
-\item If \code{tissue_NAMES} is provided and \code{gene_NAMES} is NULL, returns the \code{per_tissue_plot} of spearman correlations from \code{correlation_tissues_only()}.
+\item If \code{gene_NAMES} is provided and \code{tissue_NAMES} is NULL, returns the \code{per_gene_plot}  of Spearman correlations from \code{correlation_genes_only()}. The Spearman correlation values for each gene is labeled in the plot.
+\item If \code{tissue_NAMES} is provided and \code{gene_NAMES} is NULL, returns the \code{per_tissue_plot} of Spearman correlations from \code{correlation_tissues_only()}. The Spearman correlation values for each tissue is labeled in the plot.
 \item Stops execution and throws an error if input criteria is not met.
 }
 }
@@ -33,8 +33,6 @@ between RNA and protein expression between a user's gene list \strong{OR} tissue
 It requires at least five entries in the provided list (\code{gene_NAMES} or \code{tissue_NAMES})
 to perform the computation. Depending on the input, it calls either
 \code{correlation_genes_only()} or \code{correlation_tissues_only()} internally.
-If you wish to input a list of genes \strong{AND} list of tissues, utilize function \code{correlation_genes_tissues}, or
-see \code{help} documentation \code{?correlation_genes_tissues}.
 }
 \details{
 \itemize{
@@ -52,9 +50,6 @@ The function validates the input before computing correlations:
 low correlations around zero are white, and high negative correlations are indicated in dark red.
 The shade intensity reflects the magnitude of the correlation.
 }
-
-This function is a wrapper that decides which correlation computation function to use
-based on the input provided.
 }
 \note{
 This function \strong{ONLY} computes correlations either for a list of genes \strong{OR} a list of tissues.

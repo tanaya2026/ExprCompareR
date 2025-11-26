@@ -30,8 +30,8 @@ Depending on \code{plot_choice}, the function returns:
 This function serves as a wrapper to compute and visualize the Spearman correlation
 between RNA and protein expression between a user's gene list \strong{AND} tissue list of interest.
 Depending on the user's choice, it calls either \code{per_gene_plot} or \code{per_tissue_plot} internally.
-\code{per_gene_plot} visualizes the spearman correlation and plot per gene from the input list.
-\code{per_tissue_plot} visualizes the spearman correlation and plot per tissue from the input list.
+\code{per_gene_plot} visualizes the Spearman correlation and plot per gene from the input list.
+\code{per_tissue_plot} visualizes the Spearman correlation and plot per tissue from the input list.
 }
 \details{
 The function validates the inputs before generating plots:

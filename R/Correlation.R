@@ -6,8 +6,6 @@
 #' It requires at least five entries in the provided list (`gene_NAMES` or `tissue_NAMES`)
 #' to perform the computation. Depending on the input, it calls either
 #' `correlation_genes_only()` or `correlation_tissues_only()` internally.
-#' If you wish to input a list of genes **AND** list of tissues, utilize function `correlation_genes_tissues`, or
-#' see `help` documentation `?correlation_genes_tissues`.
 #'
 #' @note
 #' This function **ONLY** computes correlations either for a list of genes **OR** a list of tissues.
@@ -27,8 +25,8 @@
 #' \code{tissue_map$protein_tissue}
 #'
 #' @return A plot object:
-#'   - If `gene_NAMES` is provided and `tissue_NAMES` is NULL, returns the `per_gene_plot`  of spearman correlations from `correlation_genes_only()`.
-#'   - If `tissue_NAMES` is provided and `gene_NAMES` is NULL, returns the `per_tissue_plot` of spearman correlations from `correlation_tissues_only()`.
+#'   - If `gene_NAMES` is provided and `tissue_NAMES` is NULL, returns the `per_gene_plot`  of Spearman correlations from `correlation_genes_only()`. The Spearman correlation values for each gene is labeled in the plot.
+#'   - If `tissue_NAMES` is provided and `gene_NAMES` is NULL, returns the `per_tissue_plot` of Spearman correlations from `correlation_tissues_only()`. The Spearman correlation values for each tissue is labeled in the plot.
 #'   - Stops execution and throws an error if input criteria is not met.
 #'
 #' @details
@@ -44,8 +42,6 @@
 #' low correlations around zero are white, and high negative correlations are indicated in dark red.
 #' The shade intensity reflects the magnitude of the correlation.
 #'
-#' This function is a wrapper that decides which correlation computation function to use
-#' based on the input provided.
 #'
 #' @note ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et al., 2013)
 #'via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
@@ -185,15 +181,14 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' @return A list containing:
 #' \describe{
 #'   \item{per_gene_plot}{A \code{ggplot2} object showing Spearman correlation values
-#'   for each gene across tissues. Bars are color-coded from red (negative correlation)
-#'   to blue (positive correlation).}
+#'   for each gene across tissues.}
 #' }
 #'
 #' @details
 #' The function performs the following steps:
 #' \itemize{
 #'   \item Converts gene symbols to GENCODE IDs using \code{get_gtex_gencode_ids}.
-#'   \item Queries RNA expression data for standard tissues using \code{gtexr::get_gene_expression}.
+#'   \item Queries RNA expression data for standard tissues \code{tissue_list_RNA} using \code{gtexr::get_gene_expression}.
 #'   \item Aggregates RNA expression by averaging multiple samples per gene per tissue.
 #'   \item Downloads and filters normal tissue protein expression data using \code{HPAanalyze::hpaDownload}.
 #'   \item Checks for missing gene-tissue combinations in protein data, issuing a warning and filling missing entries with NA.
@@ -362,7 +357,7 @@ correlation_genes_only <- function(gene_list){
   # the correlation between RNA and protein expression across tissues.
 
   gene_correlations <- purrr::map_dbl(gene_tables, function(final_table) {
-    cor(final_table$RNA, final_table$protein, use = "complete.obs", method = "spearman")
+    cor(final_table$RNA, final_table$protein, use = "complete.obs", method = "Spearman")
   })
 
   # Convert to a tibble for easy viewing
@@ -372,7 +367,7 @@ correlation_genes_only <- function(gene_list){
   )
 
 
-  # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
+  # Generating a plot using ggplot2 to visualize the Spearman correlation of each gene.
   final_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
     geom_col() +
     geom_text(aes(label = round(spear_corr, 2)), vjust = -0.5) +
@@ -417,7 +412,7 @@ correlation_genes_only <- function(gene_list){
 #' @return A list containing:
 #' \describe{
 #'   \item{per_tissue_plot}{A \code{ggplot2} object showing Spearman correlation values
-#'   for each tissue. Bars represent correlation of top expressed genes, with values labeled on top.}
+#'   for each tissue.}
 #' }
 #'
 #' @details
@@ -579,22 +574,22 @@ correlation_tissues_only <- function(tissue_NAMES){
   names(Final_expr_list) <- tissue_NAMES
 
 
-  # Calculate the spearman correlation for each tissue
+  # Calculate the Spearman correlation for each tissue
   Tissue_correlations <- sapply(Final_expr_list, function(tbl) {
     if (nrow(tbl) < 2){
       NA  # Not enough data to compute correlation
     }
     else{
-      cor(tbl$RNA, tbl$protein, method = "spearman", use = "complete.obs")
+      cor(tbl$RNA, tbl$protein, method = "Spearman", use = "complete.obs")
     }
   })
 
-  Tissue_correlations_tbl <- tibble(tissue = names(Tissue_correlations), spearman_correlation = Tissue_correlations)
+  Tissue_correlations_tbl <- tibble(tissue = names(Tissue_correlations), Spearman_correlation = Tissue_correlations)
 
-  # Generating a plot using ggplot2 to visualize the spearman correlation of each tissue
-    output_plot <-ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = spearman_correlation)) +
+  # Generating a plot using ggplot2 to visualize the Spearman correlation of each tissue
+    output_plot <-ggplot(Tissue_correlations_tbl, aes(x = tissue, y = Spearman_correlation, fill = Spearman_correlation)) +
     geom_col() +
-    geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +
+    geom_text(aes(label = round(Spearman_correlation, 2)), vjust = -0.5) +
     scale_fill_gradient2(
       low = "red",
       mid = "white",
@@ -633,8 +628,8 @@ correlation_tissues_only <- function(tissue_NAMES){
 #' This function serves as a wrapper to compute and visualize the Spearman correlation
 #' between RNA and protein expression between a user's gene list **AND** tissue list of interest.
 #' Depending on the user's choice, it calls either `per_gene_plot` or `per_tissue_plot` internally.
-#' `per_gene_plot` visualizes the spearman correlation and plot per gene from the input list.
-#' `per_tissue_plot` visualizes the spearman correlation and plot per tissue from the input list.
+#' `per_gene_plot` visualizes the Spearman correlation and plot per gene from the input list.
+#' `per_tissue_plot` visualizes the Spearman correlation and plot per tissue from the input list.
 #'
 #' @note
 #' This function computes correlations for a list of genes **AND** a list of tissues.
@@ -819,8 +814,7 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 #' @return A list containing:
 #' \describe{
 #'   \item{per_gene_plot}{A \code{ggplot2} object showing Spearman correlation values
-#'   for each gene across the specified tissues. Bars are color-coded from red (negative correlation)
-#'   to blue (positive correlation) with values labeled on top.}
+#'   for each gene across the specified tissues.}
 #' }
 #'
 #' @details
@@ -1015,7 +1009,7 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 
   # Calculate Spearman correlation for each gene table
   gene_correlations <- purrr::map_dbl(gene_tables, function(joined) {
-    cor(joined$RNA, joined$protein, use = "complete.obs", method = "spearman")
+    cor(joined$RNA, joined$protein, use = "complete.obs", method = "Spearman")
   })
 
   # Convert to a tibble for easy viewing
@@ -1025,7 +1019,7 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
   )
 
 
-  # Generating a plot using ggplot2 to visualize the spearman correlation of each gene.
+  # Generating a plot using ggplot2 to visualize the Spearman correlation of each gene.
 
   output_plot <- ggplot(gene_correlations_tbl, aes(x = gene, y = spear_corr, fill = spear_corr)) +
     geom_col() +
@@ -1071,7 +1065,7 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #' @return A list containing:
 #' \describe{
 #'   \item{per_tissue_plot}{A \code{ggplot2} object showing Spearman correlation values
-#'   for each tissue across the specified genes. Bars are labeled with correlation values.}
+#'   for each tissue across the specified genes.}
 #' }
 #'
 #' @details
@@ -1280,18 +1274,18 @@ per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
       NA  # Not enough data to compute correlation
     }
     else{
-      cor(tbl$RNA, tbl$protein, method = "spearman", use = "complete.obs")
+      cor(tbl$RNA, tbl$protein, method = "Spearman", use = "complete.obs")
     }
   })
 
-  Tissue_correlations_tbl <- tibble(tissue = names(Tissue_correlations), spearman_correlation = Tissue_correlations)
+  Tissue_correlations_tbl <- tibble(tissue = names(Tissue_correlations), Spearman_correlation = Tissue_correlations)
 
 
-  # Generating a plot using ggplot2 to visualize the spearman correlation of each tissue.
+  # Generating a plot using ggplot2 to visualize the Spearman correlation of each tissue.
 
-  output_plot <- ggplot(Tissue_correlations_tbl, aes(x = tissue, y = spearman_correlation, fill = spearman_correlation)) +
+  output_plot <- ggplot(Tissue_correlations_tbl, aes(x = tissue, y = Spearman_correlation, fill = Spearman_correlation)) +
     geom_col() +
-    geom_text(aes(label = round(spearman_correlation, 2)), vjust = -0.5) +
+    geom_text(aes(label = round(Spearman_correlation, 2)), vjust = -0.5) +
     scale_fill_gradient2(
       low = "red",
       mid = "white",

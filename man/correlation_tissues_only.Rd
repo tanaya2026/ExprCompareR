@@ -16,7 +16,7 @@ Valid tissue names as for the \code{tissue_NAMES} argument can be accessed from
 A list containing:
 \describe{
 \item{per_tissue_plot}{A \code{ggplot2} object showing Spearman correlation values
-for each tissue. Bars represent correlation of top expressed genes, with values labeled on top.}
+for each tissue.}
 }
 }
 \description{

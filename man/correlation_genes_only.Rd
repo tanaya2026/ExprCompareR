@@ -15,8 +15,7 @@ Valid gene symbols for the \code{gene_NAMES} argument can be accessed from
 A list containing:
 \describe{
 \item{per_gene_plot}{A \code{ggplot2} object showing Spearman correlation values
-for each gene across tissues. Bars are color-coded from red (negative correlation)
-to blue (positive correlation).}
+for each gene across tissues.}
 }
 }
 \description{
@@ -28,7 +27,7 @@ visualizing the correlation values for each gene.
 The function performs the following steps:
 \itemize{
 \item Converts gene symbols to GENCODE IDs using \code{get_gtex_gencode_ids}.
-\item Queries RNA expression data for standard tissues using \code{gtexr::get_gene_expression}.
+\item Queries RNA expression data for standard tissues \code{tissue_list_RNA} using \code{gtexr::get_gene_expression}.
 \item Aggregates RNA expression by averaging multiple samples per gene per tissue.
 \item Downloads and filters normal tissue protein expression data using \code{HPAanalyze::hpaDownload}.
 \item Checks for missing gene-tissue combinations in protein data, issuing a warning and filling missing entries with NA.
