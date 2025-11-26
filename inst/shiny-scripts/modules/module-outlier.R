@@ -2,11 +2,11 @@
 
 # UI function
 outlierUI <- function(id) {
-  ns <- NS(id)  # namespacing
+  ns <- NS(id)
 
   tagList(
     fluidRow(
-      # Left column: Scrollable explanatory text + Run Example
+      # Left column with multiple sections as explained in the Introduction Tab + Run Examples
       column(
         width = 4,
         div(
@@ -50,7 +50,7 @@ outlierUI <- function(id) {
           p("The black dots indicate genes which do not have a significant change in their RNA vs protein expression, where the red dots indicate outliers."),
           br(),
           strong("Interpretation of list"),
-          p("This function provides the list of genes in the tissue of interest which are detected as outliers.These genes are most likely candidates for post-transcriptional modifications, and this list can be used to narrow down potential targets for post-transcriptional modifications. These genes can reflect regulatory mechanism of microRNA-mediated degradation, altered translation rates, or differences in protein stability."),
+          p("This function provides the list of genes in the tissue of interest which are detected as outliers.These genes are most likely candidates for post-transcriptional modifications, and this list can be used to narrow down potential targets for post-transcriptional modifications. These genes can reflect regulatory mechanism of microRNA-mediated degradation, altered translation rates, or differences in protein stability. If the list returns `character(0)`, then there are no outliers in this tissue."),
           br(),
           strong("References"),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
@@ -68,7 +68,7 @@ outlierUI <- function(id) {
         )
       ),
 
-      # Right column: Input controls and outputs
+      # Right column with input controls and outputs
       column(
         width = 8,
         selectInput(
@@ -92,7 +92,7 @@ outlierUI <- function(id) {
 outlierServer <- function(id) {
   moduleServer(id, function(input, output, session) {
 
-    # ReactiveValues to store results
+    # Reactive Values to store results
     rv <- reactiveValues(result = NULL)
 
     # Normal Run button
@@ -106,7 +106,7 @@ outlierServer <- function(id) {
       # Automatically select "lung" tissue
       updateSelectInput(session, "tissue", selected = "lung")
 
-      # Run detection immediately
+      # Run detection immediately on clicking
       rv$result <- detect_outliers(input_tissue = "lung")
     })
 
@@ -122,3 +122,5 @@ outlierServer <- function(id) {
     })
   })
 }
+
+# [END]

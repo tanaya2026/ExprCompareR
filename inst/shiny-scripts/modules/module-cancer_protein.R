@@ -6,7 +6,7 @@ cancerUI <- function(id) {
 
   tagList(
     fluidRow(
-      # Left column: Scrollable descriptive text + Run Example
+      # Left column with multiple sections as explained in the Introduction Tab + Run Examples
       column(
         width = 4,
         div(
@@ -76,7 +76,7 @@ cancerUI <- function(id) {
         )
       ),
 
-      # Right column: Input controls and output
+      # Right column with input controls and outputs
       column(
         width = 8,
         selectInput(
@@ -136,6 +136,8 @@ cancerServer <- function(id) {
       rv$result$plot
     })
 
+    # Filtering Output to obtain top 10 for each direction
+    # Top 10 Up regulated genes table
     output$table_up <- DT::renderDataTable({
       req(rv$result)
 
@@ -146,6 +148,7 @@ cancerServer <- function(id) {
     },
     options = list(pageLength = 10,lengthMenu = list(c(5, 10), c("5", "10")), paging = FALSE, scrollX = TRUE))
 
+    # Top 10 Down regulated genes table
     output$table_down <- DT::renderDataTable({
       req(rv$result)
 
@@ -157,6 +160,7 @@ cancerServer <- function(id) {
     options = list(pageLength = 10, lengthMenu = list(c(5, 10), c("5", "10")), paging = FALSE, scrollX = TRUE))
 
 
+    # Top 10 No change genes table
     output$table_nochange <- DT::renderDataTable({
       req(rv$result)
 
@@ -168,3 +172,5 @@ cancerServer <- function(id) {
 
   })
 }
+
+# [END]

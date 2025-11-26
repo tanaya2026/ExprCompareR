@@ -357,7 +357,7 @@ correlation_genes_only <- function(gene_list){
   # the correlation between RNA and protein expression across tissues.
 
   gene_correlations <- purrr::map_dbl(gene_tables, function(final_table) {
-    cor(final_table$RNA, final_table$protein, use = "complete.obs", method = "Spearman")
+    cor(final_table$RNA, final_table$protein, use = "complete.obs", method = "spearman")
   })
 
   # Convert to a tibble for easy viewing
@@ -580,7 +580,7 @@ correlation_tissues_only <- function(tissue_NAMES){
       NA  # Not enough data to compute correlation
     }
     else{
-      cor(tbl$RNA, tbl$protein, method = "Spearman", use = "complete.obs")
+      cor(tbl$RNA, tbl$protein, method = "spearman", use = "complete.obs")
     }
   })
 
@@ -1009,7 +1009,7 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 
   # Calculate Spearman correlation for each gene table
   gene_correlations <- purrr::map_dbl(gene_tables, function(joined) {
-    cor(joined$RNA, joined$protein, use = "complete.obs", method = "Spearman")
+    cor(joined$RNA, joined$protein, use = "complete.obs", method = "spearman")
   })
 
   # Convert to a tibble for easy viewing
@@ -1274,7 +1274,7 @@ per_tissue_plot <- function (gene_NAMES, tissue_NAMES){
       NA  # Not enough data to compute correlation
     }
     else{
-      cor(tbl$RNA, tbl$protein, method = "Spearman", use = "complete.obs")
+      cor(tbl$RNA, tbl$protein, method = "spearman", use = "complete.obs")
     }
   })
 

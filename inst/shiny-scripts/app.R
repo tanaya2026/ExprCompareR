@@ -2,22 +2,23 @@ library(shiny)
 library(dplyr)
 library(shinyalert)
 
+# The UI and server for each separate function are in separate files in sub directory modules.
 # Source modules
 source(system.file("shiny-scripts/modules/module-outlier.R", package = "ExprCompareR"), local = TRUE)
 source(system.file("shiny-scripts/modules/module-cancer_protein.R", package = "ExprCompareR"), local = TRUE)
 source(system.file("shiny-scripts/modules/module-compute_correlation.R", package = "ExprCompareR"), local = TRUE)
 source(system.file("shiny-scripts/modules/module-correlation_genes_tissues.R", package = "ExprCompareR"), local = TRUE)
 
-# UI
+# UI of Introduction Page
 ui <- navbarPage(
   "ExprCompareR",
 
-  # --- Introduction Tab ---
+  # Introduction Tab
   tabPanel(
     "Introduction",
     fluidPage(
 
-      # Custom CSS for tables and cards
+      # Custom CSS for tables
       tags$head(
         tags$style(HTML("
           body {font-family: Arial, sans-serif;}
@@ -50,14 +51,14 @@ ui <- navbarPage(
         "))
       ),
 
-      # --- Description Card ---
+      # Description of Package
       div(class="custom-card",
           h2("Welcome to ExprCompareR"),
           br(),
           p("ExprCompareR is an R package designed to streamline the exploration and quantification of the relationship between RNA expression and protein expression across human tissues and conditions. Researchers studying post-transcriptional regulation currently face the time-consuming task of manually retrieving RNA-seq and protein-expression data, filtering, normalizing, computing correlations, and creating visualizations for their genes of interest. `ExprCompareR` automates and integrates these steps, providing a user-friendly workflow to quickly retrieve transcriptomic and proteomic data from public repositories such as the Genotype-Tissue Expression Project (GTEx)(Lonsdale et al., 2013) and the Human Protein Atlas (HPA)(Thul et al., 2018), compute correlations, flag outlier genes, and visualize results.")
       ),
 
-      # --- Key Functions Card ---
+      # Summary of Key Functions Table
       div(class="custom-card",
           h3("Summary Table of Key Functions"),
           HTML('
@@ -90,7 +91,7 @@ ui <- navbarPage(
           ')
       ),
 
-      # --- Navigation Card ---
+      # Navigation of the App
       div(class="custom-card",
           h3("How to Navigate the Shiny Application"),
           p("Upon launching the ExprCompareR Shiny app, you will see a navigation bar at the top containing four tabs, each corresponding to a core functionality of the app. These tabs allow you to seamlessly switch between different analyses."),
@@ -198,7 +199,7 @@ ui <- navbarPage(
     )
   ),
 
-  # --- Functional Tabs ---
+  #  Functional Tabs for each function
   tabPanel("Correlation (Genes OR Tissues)", correlationUI("cor_tab")),
   tabPanel("Correlation (Genes AND Tissues)", correlationGenesTissuesUI("cor_gt_tab")),
   tabPanel("Outlier Detection", outlierUI("outlier_tab")),
@@ -215,3 +216,6 @@ server <- function(input, output, session) {
 
 # Launch Shiny App
 shiny::shinyApp(ui, server)
+
+
+# [END]

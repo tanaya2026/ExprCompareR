@@ -1,6 +1,6 @@
 # Correlation (Genes AND Tissues) Module
 
-# Prepare top 1000 genes including example genes
+# Keeping only the top 1000 genes including example genes for tab selection
 example_genes <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 remaining_genes <- setdiff(gene_symbols_list, example_genes)
 set.seed(123)
@@ -17,7 +17,7 @@ correlationGenesTissuesUI <- function(id) {
 
   tagList(
     fluidRow(
-      # LEFT COLUMN: Text + Run Examples
+      # Left column with multiple sections as explained in the Introduction Tab + Run Examples
       column(
         width = 4,
         div(
@@ -122,7 +122,7 @@ correlationGenesTissuesUI <- function(id) {
         )
       ),
 
-      # RIGHT COLUMN: Inputs + Plot
+      # Right column with input controls and outputs
       column(
         width = 8,
 
@@ -164,7 +164,7 @@ correlationGenesTissuesServer <- function(id) {
 
     ns <- session$ns
 
-    # -------- Dynamic dropdowns --------
+    # Generating dropdowns so that the user can select multiple genes and tissues.
     output$gene_selects <- renderUI({
       n <- input$num_genes
       lapply(1:n, function(i) {
@@ -203,7 +203,7 @@ correlationGenesTissuesServer <- function(id) {
     rv <- reactiveValues(result = NULL)
 
 
-    # -------- Standard Run --------
+    # Event when user clicks from the dropdown
     observeEvent(input$run, {
       rv$result <- correlation_genes_tissues(
         gene_NAMES = selected_genes(),
@@ -213,7 +213,7 @@ correlationGenesTissuesServer <- function(id) {
     })
 
 
-    # -------- Run Example: per_gene --------
+    # Run Example: per_gene
     observeEvent(input$run_example_gene, {
 
       updateSliderInput(session, "num_genes", value = 5)
@@ -236,7 +236,7 @@ correlationGenesTissuesServer <- function(id) {
     })
 
 
-    # -------- Run Example: per_tissue --------
+    # Run Example: per_tissue
     observeEvent(input$run_example_tissue, {
 
       updateSliderInput(session, "num_genes", value = 5)
@@ -259,7 +259,7 @@ correlationGenesTissuesServer <- function(id) {
     })
 
 
-    # -------- Plot Output --------
+    # Output the plot
     output$cor_plot <- renderPlot({
       req(rv$result)
       if (input$plot_choice == "per_gene") {
@@ -271,3 +271,5 @@ correlationGenesTissuesServer <- function(id) {
 
   })
 }
+
+# [END]

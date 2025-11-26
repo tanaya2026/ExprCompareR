@@ -1,6 +1,6 @@
 # Correlation Module (Genes OR Tissues)
 
-# Prepare top 1000 genes including example genes
+# Keeping only the top 1000 genes including example genes for tab selection
 example_genes <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 remaining_genes <- setdiff(gene_symbols_list, example_genes)
 set.seed(123)
@@ -15,7 +15,7 @@ correlationUI <- function(id) {
 
   tagList(
     fluidRow(
-      # Left column: Scrollable descriptive text + Run Examples
+      # Left column with multiple sections as explained in the Introduction Tab + Run Examples
       column(
         width = 4,
         div(
@@ -43,8 +43,8 @@ correlationUI <- function(id) {
           br(),
           strong("Run Examples:"),
           p("To run the example, follow the steps:"),
-          p("1. If you are interested in a gene list as input, Click on the 'Run Example (Genes)' button to view results"),
-          p("2. If you are interested in a tissue list as input, Click on the 'Run Example (Tissues)' button to view results."),
+          p("1. If you are interested in a gene list as input, Choose input type: Genes. Then, click on the 'Run Example (Genes)' button to view results"),
+          p("2. If you are interested in a tissue list as input, Choose input type: Tissues. Then, click on the 'Run Example (Tissues)' button to view results."),
           br(),
           actionButton(ns("run_example_genes"), "Run Example (Genes)"),
           br(), br(),
@@ -102,7 +102,7 @@ correlationUI <- function(id) {
         )
       ),
 
-      # Right column: Inputs and output
+      # Right column with input controls and outputs
       column(
         width = 8,
         radioButtons(
@@ -133,7 +133,7 @@ correlationUI <- function(id) {
 correlationServer <- function(id) {
   moduleServer(id, function(input, output, session) {
 
-    # Dynamically generate dropdowns
+    # Generating dropdowns so that the user can select multiple genes or tissues.
     output$dynamic_selects <- renderUI({
       ns <- session$ns
       n <- input$num_inputs
@@ -179,28 +179,28 @@ correlationServer <- function(id) {
     # ReactiveValues to store result
     rv <- reactiveValues(result = NULL)
 
-    # Normal Run button
+    # Normal Run button- when the user clicks run example from the dropdown
     observeEvent(input$run, {
       req(selected_inputs())
       rv$result <- run_correlation(input$input_type, selected_inputs())
     })
 
-    # Run Example: Genes
+    # Run Example: Genes only
     observeEvent(input$run_example_genes, {
       updateRadioButtons(session, "input_type", selected = "Genes")
       updateSliderInput(session, "num_inputs", value = 5)
       for (i in 1:5) {
-        updateSelectizeInput(session, paste0("sel_", i), selected = example_genes)
+        updateSelectizeInput(session, paste0("sel_", i), selected = example_genes[i])
       }
       rv$result <- run_correlation("Genes", example_genes)
     })
 
-    # Run Example: Tissues
+    # Run Example: Tissues only
     observeEvent(input$run_example_tissues, {
       updateRadioButtons(session, "input_type", selected = "Tissues")
       updateSliderInput(session, "num_inputs", value = 5)
       for (i in 1:5) {
-        updateSelectInput(session, paste0("sel_", i), selected = example_tissues)
+        updateSelectInput(session, paste0("sel_", i), selected = example_tissues[i])
       }
       rv$result <- run_correlation("Tissues", example_tissues)
     })
@@ -217,3 +217,5 @@ correlationServer <- function(id) {
 
   })
 }
+
+# [END]
