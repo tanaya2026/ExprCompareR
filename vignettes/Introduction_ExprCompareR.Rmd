@@ -322,7 +322,7 @@ Spearman correlation values are represented by color intensity. High positive co
 <br>
 
 **Interpretation of Plot:**<br>
-This function computes the spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual tissues and the Y axis being the spearman coefficient.
+This function computes the Spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual tissues and the Y axis being the Spearman coefficient.
 Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends.
 
 <br>
@@ -434,9 +434,11 @@ This function compares the protein expression levels between normal and patholog
 
 **Input and Output of the key function in Pathology:**
 
-| Function                      | Input                                                                                   | Output                                                                                                      |
-|------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| `compareCancerProtein`       | The cancer type to analyze | Returns a plot showing the direction and magnitude of protein rank changes for each gene and a metadata tibble with columns: <br><br> {ensembl}: Ensembl gene identifier <br> {gene}: Gene symbol <br>  {normal_rank}: Average protein expression rank in normal tissue <br> {cancer_rank}: Weighted protein expression rank in cancer tissue <br> {delta_rank}: Difference (cancer_rank - normal_rank) <br>  {direction}: Direction of change ('Up', 'Down', or 'No change')|
+| Function             | Input                       | Output                                                                                               |
+|----------------------|-----------------------------|------------------------------------------------------------------------------------------------------|
+| `compareCancerProtein` | The cancer type to analyze  | Returns a plot showing the direction and magnitude of protein rank changes for each gene and a metadata tibble with columns: <br><br> {ensembl}: Ensembl gene identifier <br> {gene}: Gene symbol <br>  {normal_rank}: Average protein expression rank in normal tissue <br> {cancer_rank}: Weighted protein expression rank in cancer tissue <br> {delta_rank}: Difference (cancer_rank - normal_rank) <br>  {direction}: Direction of change ('Up', 'Down', or 'No change') |
+
+
 
 <br>
 
@@ -509,14 +511,171 @@ This table assists in scientists narrowing down their gene of interest based on 
 output$plot
 
 ```
-```{r,echo=FALSE, fig.cap="Differential Expression in Protein Plot"}
+```{r,echo=FALSE, fig.cap="Differential Expression in Protein for Breast Cancer"}
 knitr::include_graphics("images/pathology.png")
 ```
 <br>
+
 **Interpretation of Plot:**<br>
 
 Each gene is plotted to show the magnitude and direction of change in protein rank between normal and cancer tissue. The X axis represents the delta rank i.e. the change in protein expression of normal vs pathology. A decrease in rank is indicated by the colour red, an increase is indicated in the colour blue, and no change is indicated by green. This plot gives researchers a quick overview of the general direction of the genes in this cancer type.
 
+<br>
+
+# Tutorial: Connecting the Parts of ExprCompareR
+<br>
+This section demonstrates how a user might combine the core functions of ExprCompareR in a single analysis workflow.
+Let us walk through a simple use case:
+<br>
+<br>
+**Use Case: Investigate whether the gene TSPAN6 may play a role in breast cancer.**
+<br>
+<br>
+**1. Explore RNA–Protein Concordance with `compute_correlation()`**
+<br>
+
+We begin by examining how well RNA expression aligns with protein expression for `TSPAN6` in contrast to other important pan-genes in a standard set of tissues.
+
+```{r TSPAN6_CC,eval=FALSE}
+output<- compute_correlation(gene_NAMES = c("TSPAN6", "BRCA1", "TP53", "EGFR", "MYC"))
+output$per_gene_plot
+
+```
+```{r,echo=FALSE, fig.cap="Spearman Correlation per gene across various genes"}
+knitr::include_graphics("images/TSPAN6_correlation_gene.png")
+```
+
+<br>
+**Interpretation of plot:** <br>
+`TSPAN6` has a Spearman correlation of 0.06, the same as `TP53`. This can suggest some similar post-transcriptional regulation on both genes. Also, 0.06 is lower compared to `EGFR` (0.5), which can also suggest some differences in gene function.
+<br>
+<br>
+
+**2. Compare RNA–Protein Correlation Across Genes and Tissues with `correlation_genes_tissues()`**
+<br>
+Next, we can examine how `TSPAN6` behaves across multiple tissues and compare it to other genes.
+
+```{r TSPAN6_CGT,eval=FALSE}
+result <- correlation_genes_tissues(
+  gene_NAMES  = c("TSPAN6", "BRCA1", "TP53","EGFR", "MYC"),
+  tissue_NAMES = c("breast", "lung", "liver", "colon", "kidney"),
+  plot_choice = "per_gene"
+)
+result$per_gene_plot
+
+```
+```{r,echo=FALSE, fig.cap="Spearman Correlation per gene across various tissues of interest"}
+knitr::include_graphics("images/TSPAN6_corr_genes_tissues.png")
+```
+<br>
+**Interpretation of plot:** <br>
+Across these set of tissues, we see that `TSPAN6` has a high Spearman correlation(0.45).
+Notice that our set of tissues(tissue_NAMES) is different from the standard set of tissues(tissue_list_RNA).
+<br>
+<br>
+
+**3. Detect Expression Outliers with `detect_outliers()`**
+<br>
+
+To see whether `TSPAN6` behaves unusually in breast tissue relative to other genes, we can identify outliers—
+genes where RNA and protein levels differ substantially.
+<br>
+
+```{r TSPAN6_od, eval=FALSE}
+output <- detect_outliers(input_tissue ="breast")
+output$outlier_vector
+ [1] "USH1C"     "VIM"       "STAP1"     "CAMK2A"    "ENO1"      "ACTB"      "CD59"      "HSP90AB1"  "HSPB1"    
+[10] "KHDRBS2"   "TTK"       "PEX5L"     "EEF1B2"    "NT5C1A"    "DDC"       "CENPE"     "ZNF593"    "RPS27A"   
+[19] "SLC4A10"   "MED12L"    "VWA5B2"    "GC"        "BEND6"     "SPHKAP"    "EEF1A1"    "KIF26B"    "S100A11"  
+[28] "BSN"       "COL22A1"   "FABP4"     "JUN"       "CDCA2"     "WT1"       "TMPRSS11A" "SBK2"      "APOD"     
+[37] "ADH1B"     "FABP12"    "PSAP"      "S100A6"    "RPS4X"     "MT-CO2"    "MT-CO1"    "MT-ND3"    "HLA-DRA"  
+[46] "EIF3CL"    "XKR9"      "HLA-B"     "EEF1G"     "CAPNS2"    "RPL17"  
+
+output$outlier_plot
+```
+```{r,echo=FALSE, fig.cap="Outliers detected in breast tissue"}
+knitr::include_graphics("images/TSPAN6_outlier.png")
+```
+<br>
+**Interpretation of plot and list:** <br>
+We observe from the plot and list that `TSPAN6` is not labeled an outlier. This means that the difference in RNA vs protein expression of `TSPAN6` is not as high compared to other genes in the breast tissue. This can imply that maybe there are other genes that have a higher delta which maybe implicated in breast cancer.
+
+<br>
+<br>
+
+**4. Compare Protein Expression Between Normal and Cancer Tissue with compareCancerProtein()**
+<br>
+
+Finally, we can investigate whether `TSPAN6` protein levels change between normal breast tissue and breast cancer.
+
+```{r TSPAN6_cancer, eval=FALSE}
+
+output <- compareCancerProtein(cancer_type = "breast cancer")
+output$plot
+
+```
+```{r,echo=FALSE, fig.cap="Differential Expression in Protein for Breast Cancer"}
+knitr::include_graphics("images/TSPAN6_cancer.png")
+```
+
+```{r TSPAN6_cancer_table, eval=FALSE}
+output$table
+# A tibble: 5,378 × 6
+   ensembl         gene     normal_rank cancer_rank delta_rank direction
+   <chr>           <chr>          <dbl>       <dbl>      <dbl> <chr>    
+ 1 ENSG00000000003 TSPAN6          1          1.75       0.75  Up       
+ 2 ENSG00000000419 DPM1            2          2          0     No change
+ 3 ENSG00000000457 SCYL3           1.67       0.583     -1.08  Down     
+ 4 ENSG00000000460 C1orf112        2          1.67      -0.333 Down     
+ 5 ENSG00000001167 NFYA            1.33       2          0.667 Up       
+ 6 ENSG00000001461 NIPAL3          1.33       1.83       0.5   Up       
+ 7 ENSG00000001629 ANKIB1          1.67       1.83       0.167 Up       
+ 8 ENSG00000002330 BAD             1.33       2.08       0.75  Up       
+ 9 ENSG00000002549 LAP3            1.67       2.1        0.433 Up       
+10 ENSG00000002746 HECW1           2          2.5        0.5   Up       
+# ℹ 5,368 more rows
+# ℹ Use `print(n = ...)` to see more rows
+
+# To filter for the TSPAN6 gene
+library(dplyr)
+output$table%>% filter(gene == "TSPAN6")
+# A tibble: 1 × 6
+  ensembl         gene   normal_rank cancer_rank delta_rank direction
+  <chr>           <chr>        <dbl>       <dbl>      <dbl> <chr>    
+1 ENSG00000000003 TSPAN6           1        1.75       0.75 Up  
+  
+# Filter for genes that are also up regulated and have the highest delta rank
+  
+output$table %>%
+  filter(direction == "Up") %>%
+  filter(delta_rank == max(delta_rank))
+# A tibble: 10 × 6
+   ensembl         gene     normal_rank cancer_rank delta_rank direction
+   <chr>           <chr>          <dbl>       <dbl>      <dbl> <chr>    
+ 1 ENSG00000081853 PCDHGA2            1           3          2 Up       
+ 2 ENSG00000114529 C3orf52            1           3          2 Up       
+ 3 ENSG00000146776 ATXN7L1            1           3          2 Up       
+ 4 ENSG00000162642 C1orf52            1           3          2 Up       
+ 5 ENSG00000240184 PCDHGC3            1           3          2 Up       
+ 6 ENSG00000253159 PCDHGA12           1           3          2 Up       
+ 7 ENSG00000253485 PCDHGA5            1           3          2 Up       
+ 8 ENSG00000253731 PCDHGA6            1           3          2 Up       
+ 9 ENSG00000253873 PCDHGA11           1           3          2 Up       
+10 ENSG00000254122 PCDHGB7            1           3          2 Up 
+
+
+```
+
+<br>
+**Interpretation of table and plot:** <br>
+We observe from the plot that most of the genes in breast cancer are up-regulated.
+We also observe that `TSPAN6` is one of those up-regulated genes. It has a delta of 0.75 between its normal vs cancer expression. However, if we compare that difference to other up-regulated genes, we see there exist genes like `PCDHGC3` or `ATXN7L1` which have a delta rank of 2. This suggests that maybe along with `TSPAN6`, there are other genes implicated in breast cancer. 
+
+<br>
+
+Following these results with wet-lab experiments, these results from ExprCompareR may help the user conclude if `TSPAN6` has been mutated such that there are defects in the post transcriptional regulation or that `TSPAN6` is a possible therapeutic target for drugs involved in treatment of breast cancer.
+
+<br>
 <br>
 
 # Package Reference
