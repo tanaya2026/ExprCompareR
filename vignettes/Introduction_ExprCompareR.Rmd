@@ -438,8 +438,11 @@ This function compares the protein expression levels between normal and patholog
 |----------------------|-----------------------------|------------------------------------------------------------------------------------------------------|
 | `compareCancerProtein` | The cancer type to analyze  | Returns a plot showing the direction and magnitude of protein rank changes for each gene and a metadata tibble with columns: <br><br> {ensembl}: Ensembl gene identifier <br> {gene}: Gene symbol <br>  {normal_rank}: Average protein expression rank in normal tissue <br> {cancer_rank}: Weighted protein expression rank in cancer tissue <br> {delta_rank}: Difference (cancer_rank - normal_rank) <br>  {direction}: Direction of change ('Up', 'Down', or 'No change') |
 
-
-
+<br>
+***Note:***
+If you are interested in obtaining the top 10 up-regulated genes, top 10 down-regulated genes or top 10 no change genes from the cancer metadata tibble, then you can filter the output$table to obtain these lists.<br>
+See "/inst/shiny-scripts/modules/module-cancer_protein.R" lines 139-170 for help.
+<br>
 <br>
 
 To get more information about the pathology function, explore the help documentation:

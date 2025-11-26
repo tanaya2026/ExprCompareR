@@ -33,7 +33,7 @@ correlationUI <- function(id) {
           p("If you are interested in querying larger data, you can run this function in RStudio"),
           br(),
           strong("Output:"),
-          p("Returns a per-gene plot if gene names are provided, or a per-tissue plot if tissue names are provided."),
+          p("Returns a per-gene plot if gene names are provided, or a per-tissue plot if tissue names are provided. The Spearman correlation values for each gene/tissue is labeled in the plot."),
           br(),
           strong("Instructions:"),
           p("1. Choose input type: Genes or Tissues."),

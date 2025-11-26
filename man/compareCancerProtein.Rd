@@ -47,6 +47,9 @@ ExprCompareR retrieves data from HPA (Thul et al., 2018) and GTEx (Lonsdale et a
 via packages, HPAanalyze(Tran et al., 2019) and gtexr(Warwick et al., 2025).
 Because these functions make external API calls, some operations may take time to complete
 typically around 30 seconds to 1 minute.
+
+If you are interested in obtaining the top 10 up-regulated genes, top 10 down-regulated genes or top 10 no change genes from the cancer metadata tibble, then you can filter the output$table to obtain these lists.
+See "inst/shiny-scripts/modules/module-cancer_protein.R" lines 139-170 for help.
 }
 \examples{
 \dontrun{
