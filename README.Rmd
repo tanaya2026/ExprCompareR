@@ -161,6 +161,17 @@ use the GitHub issues.
 * The targeted audience for `ExprCompareR` are bioinformatics researchers, computational scientists or even students who are interested in exploring the relationship between gene expression at RNA and protein levels. Specifically, this package is designed for users who are interested in finding candidates for post-transcriptional regulation or studying tissue-specific RNA and protein expression or even biomarker discovery. 
 Additionally, as `ExprCompareR` provides statistical/correlation analysis of RNA-seq and protein expression data sets as well as visualization tools, it can cater to users who are interested in utilizing these aspects as well.
 
+
+* On performing a thorough search in Bioconductor and CRAN there is not any package that is exploring and quantifying the relationship between RNA-seq and protein expression across tissues and conditions. 
+
+* ExprCompareR has the following assumptions:
+
+  1. Data Quality and reliability in public databases:
+  We assume that the data collected by these renowned databases of HPA (Thul et al., 2018) and GTEx (Lonsdale et      al., 2013), have followed the rules and regulations of data collection, and that there is little to known error/    bias. 
+
+  2. Human genome limitation:
+  We assume the user has provided genes and tissues found only in humans. Our package scope is limited to human       genes and tissues. Hence the user can only use this package for human genes and tissues. Input from other           species, will be considered invalid.
+
 * ExprCompareR is a combination of two words: Expression and Compare as the package deals with comparing RNA-seq expression and protein expression data.
 
 ## Package Structure
