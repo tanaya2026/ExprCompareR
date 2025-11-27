@@ -105,7 +105,7 @@ package version 3.1.0, https://CRAN.R-project.org/package=shinyalert.
 
 * BioRender.com. BioRender [Online]. Available at: https://www.biorender.com (accessed 2 November 2025).
 
-* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML. 
+* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017). Customize your UI with HTML. 
 https://shiny.posit.co/r/articles/build/html-tags/
 
 * Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,
@@ -122,7 +122,7 @@ https://CRAN.R-project.org/package=shiny
 * R Core Team (2024). _R: A Language and Environment for Statistical Computing_. R Foundation for Statistical Computing, Vienna, Austria. <https://www.R-project.org/>.
 
 * Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019).
-A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394. https://pubmed.ncbi.nlm.nih.gov/31311497/
+A multivariate Poisson-log normal mixture model for clustering transcriptome sequencing data. BMC Bioinformatics. 2019;20(1):394. https://pubmed.ncbi.nlm.nih.gov/31311497/
 
 
 * Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping Text Labels with 'ggplot2'. https://ggrepel.slowkow.com/,https://github.com/slowkow/ggrepel.

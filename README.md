@@ -162,7 +162,7 @@ other work was done by the author.
 - BioRender.com. BioRender \[Online\]. Available at:
   <https://www.biorender.com> (accessed 2 November 2025).
 
-- Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with
+- Cetinkaya-Rundel M,Cheng J, Grolemund G (2017). Customize your UI with
   HTML. <https://shiny.posit.co/r/articles/build/html-tags/>
 
 - Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie
@@ -186,7 +186,7 @@ other work was done by the author.
 
 - Silva, A., S. J. Rothstein, P. D. McNicholas, and S. Subedi (2019). A
   multivariate Poisson-log normal mixture model for clustering
-  transcriptome sequencing data.BMC Bioinformatics. 2019;20(1):394.
+  transcriptome sequencing data. BMC Bioinformatics. 2019;20(1):394.
   <https://pubmed.ncbi.nlm.nih.gov/31311497/>
 
 - Slowikowski K (2024). ggrepel: Automatically Position Non-Overlapping
