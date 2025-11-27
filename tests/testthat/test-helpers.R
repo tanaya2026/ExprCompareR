@@ -78,9 +78,6 @@ test_that("Function handles vector of only High, Medium, Low correctly", {
 
 # Tests for helper function convert_to_gtex
 
-
-library(testthat)
-
 test_that("Valid simple tissues are converted correctly", {
   input <- c("liver", "skin 1", "breast")
   expected <- tissue_map$RNA_tissue[match(tolower(input), tolower(tissue_map$protein_tissue))]
