@@ -1,5 +1,8 @@
 library(testthat)
 
+# This file includes tests for all helper functions - get_gtex_gencode_ids, protein_expr_values, convert_to_gtex
+
+#-------------------------------------------------------------------------------
 # Tests for helper function get_gtex_gencode_ids
 
 test_that("get_gtex_gencode_ids works for valid input", {
@@ -29,7 +32,7 @@ test_that("Empty input returns empty vector", {
   expect_equal(get_gtex_gencode_ids(character(0)), character(0))
 })
 
-#________________________________________________________________________________
+#-------------------------------------------------------------------------------
 
 # Tests for helper function protein_expr_values
 
@@ -71,7 +74,7 @@ test_that("Function handles vector of only High, Medium, Low correctly", {
   expect_equal(protein_expr_values(input), c(1, 2, 3))
 })
 
-#________________________________________________________________________________
+#-------------------------------------------------------------------------------
 
 # Tests for helper function convert_to_gtex
 
@@ -114,5 +117,7 @@ test_that("Empty input returns character(0)", {
   expect_equal(convert_to_gtex(character(0)), character(0))
 })
 
-#________________________________________________________________________________
+#-------------------------------------------------------------------------------
+# [END]
+
 
