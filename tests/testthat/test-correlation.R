@@ -1,5 +1,11 @@
 library(testthat)
 
+# This file includes tests for function compute_correlation and correlation_genes_tissues
+
+#-------------------------------------------------------------------------------
+# Test compute_correlation
+
+# Unit Tests
 
 test_that("compute_correlation handles all 7 invalid input cases", {
 
@@ -53,12 +59,11 @@ test_that("compute_correlation handles all 7 invalid input cases", {
 
 })
 
-
-
-#--------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # Test correlation_genes_tissues
 
+# Unit Tests
 
 # Dummy valid inputs
 valid_genes   <- c("A", "B", "C", "D", "E")
@@ -119,3 +124,74 @@ test_that("Error if invalid plot_choice is provided", {
     "plot_choice is invalid"
   )
 })
+
+#-------------------------------------------------------------------------------
+# Integration Tests:
+
+# Test if compute_correlation returns a plot object for a tissue list
+
+test_that("compute_correlation returns a plot object for per_tissue_plot", {
+
+  tissue_list <- c("lung", "spleen", "liver", "ovary", "testis")
+
+  output <- compute_correlation(tissue_NAMES = tissue_list)
+
+  # Structure checks
+  expect_true(is.list(output))
+  expect_true("per_tissue_plot" %in% names(output))
+
+  # Check that per_tissue_plot is a plot object
+  expect_true(is.object(output$per_tissue_plot))
+})
+
+#-------------------------------------------------------------------------------
+
+# Integration Tests:
+
+# Test if correlation_genes_tissues returns a plot object, if plot_choice is per_gene
+
+test_that("correlation_genes_tissues returns a plot object for per_gene plot choice", {
+
+  tissues <- c("lung", "spleen", "liver", "ovary", "testis")
+  genes <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+
+  result_gene <- correlation_genes_tissues(
+    gene_NAMES = genes,
+    tissue_NAMES = tissues,
+    plot_choice = "per_gene"
+  )
+
+  # Structure checks
+  expect_true(is.list(result_gene))
+  expect_true("per_gene_plot" %in% names(result_gene))
+
+  # Check that per_gene_plot is a plot object
+  expect_true(is.object(result_gene$per_gene_plot))
+})
+
+# Test if correlation_genes_tissues returns a plot object, if plot_choice is per_tissue
+
+test_that("correlation_genes_tissues returns a plot object for per_tissue plot choice", {
+
+  tissues <- c("lung", "spleen", "liver", "ovary", "testis")
+  genes <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+
+  result_tissue <- correlation_genes_tissues(
+    gene_NAMES = genes,
+    tissue_NAMES = tissues,
+    plot_choice = "per_tissue"
+  )
+
+  # Structure checks
+  expect_true(is.list(result_tissue))
+  expect_true("per_tissue_plot" %in% names(result_tissue))
+
+  # Check it's a plot object
+  expect_true(is.object(result_tissue$per_tissue_plot))
+})
+
+#-------------------------------------------------------------------------------
+
+
+# [END]
+
