@@ -1,10 +1,11 @@
 library(testthat)
 
+# This file includes tests for function compareCancerProtein
 
-#_______________________________________________________________________________
+#-------------------------------------------------------------------------------
+# Unit Tests
 
 # Testing cancer_protein for valid inputs
-
 
 test_that("compareCancerProtein warns for invalid cancer_type input", {
 
@@ -22,13 +23,10 @@ test_that("compareCancerProtein warns for invalid cancer_type input", {
 
 })
 
-
-#_______________________________________________________________________________
-
-# Testing functionality of cancer_protein
+#-------------------------------------------------------------------------------
+# Integration Tests
 
 # Testing if the final tibble has the necessary columns
-
 
 test_that("Output table contains required columns", {
 
@@ -42,8 +40,8 @@ test_that("Output table contains required columns", {
 
 })
 
-# Testing if the function returns both a plot and vector
 
+# Testing if the function returns both a plot and vector
 test_that("compareCancerProtein returns expected list structure", {
 
   output <- compareCancerProtein("breast cancer")
@@ -68,6 +66,36 @@ test_that("Filtering keeps only normal_rank between 1 and 2", {
 
 })
 
-#_______________________________________________________________________________
+# Test if the function returns a table and plot;
+# Also test if the table contains the neccessary genes
 
+test_that("compareCancerProtein returns correct table and plot for breast cancer", {
+
+  output <- compareCancerProtein(cancer_type = "breast cancer")
+
+  # Check structure
+  expect_true(is.list(output))
+  expect_true(all(c("table", "plot") %in% names(output)))
+
+  # Expected first 10 gene names
+  expected_genes <- c(
+    "TSPAN6", "DPM1", "SCYL3", "C1orf112", "NFYA",
+    "NIPAL3", "ANKIB1", "BAD", "LAP3", "HECW1"
+  )
+
+  # Check table structure
+  expect_s3_class(output$table, "tbl_df")
+  expect_true("gene" %in% names(output$table))
+
+  # Check that the table contains at least those 10 genes
+  actual_genes <- output$table$gene[1:10]
+  expect_equal(actual_genes, expected_genes)
+
+  # Check that plot is a valid plot object
+  expect_true(is.object(output$plot))
+})
+
+#-------------------------------------------------------------------------------
+
+# [END]
 
