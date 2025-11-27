@@ -53,6 +53,7 @@ outlierUI <- function(id) {
           p("This function provides the list of genes in the tissue of interest which are detected as outliers.These genes are most likely candidates for post-transcriptional modifications, and this list can be used to narrow down potential targets for post-transcriptional modifications. These genes can reflect regulatory mechanism of microRNA-mediated degradation, altered translation rates, or differences in protein stability. If the list returns `character(0)`, then there are no outliers in this tissue."),
           br(),
           strong("References"),
+          p("* Attali D, Edwards T (2024). _shinyalert: Easily Create Pretty Popup Messages (Modals) in 'Shiny'_. R package version 3.1.0, https://CRAN.R-project.org/package=shinyalert."),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
           p("* Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).shiny: Web Application Framework for R. R package version 1.11.1,https://CRAN.R-project.org/package=shiny"),
           p("* OpenAI.(2025). ChatGPT (GPT-5) Large language model.Retrieved November 17, 2025, from https://chatgpt.com/ "),

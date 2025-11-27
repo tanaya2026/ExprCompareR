@@ -38,6 +38,9 @@ ExprCompareR::runExprCompareR()
 
 }
 \references{
+Attali D, Edwards T (2024). \emph{shinyalert: Easily Create Pretty Popup Messages (Modals) in 'Shiny'}. R
+package version 3.1.0, \url{https://CRAN.R-project.org/package=shinyalert.}
+
 Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).
 Customize your UI with HTML. - Article \url{https://shiny.posit.co/r/articles/build/html-tags/}
 

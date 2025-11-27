@@ -118,12 +118,12 @@ built in functions, that query the GTEx (Lonsdale et al., 2013) and HPA
 (Thul et al., 2018) databases for specific tissues and genes depending
 on the user input. Specifically we used `hpadownload` from
 HPAanalyze(Tran et al., 2019) to query protein expression data and
-`get_top_expressed_genes` `get_gene_expression` from gtexr (Warwick et
+`get_top_expressed_genes`,`get_gene_expression` from gtexr (Warwick et
 al., 2025) to query RNA seq data. Additionally, package `dplyr` (Wickham
 et al., 2025)’s `filter`, `pull`, `group_by`, `summarise`, `mutate`,
 `select` functions was used in all four
 functions(compute_correlation,correlation_genes_tissues,
-detect_outliers, compareCancerProtein)to filter and structure RNA and
+detect_outliers, compareCancerProtein) to filter and structure RNA and
 protein data that was queried, to perform analysis. Package `tidyr`
 (Wickham et al., 2025) `drop_na` function was used to drop NA values in
 `outlier_detection` `compute_correlation`. Package `tibble`(Muller K,
@@ -138,7 +138,9 @@ scatter plots in `outlier_detection`, bar plots in `compute_correlation`
 and `correlation_genes_tissues`, and directional plots in
 `compareCancerProtein` for visualization. Package `ggrepel`(Slowikowski
 K, 2024)’s function `geom_text_repel` was used in `outlier_detection` to
-prevent overlapping labels.
+prevent overlapping labels. Package `shiny`(Chang et al., 2025)’s
+function `runApp`and `shinyApp` were used in `app.R` and
+`runExprCompareR` to launch the Shiny application.
 
 Additionally BioRender(BioRender.com. BioRender \[Online\], accessed 2
 November 2025), was used to generate the images used in the Overview
@@ -146,11 +148,16 @@ Section of the README.
 
 ChatGPT was used across the functions to debug errors and to refine the
 wording used in the roxygen tags. ChatGPT was also used to resolve the
-errors that were caught during unit tests. Other than this, generative
-AI was NOT used for core code/ideas/problem solving, and all other work
-was done by the author.
+errors that were caught during unit tests. ChatGPT was used to make
+style enhancements for the shiny application. Other than this,
+generative AI was NOT used for core code/ideas/problem solving, and all
+other work was done by the author.
 
 ## References
+
+- Attali D, Edwards T (2024). *shinyalert: Easily Create Pretty Popup
+  Messages (Modals) in ‘Shiny’*. R package version 3.1.0,
+  <https://CRAN.R-project.org/package=shinyalert>.
 
 - BioRender.com. BioRender \[Online\]. Available at:
   <https://www.biorender.com> (accessed 2 November 2025).
@@ -343,7 +350,7 @@ The package tree structure is provided below.
     |- Correlation.R
     |- CancerProtein.R
   |- vignettes
-    |- Introduction_TestPackage.rmd
+    |- Introduction_ExprCompareR.Rmd
     |- images
       |- both_per_gene.png
       |- both_per_tissue.png
@@ -352,6 +359,10 @@ The package tree structure is provided below.
       |- per_gene_only.png
       |- per_tissue_only.png
       |- ExprCompareR_Overview.png
+      |- TSPAN6_cancer.png
+      |- TSPAN6_outlier.png
+      |- TSPAN6_correlation_gene.png
+      |- TSPAN6_corr_genes_tissues.png
   |- tests
     |- testthat.R
     |- testthat

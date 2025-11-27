@@ -107,6 +107,7 @@ correlationGenesTissuesUI <- function(id) {
             tissues of interest. You can either remove these genes from your analysis, replace these values or they will be filled by NA values'.This warning leads to no plotted values for certain genes and tissues combos. This does not affect the quality of the plot, but rather informs the user that some gene-tissue combinations do not exist."),
           br(),
           strong("References:"),
+          p("* Attali D, Edwards T (2024). _shinyalert: Easily Create Pretty Popup Messages (Modals) in 'Shiny'_. R package version 3.1.0, https://CRAN.R-project.org/package=shinyalert."),
           p("* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML.https://shiny.posit.co/r/articles/build/html-tags/"),
           p("* Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).shiny: Web Application Framework for R. R package version 1.11.1,https://CRAN.R-project.org/package=shiny"),
           p("* OpenAI.(2025). ChatGPT (GPT-5) Large language model.Retrieved November 17, 2025, from https://chatgpt.com/ "),
