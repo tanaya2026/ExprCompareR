@@ -58,6 +58,8 @@ typically around 30 seconds to 1 minute.
 \dontrun{
 # Example 1: Generate correlation plot per gene
 
+tissues= c("lung", "spleen", "liver", "ovary", "testis")
+genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 
 result_gene <- per_gene_plot(gene_NAMES = genes, tissue_NAMES = tissues)
 result_gene$per_gene_plot

@@ -25,6 +25,7 @@ For a quick introduction to ExprCompareR see the vignettes or shiny implementati
 
 \references{
 \itemize{
+\item Attali D, Edwards T (2024). \emph{shinyalert: Easily Create Pretty Popup Messages (Modals) in 'Shiny'}. R package version 3.1.0, \url{https://CRAN.R-project.org/package=shinyalert}
 \item BioRender.com. BioRender. Available at: \url{https://www.biorender.com} (accessed 2 November 2025).
 \item Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML. \url{https://shiny.posit.co/r/articles/build/html-tags/}
 \item Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).

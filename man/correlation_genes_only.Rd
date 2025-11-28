@@ -54,7 +54,7 @@ typically around 30 seconds to 1 minute.
 # Example 1: Using valid gene names only
 
 gene_list <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
-output<- correlation_genes_only(gene_NAMES = gene_list)
+output<- correlation_genes_only(gene_list)
 output$per_gene_plot
 
 }

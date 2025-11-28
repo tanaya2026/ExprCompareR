@@ -30,6 +30,7 @@
 #' \code{\link{compareCancerProtein}}
 #'
 #'@references
+#'* Attali D, Edwards T (2024). _shinyalert: Easily Create Pretty Popup Messages (Modals) in 'Shiny'_. R package version 3.1.0, \url{https://CRAN.R-project.org/package=shinyalert}
 #'* BioRender.com. BioRender. Available at: \url{https://www.biorender.com} (accessed 2 November 2025).
 #'* Cetinkaya-Rundel M,Cheng J, Grolemund G (2017).Customize your UI with HTML. \url{https://shiny.posit.co/r/articles/build/html-tags/}
 #'* Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Aden-Buie G, Xie Y,Allen J, McPherson J, Dipert A, Borges B (2025).

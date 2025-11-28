@@ -213,7 +213,7 @@ compute_correlation <- function(gene_NAMES = NULL, tissue_NAMES = NULL){
 #' # Example 1: Using valid gene names only
 #'
 #' gene_list <- c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
-#' output<- correlation_genes_only(gene_NAMES = gene_list)
+#' output<- correlation_genes_only(gene_list)
 #' output$per_gene_plot
 #'
 #' }
@@ -848,8 +848,8 @@ correlation_genes_tissues<- function(gene_NAMES, tissue_NAMES, plot_choice){
 #' \dontrun{
 #' # Example 1: Generate correlation plot per gene
 #'
-# tissues= c("lung", "spleen", "liver", "ovary", "testis")
-# genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+#'tissues= c("lung", "spleen", "liver", "ovary", "testis")
+#'genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 #'
 #' result_gene <- per_gene_plot(gene_NAMES = genes, tissue_NAMES = tissues)
 #' result_gene$per_gene_plot
@@ -1095,10 +1095,10 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 #'
 #' @examples
 #' \dontrun{
-#' # Example 2: Generate correlation plot per tissue
+#' # Example 1: Generate correlation plot per tissue
 #'
-# tissues= c("lung", "spleen", "liver", "ovary", "testis")
-# genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
+#'tissues= c("lung", "spleen", "liver", "ovary", "testis")
+#'genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 #'
 #' result_tissue <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
 #' result_tissue$per_tissue_plot
