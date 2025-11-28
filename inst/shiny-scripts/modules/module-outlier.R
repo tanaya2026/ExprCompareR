@@ -14,7 +14,7 @@ outlierUI <- function(id) {
                    border-radius: 8px; border: 1px solid #ddd;",
           strong("Description"),
           p("Detects outlier genes present in a given tissue of interest, which have a large delta between their RNA expression and protein expression values."),
-          p("The function, given a tissue of interest, compares the RNA expression and protein expression of all genes present in the given tissue, and identifies genes which have a large difference in their RNA and protein expression. These genes are identified as outlier genes, and are most likely candidates for post-transcriptional modifications. This function returns the list of outlier genes as well as a plot highlighting the outlier genes."),
+          p("These genes are identified as outlier genes, and are most likely candidates for post-transcriptional modifications. This function returns the list of outlier genes as well as a plot highlighting the outlier genes."),
           br(),
           strong("Input:"),
           p("The tissue of interest to analyze."),

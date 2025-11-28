@@ -294,7 +294,7 @@ correlation_genes_only <- function(gene_list){
       paste(
         "Some gene-tissue combinations are missing in protein data.",
         "These missing combos indicate that specific genes of interest are not present in the",
-        "standard tissue list.", "This may affect your final plot.",
+        "standard tissue list.",
         "You can either remove these genes from your analysis, replace these values or they
         will be filled by NA values.",
         sep = "\n"

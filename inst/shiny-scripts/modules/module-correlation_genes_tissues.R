@@ -46,7 +46,7 @@ correlationGenesTissuesUI <- function(id) {
           ),
           br(),
           p("Note: This function queries data from HPA (Lonsdale et al., 2013) and GTEx(Lonsdale et al., 2013). To avoid high load and long query times, the", strong ("shiny UI"), " of this function is limited to 5-10 genes/tissues at a time."),
-          p("If you are interested in querying larger data, you can run this function in RStudio"),
+          p("If you are interested in querying larger data, you can run this function in RStudio."),
           br(),
           strong("Output:"),
           p("A plot object showing Spearman correlations per gene or per tissue, depending on plot choice"),
