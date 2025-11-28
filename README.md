@@ -105,7 +105,9 @@ An overview of the package is illustrated below:
 `compute_correlation`, `correlation_genes_tissues`, `detect_outliers`,
 and `compareCancerProtein`.
 
-![](./inst/extdata/ExprCompareR_Overview.png) <br>
+![](./inst/extdata/ExprCompareR_Overview.png)
+
+<br>
 
 ## Contributions
 
