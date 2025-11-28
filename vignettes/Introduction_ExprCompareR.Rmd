@@ -32,7 +32,8 @@ An overview of the package is illustrated below:
 
  **Image 1:** Depicts the functionality of functions `compute_correlation`, `correlation_genes_tissues`, `detect_outliers`, and `cancer_protein`. <br>
  
-![](./images/ExprCompareR_Overview.png)
+![](./images/ExprCompareR_Overview.png)?ExprCompareR
+
 
 <br><br>
 
@@ -141,7 +142,7 @@ ExprCompareR's correlation function's depend on user input i.e. their choice of 
 
 The function `compute_correlation` serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **OR** tissue list of interest and plots the results.
 
-<br>roxu
+<br>
 
 `compute_correlation` performs a number of checks, to prevent the user from providing the wrong input type. The correct input type for `compute_correlation` is either a list of gene names (>=5 in length) **OR** a list of tissue names (>=5 in length). Valid gene symbols for the {gene_NAMES} argument can be accessed from {gene_symbols_list}. Valid tissue names as for the {tissue_NAMES} argument can be accessed from
 {tissue_map$protein_tissue}. To get more information about the datasets mentioned above, the help documentation will helpful to explore: 
@@ -338,9 +339,9 @@ Or visualize these results as a plot per tissue:
 
 tissues = c("lung", "spleen", "liver", "ovary", "testis")
 genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
-result_gene <- correlation_genes_tissues(gene_NAMES = genes,
+result_tissue <- correlation_genes_tissues(gene_NAMES = genes,
 tissue_NAMES = tissues, plot_choice = "per_tissue")
-result_gene$per_tissue_plot
+result_tissue$per_tissue_plot
 
 ```
 ```{r,echo=FALSE, fig.cap="Spearman Correlation per tissue across genes of interest"}
@@ -366,7 +367,7 @@ Higher Spearman correlation coefficients indicate stronger agreement between RNA
 
 `detect_outliers` is the core function for outlier analysis in `ExprCompareR`. <br>
 
-This function detects outlier genes present in a given tissue of interest, which have a large delta between their RNA expression and protein expression values.The function, given a tissue of interest, compares the RNA expression and protein expression of all genes present in the given tissue, and identifies genes which have a large difference in their RNA and protein expression. These genes are identified as outlier genes, and are most likely candidates for post-transcriptional modifications. This function returns the list of outlier genes as well as a plot highlighting the outlier genes.
+The function, given a tissue of interest, compares the RNA expression and protein expression of all genes present in the given tissue, and identifies genes which have a large difference in their RNA and protein expression. These genes are identified as outlier genes, and are most likely candidates for post-transcriptional modifications. This function returns the list of outlier genes as well as a plot highlighting the outlier genes.
 
 
 <br>

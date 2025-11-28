@@ -693,8 +693,8 @@ correlation_tissues_only <- function(tissue_NAMES){
 #'tissues = c("lung", "spleen", "liver", "ovary", "testis")
 #' genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 #'
-#' result_gene <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
-#' result_gene$per_tissue_plot
+#' result_tissue <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
+#' result_tissue$per_tissue_plot
 #' }
 #'
 #'@references
@@ -1100,8 +1100,8 @@ per_gene_plot <- function(gene_NAMES, tissue_NAMES){
 # tissues= c("lung", "spleen", "liver", "ovary", "testis")
 # genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 #'
-#' result_gene <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
-#' result_gene$per_tissue_plot
+#' result_tissue <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
+#' result_tissue$per_tissue_plot
 #' }
 #'
 #' @references

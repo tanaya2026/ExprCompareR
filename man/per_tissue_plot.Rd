@@ -59,8 +59,8 @@ typically around 30 seconds to 1 minute.
 # Example 2: Generate correlation plot per tissue
 
 
-result_gene <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
-result_gene$per_tissue_plot
+result_tissue <- per_tissue_plot(gene_NAMES = genes,tissue_NAMES = tissues)
+result_tissue$per_tissue_plot
 }
 
 }

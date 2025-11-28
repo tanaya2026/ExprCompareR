@@ -77,8 +77,8 @@ result_gene$per_gene_plot
 tissues = c("lung", "spleen", "liver", "ovary", "testis")
 genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 
-result_gene <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
-result_gene$per_tissue_plot
+result_tissue <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
+result_tissue$per_tissue_plot
 }
 
 }
