@@ -22,7 +22,10 @@ knitr::opts_chunk$set(
 
 **ExprCompareR** is an R package designed to streamline the exploration and quantification of the relationship between RNA expression and protein expression across human tissues and conditions. Researchers studying post-transcriptional regulation currently face the time-consuming task of manually retrieving RNA-seq and protein-expression data, filtering, normalizing, computing correlations, and creating visualizations for their genes of interest. `ExprCompareR` automates and integrates these steps, providing a user-friendly workflow to quickly retrieve transcriptomic and proteomic data from public repositories such as the Genotype-Tissue Expression Project (GTEx)(Lonsdale et al., 2013) and the Human Protein Atlas (HPA)(Thul et al., 2018), compute correlations, flag outlier genes, and visualize results.
 
+<br>
+
 ExprCompareR provides functions for calculating and plotting the Spearman correlation of RNA-seq and protein expression data from the user's genes or tissues of interest or both. Additionally, ExprCompareR includes functionalities for detecting outlier genes i.e., genes that show large discrepancies between RNA and protein expression and for comparing protein expression between cancer and healthy tissues. 
+
 <br>
 
 An overview of the package is illustrated below:
@@ -138,7 +141,9 @@ ExprCompareR's correlation function's depend on user input i.e. their choice of 
 
 The function `compute_correlation` serves as a wrapper to compute and visualize the Spearman correlation between RNA and protein expression for a user's gene list **OR** tissue list of interest and plots the results.
 
-`compute_correlation` performs a number of checks, to prevent the user from providing the wrong input type. The correct input type for `compute_correlation` is either a list of gene names(>=5 in length) **OR** a list of tissue names(>=5 in length). Valid gene symbols for the {gene_NAMES} argument can be accessed from {gene_symbols_list}. Valid tissue names as for the {tissue_NAMES} argument can be accessed from
+<br>roxu
+
+`compute_correlation` performs a number of checks, to prevent the user from providing the wrong input type. The correct input type for `compute_correlation` is either a list of gene names (>=5 in length) **OR** a list of tissue names (>=5 in length). Valid gene symbols for the {gene_NAMES} argument can be accessed from {gene_symbols_list}. Valid tissue names as for the {tissue_NAMES} argument can be accessed from
 {tissue_map$protein_tissue}. To get more information about the datasets mentioned above, the help documentation will helpful to explore: 
 
 ```{r,}
@@ -156,12 +161,18 @@ tissue_map$protein_tissue
 
 ```
 
+<br>
+
+**Input Validation and Error Conditions:**
+<br>
+<br>
+
 These are the following conditions which will result in stopping execution and an error being thrown:
 
 1. The given gene names do not exist in {gene_symbols_list} or the given tissue names do not exist in {tissue_map$protein_tissue}.
 2. If both `gene_NAMES` and `tissue_NAMES` are NULL.
 3. If one list is provided but has fewer than 5 elements.
-4. If both lists are provided with 5>= elements each.
+4. If both lists are provided with 5 >= elements each.
 5. If duplicates exist in either list.
 
 The following are examples of an error being thrown, and execution being stopped in `compute_correlation`:
@@ -179,6 +190,12 @@ compute_correlation(gene_NAMES = c("BRCA1", "TP53", "BRCA1", "MYC", "EGFR"))
 
 ```
 
+<br>
+<br>
+
+**Demonstration of function `compute_correlation`:**
+<br>
+<br>
 
 Let us consider the following example as sample input the user provides, if they have a gene list of interest:
 
@@ -195,6 +212,7 @@ knitr::include_graphics("images/per_gene_only.png")
 <br><br>
 
 **Plot Key:** <br>
+
 Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation.
 
 <br>
@@ -219,6 +237,7 @@ knitr::include_graphics("images/per_tissue_only.png")
 ```
 
 **Plot Key:** <br>
+
 Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation.
 
 <br>
@@ -245,6 +264,12 @@ It produces either: <br>
 `correlation_genes_tissues` performs a number of checks, to prevent the user from providing the wrong input type. The correct input type for `correlation_genes_tissues` is a list of gene names(>=5 in length) **AND** a list of tissue names(>=5 in length) **AND** a choice of plot. Valid gene symbols for the {gene_NAMES} argument can be accessed from {gene_symbols_list}. Valid tissue names as for the {tissue_NAMES} argument can be accessed from
 {tissue_map$protein_tissue}.Valid plot choices can only be `"per_gene"` to visualize correlation for each gene, or `"per_tissue"` to visualize correlation for each tissue.
 
+<br>
+<br>
+
+**Input Validation and Error Conditions:**
+<br>
+<br>
 
 These are the following conditions which will result in stopping execution and an error being thrown:
 
@@ -268,7 +293,12 @@ correlation_genes_tissues(valid_genes, valid_tissues, plot_choice = "invalid")
 
 ```
 
+<br>
+<br>
 
+**Demonstration of function `correlation_genes_tissues`:**
+<br>
+<br>
 
 Let us consider the following example as sample input the user provides, for joint analysis of specific genes across specific tissues:
 
@@ -289,6 +319,7 @@ knitr::include_graphics("images/both_per_gene.png")
 
 
 **Plot Key:** <br>
+
 Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation.
 
 <br>
@@ -317,11 +348,13 @@ knitr::include_graphics("images/both_per_tissue.png")
 ```
 
 **Plot Key:** <br>
+
 Spearman correlation values are represented by color intensity. High positive correlations are indicated in dark blue, low correlations around zero are white, and high negative correlations are indicated in dark red. The shade intensity reflects the magnitude of the correlation.
 
 <br>
 
 **Interpretation of Plot:**<br>
+
 This function computes the Spearman correlation of the gene list of interest and tissue list of interest. The final plot is plotted with the X axis being the individual tissues and the Y axis being the Spearman coefficient.
 Higher Spearman correlation coefficients indicate stronger agreement between RNA and protein expression levels across samples. Users can use this visualization to identify tissues or genes with consistent expression trends.
 
@@ -353,6 +386,8 @@ library(ExprCompareR)
 ?ExprCompareR::detect_outliers
 ``` 
 
+
+<br>
 <br>
 
 ExprCompareR's `detect_outliers` function depends on user input i.e. their choice of the tissue of interest. 
@@ -368,7 +403,12 @@ data(package = "ExprCompareR")
 # Explore the valid tissue names
 tissue_map$protein_tissue
 ```
+<br>
+<br>
 
+**Input Validation and Error Conditions:**
+<br>
+<br>
 The following are examples of an error being thrown, and execution being stopped in `detect_outliers`:
 
 ```{r test_outlier, eval=FALSE}
@@ -381,6 +421,12 @@ detect_outliers("brainstem")
 detect_outliers("lvg")
 "The tissue lvg is not found in tissue_map$protein_tissue."
 ```
+<br>
+<br>
+
+**Demonstration of function `detect_outliers`:**
+<br>
+<br>
 
 Let us consider the following example as sample input the user provides:
 
@@ -388,8 +434,6 @@ Let us consider the following example as sample input the user provides:
 
 output <- detect_outliers(input_tissue = "lung")
 ```
-<br>
-<br>
 ```{r outlier_detection_vector, eval=FALSE }
 output$outlier_vector
  [1] "CD74"     "VIM"      "ENO1"     "ACTB"     "HSP90AB1" "HSPB1"    "ANXA10"  
@@ -402,6 +446,7 @@ output$outlier_vector
 ```
 <br>
 **Interpretation of List:**  <br>
+
 This function provides the list of genes in the tissue of interest which are detected as outliers.These genes are most likely candidates for post-transcriptional modifications, and this list can be used to narrow down potential targets for post-transcriptional modifications. These genes can reflect regulatory mechanism of microRNA-mediated degradation, altered translation rates, or differences in protein stability.
 <br>
 
@@ -468,6 +513,11 @@ data(package = "ExprCompareR")
 cancer_tissue_map$cancer
 
 ```
+<br>
+
+**Input Validation and Error Conditions:**
+<br>
+<br>
 
 The following are examples of an error being thrown, and execution being stopped in `compareCancerProtein`:
 
@@ -482,6 +532,12 @@ compareCancerProtein("breastt cancer")
 "The cancer type breastt cancer is not found in cancer_tissue_map$cancer."
 
 ```
+<br>
+<br>
+
+**Demonstration of function `compareCancerProtein`:**
+<br>
+<br>
 
 Let us consider the following example as sample input the user provides:
 
@@ -506,9 +562,14 @@ output$table
 # ℹ Use `print(n = ...)` to see more rows
 ```
 <br>
+<br>
 **Interpretation of Table:**<br>
+
 As mentioned above in the output section, each table is structured, to allow researchers to investigate the role of each gene involved in this cancer type. Positive `delta_rank` values indicate up regulation in cancer, while negative values indicate down regulation.
 This table assists in scientists narrowing down their gene of interest based on the delta rank and direction column. These genes maybe be affected during cancer development and can be potential driver genes.
+
+<br>
+<br>
 
 ```
 output$plot
@@ -517,6 +578,8 @@ output$plot
 ```{r,echo=FALSE, fig.cap="Differential Expression in Protein for Breast Cancer"}
 knitr::include_graphics("images/pathology.png")
 ```
+
+<br>
 <br>
 
 **Interpretation of Plot:**<br>
@@ -550,6 +613,7 @@ knitr::include_graphics("images/TSPAN6_correlation_gene.png")
 
 <br>
 **Interpretation of plot:** <br>
+
 `TSPAN6` has a Spearman correlation of 0.06, the same as `TP53`. This can suggest some similar post-transcriptional regulation on both genes. Also, 0.06 is lower compared to `EGFR` (0.5), which can also suggest some differences in gene function.
 <br>
 <br>
@@ -572,6 +636,7 @@ knitr::include_graphics("images/TSPAN6_corr_genes_tissues.png")
 ```
 <br>
 **Interpretation of plot:** <br>
+
 Across these set of tissues, we see that `TSPAN6` has a high Spearman correlation(0.45).
 Notice that our set of tissues(tissue_NAMES) is different from the standard set of tissues(tissue_list_RNA).
 <br>
@@ -600,7 +665,9 @@ output$outlier_plot
 knitr::include_graphics("images/TSPAN6_outlier.png")
 ```
 <br>
+<br>
 **Interpretation of plot and list:** <br>
+
 We observe from the plot and list that `TSPAN6` is not labeled an outlier. This means that the difference in RNA vs protein expression of `TSPAN6` is not as high compared to other genes in the breast tissue. This can imply that maybe there are other genes that have a higher delta which maybe implicated in breast cancer.
 
 <br>
@@ -671,6 +738,7 @@ output$table %>%
 
 <br>
 **Interpretation of table and plot:** <br>
+
 We observe from the plot that most of the genes in breast cancer are up-regulated.
 We also observe that `TSPAN6` is one of those up-regulated genes. It has a delta of 0.75 between its normal vs cancer expression. However, if we compare that difference to other up-regulated genes, we see there exist genes like `PCDHGC3` or `ATXN7L1` which have a delta rank of 2. This suggests that maybe along with `TSPAN6`, there are other genes implicated in breast cancer. 
 
