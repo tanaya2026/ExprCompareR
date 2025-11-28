@@ -88,16 +88,17 @@ browseVignettes("ExprCompareR")
     and depending on the input, it calls either `per_gene_plot()` or
     `per_tissue_plot()` internally.
 3.  ***detect_outliers*** – Identifies genes in a given tissue that show
-    large differences between RNA and protein expression and highlights
-    them in a plot.
+    large differences between RNA and protein expression and visualizes
+    the outliers in a plot.
 4.  ***compareCancerProtein*** – Compares protein expression between
     normal and cancer tissues for a specified cancer type, providing a
-    summary table and bar plot of rank changes.
+    summary table and plot of rank changes.
 5.  ***runExprCompareR*** - Launches the Shiny app for ExprCompareR.
 
 The package has prebuilt datasets like `normal_tissue` and `pathology`,
 to avoid dynamically downloading the protein expression datasets each
-time. Refer to `help` documentation for information on data.
+time. Refer to `help` documentation `?normal_tissue` and `?pathology`
+for information on data.
 
 An overview of the package is illustrated below:
 
@@ -107,11 +108,9 @@ and `compareCancerProtein`.
 
 ![](./inst/extdata/ExprCompareR_Overview.png)
 
-<br>
-
 ## Contributions
 
-The author of the package is Tanaya Datar. ExprCompareR contains 4 main
+The author of the package is Tanaya Datar. ExprCompareR contains 5 main
 functions and 3 helper functions. The idea, execution, and code
 structure for all functions was done by the author. All of our functions
 depend on protein expression and RNA-seq data that is queried using

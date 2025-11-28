@@ -74,12 +74,12 @@ browseVignettes("ExprCompareR")
 
 1. ***compute_correlation*** - Computes spearman correlations across a set of genes **or** tissues of interest returns a plot summarizing the results. `compute_correlation` acts as a wrapper function and depending on the input, it calls either `correlation_genes_only()` or `correlation_tissues_only()` internally.
 2. ***correlation_genes_tissues*** - Computes spearman correlations across a set of genes **and** tissues of interest returns a plot summarizing the results. Users can choose to visualize per gene or per tissue. `correlation_genes_tissues` acts as a wrapper function and depending on the input, it calls either `per_gene_plot()` or `per_tissue_plot()` internally.
-3. ***detect_outliers*** – Identifies genes in a given tissue that show large differences between RNA and protein expression and highlights them in a plot.
-4. ***compareCancerProtein*** – Compares protein expression between normal and cancer tissues for a specified cancer type, providing a summary table and bar plot of rank changes.
+3. ***detect_outliers*** – Identifies genes in a given tissue that show large differences between RNA and protein expression and visualizes the outliers in a plot.
+4. ***compareCancerProtein*** – Compares protein expression between normal and cancer tissues for a specified cancer type, providing a summary table and plot of rank changes.
 5. ***runExprCompareR*** - Launches the Shiny app for ExprCompareR.
 
 
-The package has prebuilt datasets like `normal_tissue` and `pathology`, to avoid dynamically downloading the protein expression datasets each time. Refer to `help` documentation for information on data.
+The package has prebuilt datasets like `normal_tissue` and `pathology`, to avoid dynamically downloading the protein expression datasets each time. Refer to `help` documentation `?normal_tissue` and `?pathology` for information on data.
 
 An overview of the package is illustrated below:
 
@@ -88,11 +88,10 @@ An overview of the package is illustrated below:
 
  ![](./inst/extdata/ExprCompareR_Overview.png)
  
- <br>
 
 ## Contributions
 
-The author of the package is Tanaya Datar. ExprCompareR contains 4 main functions and 3 helper functions. The idea, execution, and code structure for all functions was done by the author. All of our functions depend on protein expression and RNA-seq data that is queried using packages HPAanalyze(Tran et al., 2019) and gtexr's(Warwick et al., 2025) built in functions, that query the GTEx (Lonsdale et al., 2013) and HPA (Thul et al., 2018) databases for specific tissues and genes depending on the user input. Specifically we used  `hpadownload` from HPAanalyze(Tran et al., 2019) to query protein expression data and `get_top_expressed_genes`,`get_gene_expression` from gtexr (Warwick et al., 2025) to query RNA seq data. Additionally, package `dplyr` (Wickham et al., 2025)'s  `filter`, `pull`, `group_by`, `summarise`, `mutate`, `select` functions was used in all four functions(compute_correlation,correlation_genes_tissues, detect_outliers, compareCancerProtein) to filter and structure RNA and protein data that was queried, to perform analysis. Package `tidyr` (Wickham et al., 2025) `drop_na` function was used to drop NA values in `outlier_detection` `compute_correlation`. Package `tibble`(Muller K, Wickham H, 2025)`tibble` function was used to generate tibbles for analysis in `correlation_genes_tissues`.
+The author of the package is Tanaya Datar. ExprCompareR contains 5 main functions and 3 helper functions. The idea, execution, and code structure for all functions was done by the author. All of our functions depend on protein expression and RNA-seq data that is queried using packages HPAanalyze(Tran et al., 2019) and gtexr's(Warwick et al., 2025) built in functions, that query the GTEx (Lonsdale et al., 2013) and HPA (Thul et al., 2018) databases for specific tissues and genes depending on the user input. Specifically we used  `hpadownload` from HPAanalyze(Tran et al., 2019) to query protein expression data and `get_top_expressed_genes`,`get_gene_expression` from gtexr (Warwick et al., 2025) to query RNA seq data. Additionally, package `dplyr` (Wickham et al., 2025)'s  `filter`, `pull`, `group_by`, `summarise`, `mutate`, `select` functions was used in all four functions(compute_correlation,correlation_genes_tissues, detect_outliers, compareCancerProtein) to filter and structure RNA and protein data that was queried, to perform analysis. Package `tidyr` (Wickham et al., 2025) `drop_na` function was used to drop NA values in `outlier_detection` `compute_correlation`. Package `tibble`(Muller K, Wickham H, 2025)`tibble` function was used to generate tibbles for analysis in `correlation_genes_tissues`.
 Package `purr` (Wickham et al., 2025) `map_dbl` and `map` function was used to map RNA and protein expression for each gene in `correlation_genes_tissues`. Package `stats`(R Core Team, 2024) and `utils` (R Core Team, 2024) `quantile`, `reorder` and `utils` were used to filter data for analysis. Package `ggplot2` (Wickham H, 2016)'s `ggplot` function was used to create scatter plots in `outlier_detection`, bar plots in `compute_correlation` and `correlation_genes_tissues`, and  directional plots in `compareCancerProtein` for visualization. Package `ggrepel`(Slowikowski K, 2024)'s function `geom_text_repel` was used in `outlier_detection` to prevent overlapping labels. Package `shiny`(Chang et al., 2025)'s function `runApp`and `shinyApp` were used in `app.R` and `runExprCompareR` to launch the Shiny application.
 
 Additionally BioRender(BioRender.com. BioRender [Online], accessed 2 November 2025), was used to generate the images used in the Overview Section of the README.
