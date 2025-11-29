@@ -98,7 +98,7 @@ browseVignettes("ExprCompareR")
 The package has prebuilt datasets like `normal_tissue` and `pathology`,
 to avoid dynamically downloading the protein expression datasets each
 time. Refer to `help` documentation `?normal_tissue` and `?pathology`
-for information on data.
+for information on data. Refer to package vignettes for more details.
 
 An overview of the package is illustrated below:
 
