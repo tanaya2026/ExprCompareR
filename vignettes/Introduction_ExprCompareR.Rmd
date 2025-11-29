@@ -289,6 +289,7 @@ correlation_genes_tissues(NULL, valid_tissues, plot_choice = "per_gene")
 "This function requires both gene_NAMES and tissue_NAMES. For only one list, use compute_correlation()."
 
 # Example 2: Test if invalid plot choice is provided
+valid_genes <- c("BRCA1", "TP53", "BRCA1", "MYC", "EGFR")
 correlation_genes_tissues(valid_genes, valid_tissues, plot_choice = "invalid")
 "Choice of variable plot_choice is invalid. Please choose between per_gene and per_tissue"
 
