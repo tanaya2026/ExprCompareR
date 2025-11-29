@@ -32,7 +32,7 @@ An overview of the package is illustrated below:
 
  **Image 1:** Depicts the functionality of functions `compute_correlation`, `correlation_genes_tissues`, `detect_outliers`, and `cancer_protein`. <br>
  
-![](./images/ExprCompareR_Overview.png)?ExprCompareR
+![](./images/ExprCompareR_Overview.png)
 
 
 <br><br>

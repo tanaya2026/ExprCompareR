@@ -69,7 +69,8 @@ typically around 30 seconds to 1 minute.
 tissues = c("lung", "spleen", "liver", "ovary", "testis")
 genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 
-result_gene <- correlation_genes_tissues(gene_NAMES = genes, tissue_NAMES = tissues, plot_choice = "per_gene")
+result_gene <- correlation_genes_tissues(gene_NAMES = genes,
+tissue_NAMES = tissues, plot_choice = "per_gene")
 result_gene$per_gene_plot
 
 # Example 2: Generate correlation plot per tissue
@@ -77,7 +78,8 @@ result_gene$per_gene_plot
 tissues = c("lung", "spleen", "liver", "ovary", "testis")
 genes = c("MYC", "TP53", "BRCA1", "CRP", "EGFR")
 
-result_tissue <- correlation_genes_tissues(gene_NAMES = genes,tissue_NAMES = tissues, plot_choice = "per_tissue")
+result_tissue <- correlation_genes_tissues(gene_NAMES = genes,
+tissue_NAMES = tissues, plot_choice = "per_tissue")
 result_tissue$per_tissue_plot
 }
 
